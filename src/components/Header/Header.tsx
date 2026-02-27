@@ -23,7 +23,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 import { X } from "lucide-react";
 import { clsx } from "clsx";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -32,23 +32,29 @@ const Header = () => {
   const t = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isOpen]);
+
   const getClass = (code?: Language) =>
     clsx(
       "flex items-center gap-2 w-full rounded-md px-2 py-1 transition-colors duration-300 cursor-pointer",
-      language === code && "font-bold text-[var(--primary)]",
-      "hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)]",
+      language === code && "font-bold text-ring",
     );
 
   const navItems = [
     { label: t.nav.howItWorks, path: "#howItWorks" },
     { label: t.nav.dreamCatalog, path: "#dreamCatalog" },
-    { label: t.nav.addDream, path: "#addDream" },
     { label: t.nav.statistics, path: "#statistics" },
   ];
 
   return (
     <>
-      <header className="flex items-center justify-between px-6 py-4 bg-[var(--background)] text-[var(--foreground)] sticky top-0 z-50 shadow-md">
+      <header className="flex items-center justify-between px-6 py-4 bg-(--background) text-(--foreground) sticky top-0 z-50 shadow-md">
         {/* Logo */}
         <a
           href="/"
@@ -64,7 +70,7 @@ const Header = () => {
             <a
               key={item.path}
               href={item.path}
-              className="text-sm font-medium text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors duration-300"
+              className="text-sm font-medium text-(--muted-foreground) hover:text-(--primary) transition-colors duration-300"
             >
               {item.label}
             </a>
@@ -86,7 +92,7 @@ const Header = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="bg-[var(--background)] text-[var(--foreground)]"
+              className="bg-(--background) text-(--foreground)"
             >
               <DropdownMenuGroup>
                 <DropdownMenuItem onClick={() => setSelectedTheme(themes.dark)}>
@@ -117,7 +123,7 @@ const Header = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="bg-[var(--background)] text-[var(--foreground)]"
+              className="bg-(--background) text-(--foreground)"
             >
               <DropdownMenuGroup>
                 <DropdownMenuItem onClick={() => setLanguage("uk")}>
@@ -139,7 +145,7 @@ const Header = () => {
           <Link to="/login">
             <Button
               variant="outline"
-              className="hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors duration-300"
+              className="hover:bg-(--primary) hover:text-(--primary-foreground) transition-colors duration-300"
             >
               <LoginOutlinedIcon />
               {t.nav.login}
@@ -155,23 +161,91 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden fixed top-[72px] left-0 w-full bg-[var(--background)] shadow-lg z-40 flex flex-col items-center gap-6 py-8">
+        <div className="md:hidden h-screen fixed top-18 left-0 w-full bg-(--background) shadow-lg z-40 flex flex-col items-center gap-6 py-8">
           {navItems.map((item) => (
             <a
               key={item.path}
               href={item.path}
               onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-[var(--foreground)] hover:text-[var(--primary)] transition-colors"
+              className="text-lg font-medium text-(--foreground) hover:text-(--primary) transition-colors"
             >
               {item.label}
             </a>
           ))}
 
+          <div className="flex gap-2">
+            {/* Theme */}
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button variant="outline">
+                  {selectedTheme === themes.light ? (
+                    <LightModeOutlinedIcon
+                      sx={{ color: "var(--foreground)" }}
+                    />
+                  ) : (
+                    <DarkModeOutlinedIcon sx={{ color: "var(--foreground)" }} />
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="bg-(--background) text-(--foreground)"
+              >
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    onClick={() => setSelectedTheme(themes.dark)}
+                  >
+                    <DropdownMenuLabel className={getClass()}>
+                      <DarkModeOutlinedIcon />
+                      {t.theme.dark}
+                    </DropdownMenuLabel>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => setSelectedTheme(themes.light)}
+                  >
+                    <DropdownMenuLabel className={getClass()}>
+                      <LightModeOutlinedIcon />
+                      {t.theme.light}
+                    </DropdownMenuLabel>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Language */}
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button variant="outline">
+                  <LanguageIcon sx={{ color: "var(--foreground)" }} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="bg-(--background) text-(--foreground)"
+              >
+                <DropdownMenuGroup>
+                  <DropdownMenuItem onClick={() => setLanguage("uk")}>
+                    <DropdownMenuLabel className={getClass("uk")}>
+                      UA Українська
+                    </DropdownMenuLabel>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setLanguage("en")}>
+                    <DropdownMenuLabel className={getClass("en")}>
+                      EN English
+                    </DropdownMenuLabel>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
           <div className="flex flex-col gap-4 mt-4">
             <Link to="/login" onClick={() => setIsOpen(false)}>
               <Button
                 variant="outline"
-                className="hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)]"
+                className="hover:bg-(--primary) hover:text-(--primary-foreground) text-(--foreground) transition-colors duration-300"
               >
                 <LoginOutlinedIcon />
                 {t.nav.login}

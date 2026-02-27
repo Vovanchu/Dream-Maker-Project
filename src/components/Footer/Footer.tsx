@@ -1,7 +1,7 @@
 "use client";
-
-import { Heart, Link } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export function Footer() {
   const t = useTranslation();
@@ -11,8 +11,8 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
-            <Link href="/" className="flex items-center gap-2 group">
-              <Heart className="h-6 w-6 text-primary fill-primary" />
+            <Link to="/" className="flex items-center gap-2 group">
+              <FavoriteIcon className="h-6 w-6 text-primary fill-primary" />
               <span className="font-serif text-lg font-bold text-foreground">
                 {t.site.name}
               </span>
@@ -28,36 +28,28 @@ export function Footer() {
             </h3>
             <ul className="flex flex-col gap-2">
               <li>
-                <Link
-                  href="/#how-it-works"
+                <a
+                  href="#howItWorks"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t.nav.howItWorks}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href="/dreams"
+                <a
+                  href="#dreamCatalog"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t.nav.dreamCatalog}
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  href="/add-dream"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {t.nav.addDream}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#stats"
+                <a
+                  href="#statistics"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t.nav.statistics}
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -69,7 +61,7 @@ export function Footer() {
             <ul className="flex flex-col gap-2">
               <li>
                 <Link
-                  href="/login"
+                  to="/login"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t.nav.login}
@@ -77,7 +69,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/register"
+                  to="/register"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t.nav.register}
@@ -85,7 +77,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/reset-password"
+                  to="/reset-password"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t.nav.resetPassword}
@@ -101,7 +93,7 @@ export function Footer() {
           </p>
           <p className="text-xs text-muted-foreground">
             {t.site.madeWith}{" "}
-            <Heart className="inline h-3 w-3 text-primary fill-primary" />{" "}
+            <FavoriteIcon className="inline h-3 w-3 text-primary fill-primary" />{" "}
             {t.site.inUkraine}
           </p>
         </div>

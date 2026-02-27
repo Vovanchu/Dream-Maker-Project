@@ -11,6 +11,8 @@ import RedeemOutlinedIcon from "@mui/icons-material/RedeemOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
+import { Cta } from "@/components/Home/Cta";
+import { Footer } from "@/components/Footer/Footer";
 
 // HomePage.tsxр
 export const HomePage = () => {
@@ -81,7 +83,9 @@ export const HomePage = () => {
           title={t.stats.title}
           subtitle={t.stats.subtitle}
         />
+        <Cta />
       </main>
+      <Footer />
     </>
   );
 };

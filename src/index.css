@@ -9,6 +9,10 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
   /* Fonts — Montserrat as main (sans), keep Playfair for serif */
   --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
