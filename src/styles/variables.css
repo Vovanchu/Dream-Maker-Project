@@ -1,0 +1,181 @@
+/* Tailwind base import (якщо потрібно) */
+@import "tailwindcss";
+@import "tw-animate-css";
+/* ===========================================
+   Tailwind / Variables
+   =========================================== */
+
+/* ===========================================
+   Core colors
+   =========================================== */
+:root {
+  /* базові кольори */
+  --color-white: #fffdf7;
+  --color-black: #1a1207;
+  --color-dark-bg: #120e07;
+
+  /* Core backgrounds & foregrounds */
+  --background: var(--color-white);
+  --foreground: var(--color-black);
+  --card: var(--color-white);
+  --card-foreground: var(--color-black);
+  --popover: var(--color-white);
+  --popover-foreground: var(--color-black);
+
+  /* Borders & inputs */
+  --border: #e8dfc9;
+  --input: #e8dfc9;
+  --ring: #d4940a;
+
+  /* Border radius */
+  --radius: 0.625rem;
+}
+
+/* ===========================================
+   Brand colors
+   =========================================== */
+:root {
+  --primary: #d4940a;
+  --primary-foreground: var(--color-white);
+
+  --secondary: #fff5e0;
+  --secondary-foreground: #6b4d0a;
+
+  --accent: #e8b931;
+  --accent-foreground: var(--color-black);
+
+  /* брендові тони для reuse */
+  --warm: var(--primary);
+  --warm-light: var(--secondary);
+  --warm-dark: #6b4d0a;
+}
+
+/* ===========================================
+   Semantic colors
+   =========================================== */
+:root {
+  --destructive: #dc2626;
+  --destructive-foreground: var(--color-white);
+
+  --success: #16a34a;
+  --success-foreground: var(--color-white);
+  --success-light: #dcfce7;
+
+  --warning: #d97706;
+  --warning-foreground: var(--color-white);
+  --warning-light: #fef3c7;
+
+  --info: #2563eb;
+  --info-foreground: var(--color-white);
+  --info-light: #dbeafe;
+
+  /* muted */
+  --muted: #f5f0e6;
+  --muted-foreground: #8a7a5a;
+}
+
+/* ===========================================
+   Chart colors
+   =========================================== */
+:root {
+  --chart-1: var(--primary);
+  --chart-2: var(--accent);
+  --chart-3: #8a7a5a;
+  --chart-4: #6b4d0a;
+  --chart-5: #f5c542;
+}
+
+/* ===========================================
+   Sidebar
+   =========================================== */
+:root {
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--secondary);
+  --sidebar-accent-foreground: var(--secondary-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/* ===========================================
+   Button hover states
+   =========================================== */
+:root {
+  /* Button hover */
+  --button-hover: #c48408; /* темніший за primary */
+  --button-hover-foreground: var(--color-white);
+}
+
+/* ===========================================
+   Dark Theme overrides
+   =========================================== */
+.dark {
+  /* Core */
+  --background: var(--color-dark-bg);
+  --foreground: #f5f0e6;
+
+  --card: #1c1508;
+  --card-foreground: #f5f0e6;
+  --popover: #1c1508;
+  --popover-foreground: #f5f0e6;
+
+  --border: #362a14;
+  --input: #362a14;
+  --ring: var(--accent);
+
+  /* Brand */
+  --primary: #e8b931;
+  --primary-foreground: var(--color-dark-bg);
+
+  --secondary: #2a2010;
+  --secondary-foreground: #f5c542;
+
+  --accent: var(--primary);
+  --accent-foreground: #f5f0e6;
+
+  --warm: var(--accent);
+  --warm-light: var(--secondary);
+  --warm-dark: #f5c542;
+
+  /* Semantic */
+  --destructive: #ef4444;
+  --destructive-foreground: var(--color-white);
+
+  --success: #22c55e;
+  --success-foreground: #052e16;
+  --success-light: #14532d;
+
+  --warning: #f59e0b;
+  --warning-foreground: #451a03;
+  --warning-light: #78350f;
+
+  --info: #3b82f6;
+  --info-foreground: var(--color-white);
+  --info-light: #1e3a5f;
+
+  --muted: #2a2010;
+  --muted-foreground: #b8a88a;
+
+  /* Chart */
+  --chart-1: var(--accent);
+  --chart-2: var(--primary);
+  --chart-3: #b8a88a;
+  --chart-4: #f5c542;
+  --chart-5: #8a7a5a;
+
+  /* Sidebar */
+  --sidebar: #1c1508;
+  --sidebar-foreground: #f5f0e6;
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--color-dark-bg);
+  --sidebar-accent: #2a2010;
+  --sidebar-accent-foreground: #f5c542;
+  --sidebar-border: #362a14;
+  --sidebar-ring: var(--accent);
+
+  /* Button hover */
+  --button-hover: #c48408; /* темніший за primary */
+  --button-hover-foreground: var(--color-white);
+}

@@ -1,7 +1,16 @@
+/* 1️⃣ Tailwind base — задає базові стилі для всього */
 @tailwind base;
+
+/* 2️⃣ Кастомні змінні і шрифти */
+@import "./styles/variables.css"; /* тут можна з @font-face */
+@import "./styles/typography.css"; /* кастомні стилі, шрифти, типографіка */
+
+/* 3️⃣ Tailwind components */
 @tailwind components;
+
+/* 4️⃣ Tailwind utilities */
 @tailwind utilities;
 
-/* Плагіни/стилі додаткові */
+/* 5️⃣ Додаткові плагіни / стилі */
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";

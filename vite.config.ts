@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/Dream‑Maker‑Project/",
+  base: "/Dream-Maker-Project/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
