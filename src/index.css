@@ -1,16 +1,35 @@
-/* 1️⃣ Tailwind base — задає базові стилі для всього */
-@tailwind base;
+/* Google Font first (must be before other CSS) */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-/* 2️⃣ Кастомні змінні і шрифти */
-@import "./styles/variables.css"; /* тут можна з @font-face */
-@import "./styles/typography.css"; /* кастомні стилі, шрифти, типографіка */
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
 
-/* 3️⃣ Tailwind components */
-@tailwind components;
-
-/* 4️⃣ Tailwind utilities */
-@tailwind utilities;
-
-/* 5️⃣ Додаткові плагіни / стилі */
+@import "./styles/variables.css";
+@import "./styles/typography.css";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+
+@theme {
+  /* Fonts — Montserrat as main (sans), keep Playfair for serif */
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-playfair: "Playfair Display", serif;
+
+  /* Colors — map to existing CSS variables */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+}
