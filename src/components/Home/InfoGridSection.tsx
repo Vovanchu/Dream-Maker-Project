@@ -18,7 +18,7 @@ export const InfoGridSection = ({
     >
       <div className="max-w-4xl mx-auto text-center">
         {steps
-          .filter((step) => step.value) // залишаємо тільки елементи з value
+          .filter((step) => step.value)
           .map((step, index) => (
             <div key={index} className="mb-4">
               <span className="text-sm font-medium text-[var(--primary)] uppercase tracking-wide">
