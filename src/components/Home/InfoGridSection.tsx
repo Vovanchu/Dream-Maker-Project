@@ -1,48 +1,33 @@
-import { useTranslation } from "@/hooks/useTranslation";
 import {
   Card,
   CardContent,
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import RedeemOutlinedIcon from "@mui/icons-material/RedeemOutlined";
+import type { InfoGridSectionProps } from "@/types/infoGridSection.type";
 
-export const HowItWorks = () => {
-  const t = useTranslation();
-
-  const steps = [
-    {
-      title: t.how.step1.title,
-      desc: t.how.step1.desc,
-      icon: AssignmentOutlinedIcon,
-    },
-    {
-      title: t.how.step2.title,
-      desc: t.how.step2.desc,
-      icon: SearchOutlinedIcon,
-    },
-    {
-      title: t.how.step3.title,
-      desc: t.how.step3.desc,
-      icon: FavoriteBorderOutlinedIcon,
-    },
-    {
-      title: t.how.step4.title,
-      desc: t.how.step4.desc,
-      icon: RedeemOutlinedIcon,
-    },
-  ];
-
+export const InfoGridSection = ({
+  steps,
+  title,
+  subtitle,
+}: InfoGridSectionProps) => {
   return (
-    <section id="howItWorks" className="bg-[var(--secondary)] py-20 px-6">
+    <section
+      id="howItWorks"
+      className="bg-[var(--secondary)] py-20 px-6 min-h-screen flex flex-col items-center justify-center"
+    >
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl font-bold text-[var(--foreground)]">
-          {t.how.title}
-        </h2>
-        <p className="text-[var(--muted-foreground)]">{t.how.subtitle}</p>
+        {steps
+          .filter((step) => step.value) // залишаємо тільки елементи з value
+          .map((step, index) => (
+            <div key={index} className="mb-4">
+              <span className="text-sm font-medium text-[var(--primary)] uppercase tracking-wide">
+                {step.value}
+              </span>
+            </div>
+          ))}
+        <h2 className="text-4xl font-bold text-[var(--foreground)]">{title}</h2>
+        <p className="text-[var(--muted-foreground)]">{subtitle}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">

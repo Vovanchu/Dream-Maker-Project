@@ -33,3 +33,9 @@
 
   --radius-lg: var(--radius);
 }
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+}
