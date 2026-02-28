@@ -5,12 +5,13 @@ import { useContext } from "react";
 import { themes } from "@/const/colors";
 import ThemeContext from "@/Context/Theme/ThemeContext";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
+import type { HeroStats } from "@/types/heroStats.type";
 
 export const Hero = () => {
   const { selectedTheme } = useContext(ThemeContext);
   const t = useTranslation();
 
-  const stats = [
+  const statsHero: HeroStats[] = [
     {
       label: t.hero.dreamsCompleted,
       value: "1,234",
@@ -78,7 +79,7 @@ export const Hero = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center flex-wrap gap-4 my-4 sm:my-8">
-          {stats.map((stat) => (
+          {statsHero.map((stat) => (
             <div
               key={stat.label}
               className="flex-1 min-w-30 sm:min-w-37.5 mx-auto sm:mx-4 p-4 rounded-[1vw] text-center bg-(--background) hover:transition-transform transform hover:scale-105 shadow-md cursor-default"

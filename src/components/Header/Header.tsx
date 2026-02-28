@@ -25,6 +25,7 @@ import { X } from "lucide-react";
 import { clsx } from "clsx";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import type { navigationItem } from "@/types/navItems.type";
 
 const Header = () => {
   const { selectedTheme, setSelectedTheme } = useContext(ThemeContext);
@@ -46,7 +47,7 @@ const Header = () => {
       language === code && "font-bold text-ring",
     );
 
-  const navItems = [
+  const navItems: navigationItem[] = [
     { label: t.nav.howItWorks, path: "#howItWorks" },
     { label: t.nav.dreamCatalog, path: "#dreamCatalog" },
     { label: t.nav.statistics, path: "#statistics" },

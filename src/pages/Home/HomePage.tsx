@@ -13,12 +13,13 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 import { Cta } from "@/components/Home/Cta";
 import { Footer } from "@/components/Footer/Footer";
+import type { StatItem, StepItem } from "@/types/statsAndSteps.types";
 
 // HomePage.tsxр
 export const HomePage = () => {
   const t = useTranslation();
 
-  const steps = [
+  const steps: StepItem[] = [
     {
       icon: AssignmentOutlinedIcon,
       title: t.how.step1.title,
@@ -41,7 +42,7 @@ export const HomePage = () => {
     },
   ];
 
-  const stats = [
+  const stats: StatItem[] = [
     {
       icon: FavoriteBorderOutlinedIcon,
       title: t.stats.dreams,
