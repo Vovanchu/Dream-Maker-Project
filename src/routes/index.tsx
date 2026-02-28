@@ -6,6 +6,8 @@ import { PublicRoute } from "../Context/Role/PublicRoute";
 import { HomePage } from "../pages/Home/HomePage";
 import { DashboardPage } from "../pages/DashboardPage/DashboardPage";
 import NotFoundPage from "@/pages/NotFoundPage";
+import { Login } from "@/pages/Auth/Login";
+import { Register } from "@/pages/Auth/Register";
 
 export const AppRoutes = () => {
   return (
@@ -19,8 +21,8 @@ export const AppRoutes = () => {
         }
       />
 
-      <Route path="/login" element={<h1>Login</h1>} />
-      <Route path="/unauthorized" element={<h1>Unauthorized</h1>} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       {/* Захищені маршрути */}
       <Route
