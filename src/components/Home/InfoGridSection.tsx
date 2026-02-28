@@ -13,21 +13,14 @@ export const InfoGridSection = ({
 }: InfoGridSectionProps) => {
   return (
     <section
-      id="howItWorks"
-      className="bg-[var(--secondary)] py-20 px-6 min-h-screen flex flex-col items-center justify-center"
+      id={`${steps[0].value ? "statistics" : "howItWorks"}`}
+      className="bg-secondary py-20 px-6 min-h-screen flex flex-col items-center justify-center"
     >
       <div className="max-w-4xl mx-auto text-center">
-        {steps
-          .filter((step) => step.value) // залишаємо тільки елементи з value
-          .map((step, index) => (
-            <div key={index} className="mb-4">
-              <span className="text-sm font-medium text-[var(--primary)] uppercase tracking-wide">
-                {step.value}
-              </span>
-            </div>
-          ))}
-        <h2 className="text-4xl font-bold text-[var(--foreground)]">{title}</h2>
-        <p className="text-[var(--muted-foreground)]">{subtitle}</p>
+        <h2 className="text-4xl font-bold text-(--foreground) font-playfair">
+          {title}
+        </h2>
+        <p className="text-(--muted-foreground)">{subtitle}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
@@ -35,8 +28,8 @@ export const InfoGridSection = ({
           <Card
             key={index}
             className="
-        bg-[var(--card)]
-        border border-[var(--border)]
+        bg-(--card)
+        border border---border)
         rounded-2xl
         shadow-md
         hover:shadow-xl
@@ -52,18 +45,26 @@ export const InfoGridSection = ({
             w-16 h-16
             flex items-center justify-center
             rounded-full
-            bg-[var(--muted)]
+            bg-(--muted)
             mb-6
           "
               >
-                <step.icon className="h-7 w-7 text-[var(--primary)]" />
+                <step.icon sx={{ fontSize: 32, color: "var(--primary)" }} />
               </div>
 
-              <CardTitle className="text-xl font-semibold mb-3 text-[var(--foreground)]">
+              <CardTitle className="text-xl font-semibold mb-3 text-(--foreground)">
+                {step.value}
+              </CardTitle>
+
+              <CardTitle
+                className={`text-xl font-semibold mb-3 ${
+                  step.value ? "text-ring" : "text-(--foreground)"
+                }`}
+              >
                 {step.title}
               </CardTitle>
 
-              <CardDescription className="text-[var(--muted-foreground)] leading-relaxed">
+              <CardDescription className="text-(--muted-foreground) leading-relaxed">
                 {step.desc}
               </CardDescription>
             </CardContent>

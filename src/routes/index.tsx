@@ -5,6 +5,7 @@ import { PublicRoute } from "../Context/Role/PublicRoute";
 
 import { HomePage } from "../pages/Home/HomePage";
 import { DashboardPage } from "../pages/DashboardPage/DashboardPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 export const AppRoutes = () => {
   return (
@@ -32,7 +33,7 @@ export const AppRoutes = () => {
       />
 
       {/* Catch-all 404 */}
-      <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

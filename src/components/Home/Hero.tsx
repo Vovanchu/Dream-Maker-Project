@@ -27,7 +27,7 @@ export const Hero = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center text-[var(--foreground)]"
+      className="min-h-screen flex flex-col items-center justify-center text-(--foreground)"
       style={{
         backgroundImage: `linear-gradient(${
           selectedTheme === themes.dark
@@ -39,28 +39,26 @@ export const Hero = () => {
       }}
     >
       <div className="max-w-3xl text-center flex flex-col items-center justify-center gap-6">
-        <div className="flex flex-row items-center gap-2 p-2 bg-[#6b4d0a] text-[var(--ring)] rounded-full shadow-lg">
+        <div className="flex flex-row items-center gap-2 p-2 bg-[#6b4d0a] text-(--ring) rounded-full shadow-lg">
           <FavoriteIcon sx={{ color: "var(--ring)", fontSize: "1rem" }} />
           <p className="text-sm">{t.site.badge}</p>
         </div>
 
-        <h1 className="text-5xl font-extrabold p-4 rounded-lg">
+        <h1 className="text-5xl font-extrabold p-4 rounded-lg font-playfair">
           {t.hero.title}
         </h1>
         <p
           className={`max-w-2lg text-lg font-bold ${
-            selectedTheme === themes.dark
-              ? "text-white"
-              : "text-[var(--color-black)]"
+            selectedTheme === themes.dark ? "text-white" : "text-black"
           }`}
         >
           {t.hero.description}
         </p>
 
-        <div className="flex flex-row gap-4 m-4">
+        <div className="flex flex-row gap-2 m-2">
           <a
             href={"#dreamCatalog"}
-            className="inline-block px-4 py-2 items-center justify-center bg-[var(--primary)] text-[var(--primary-foreground)] rounded-[1vw] font-medium shadow-md duration-500 hover:bg-[var(--button-hover)] transition-colors"
+            className="inline-block px-2 lg:px-4 py-2 items-center justify-center bg-(--primary) text-(--primary-foreground) rounded-xl lg:rounded-[2vw] font-medium shadow-md duration-500 hover:bg-(--button-hover) transition-colors"
           >
             {t.hero.viewDreams}
             <ArrowDownwardOutlinedIcon
@@ -73,22 +71,22 @@ export const Hero = () => {
 
           <a
             href={"#add-dream"}
-            className="inline-block px-4 py-2 items-center justify-center bg-[var(--primary)] text-[var(--primary-foreground)] rounded-[1vw] font-medium shadow-md duration-500 hover:bg-[var(--button-hover)] transition-colors"
+            className="inline-block px-2 lg:px-4 py-2 items-center justify-center bg-(--primary) text-(--primary-foreground) rounded-xl lg:rounded-[2vw] font-medium shadow-md duration-500 hover:bg-(--button-hover) transition-colors"
           >
             {t.hero.addDream}
           </a>
         </div>
 
-        <div className="">
+        <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center flex-wrap gap-4 my-4 sm:my-8">
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="inline-block mx-4 p-3 rounded-[1vw] text-center bg-[var(--background)] hover:transition-transform transform hover:scale-110 shadow-md cursor-default"
+              className="flex-1 min-w-30 sm:min-w-37.5 mx-auto sm:mx-4 p-4 rounded-[1vw] text-center bg-(--background) hover:transition-transform transform hover:scale-105 shadow-md cursor-default"
             >
-              <p className="text-2xl font-bold text-[var(--primary)]">
+              <p className="text-2xl sm:text-3xl font-bold text-(--primary)">
                 {stat.value}
               </p>
-              <p className="text-sm text-[var(--muted-foreground)]">
+              <p className="text-sm sm:text-base text-(--muted-foreground)">
                 {stat.label}
               </p>
             </div>
