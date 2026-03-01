@@ -34,6 +34,8 @@ html {
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-button-hover: var(--button-hover);
 
   --radius-lg: var(--radius);
 }

@@ -24,7 +24,7 @@ export const LanguageSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button variant="outline">
+        <Button variant="link" className="cursor-pointer text-foreground">
           <LanguageIcon />
         </Button>
       </DropdownMenuTrigger>

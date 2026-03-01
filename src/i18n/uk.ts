@@ -187,6 +187,12 @@ const uk = {
     successDesc: "Ми надіслали лист для підтвердження на",
     checkEmail: "Перевірте вашу пошту.",
     toLogin: "Перейти до входу",
+    invalidName: "Невірний формат імені",
+    emailErrors: {
+      required: "Email обов'язковий",
+      invalid: "Невірний формат email",
+      alreadyUsed: "Цей email вже використовується",
+    },
     pw: {
       minLength: "Мінімум 8 символів",
       uppercase: "Одна велика літера",

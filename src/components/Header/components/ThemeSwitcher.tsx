@@ -28,7 +28,7 @@ export const ThemeSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button variant="outline">
+        <Button variant="link" className="cursor-pointer text-foreground">
           {selectedTheme === themes.light ? (
             <LightModeOutlinedIcon />
           ) : (

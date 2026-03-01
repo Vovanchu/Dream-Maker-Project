@@ -187,6 +187,12 @@ const en = {
     successDesc: "We sent a confirmation email to",
     checkEmail: "Check your inbox.",
     toLogin: "Go to Sign In",
+    invalidName: "Invalid Name",
+    emailErrors: {
+      required: "Email required",
+      invalid: "Invalid email",
+      alreadyUsed: "Email already in use",
+    },
     pw: {
       minLength: "Minimum 8 characters",
       uppercase: "One uppercase letter",
