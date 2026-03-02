@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { ProtectedRoute } from "../Context/Role/ProtectedRoute";
 import { PublicRoute } from "../Context/Role/PublicRoute";
 
-import { HomePage } from "../pages/Home/HomePage";
+//import { HomePage } from "../pages/Home/HomePage"; CHANGE WHEN will commit
 import { DashboardPage } from "../pages/DashboardPage/DashboardPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import { Identification } from "@/pages/Auth/Identification";
@@ -15,7 +15,7 @@ export const AppRoutes = () => {
         path="/"
         element={
           <PublicRoute>
-            <HomePage />
+            <DashboardPage />
           </PublicRoute>
         }
       />
