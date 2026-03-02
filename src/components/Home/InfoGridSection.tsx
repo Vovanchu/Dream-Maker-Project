@@ -4,7 +4,13 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import type { InfoGridSectionProps } from "@/types/infoGridSection.type";
+import type { InfoItem } from "@/types/infoGridSection.type";
+
+export interface InfoGridSectionProps {
+  title: string;
+  subtitle: string;
+  steps: InfoItem[];
+}
 
 export const InfoGridSection = ({
   steps,

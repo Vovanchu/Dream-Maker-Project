@@ -1,5 +1,7 @@
 // DashboardPage.tsx
 
+import Header from "@/components/Header/Header";
+import { CatalogOfDreams } from "@/components/User/CatalogsOfDream";
 import { useUser } from "@/hooks/useUser";
 
 export const DashboardPage = () => {
@@ -7,11 +9,11 @@ export const DashboardPage = () => {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <Header />
       {role === "admin" ? <AdminContent /> : <UserContent />}
     </div>
   );
 };
 
 const AdminContent = () => <div>Адмінська панель</div>;
-const UserContent = () => <div>Користувацька панель</div>;
+const UserContent = () => <CatalogOfDreams />;
