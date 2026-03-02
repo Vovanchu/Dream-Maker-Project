@@ -46,19 +46,19 @@ export const HomePage = () => {
     {
       icon: FavoriteBorderOutlinedIcon,
       title: t.stats.dreams,
-      value: "10K+",
+      value: "1,234",
       desc: t.stats.dreamsDesc,
     },
     {
       icon: PeopleAltOutlinedIcon,
       title: t.stats.donors,
-      value: "5K+",
+      value: "567",
       desc: t.stats.donorsDesc,
     },
     {
       icon: LocationOnOutlinedIcon,
       title: t.stats.cities,
-      value: "100+",
+      value: "89",
       desc: t.stats.citiesDesc,
     },
     {

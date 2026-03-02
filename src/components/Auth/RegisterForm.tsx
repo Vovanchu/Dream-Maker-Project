@@ -172,13 +172,14 @@ export const RegisterForm = () => {
                   className="text-accent-foreground pr-10"
                 />
 
-                <button
+                <Button
+                  variant="ghost"
                   type="button"
                   onClick={() => setShowConfirm((p) => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0 text-foreground"
                 >
                   {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
+                </Button>
               </div>
 
               {errors.confirmPassword && (

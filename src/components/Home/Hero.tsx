@@ -1,11 +1,12 @@
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useTranslation } from "@/hooks/useTranslation";
-import HeroImg from "@/UI/Photo/backgroung-image.png";
+import HeroImg from "@/UI/Photo/backgroung-image.jpg";
 import { useContext } from "react";
 import { themes } from "@/const/colors";
 import ThemeContext from "@/Context/Theme/ThemeContext";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 import type { HeroStats } from "@/types/heroStats.type";
+import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
 export const Hero = () => {
   const { selectedTheme } = useContext(ThemeContext);
@@ -28,39 +29,33 @@ export const Hero = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center text-(--foreground)"
-      style={{
-        backgroundImage: `linear-gradient(${
-          selectedTheme === themes.dark
-            ? "rgba(0, 0, 0, 0.6)"
-            : "rgba(140, 95, 15, 0.65)"
-        }), url(${HeroImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className={cn(
+        "relative min-h-screen flex flex-col items-start justify-center text-foreground",
+        "before:absolute before:inset-0 before:z-0 before:pointer-events-none",
+        selectedTheme === themes.dark
+          ? "before:bg-black/20"
+          : "before:bg-white/5",
+        "bg-cover bg-center",
+      )}
+      style={{ backgroundImage: `url(${HeroImg})` }}
     >
       <div className="max-w-3xl text-center flex flex-col items-center justify-center gap-6">
-        <div className="flex flex-row items-center gap-2 p-2 bg-[#6b4d0a] text-(--ring) rounded-full shadow-lg">
-          <FavoriteIcon sx={{ color: "var(--ring)", fontSize: "1rem" }} />
-          <p className="text-sm">{t.site.badge}</p>
-        </div>
-
         <h1 className="text-5xl font-extrabold p-4 rounded-lg font-playfair">
           {t.hero.title}
         </h1>
         <p
-          className={`max-w-2lg text-lg font-bold ${
+          className={`max-w-2lg text-xl ${
             selectedTheme === themes.dark ? "text-white" : "text-black"
           }`}
         >
           {t.hero.description}
         </p>
 
-        <div className="flex flex-row gap-2 m-2">
-          <a
-            href={"#dreamCatalog"}
-            className="inline-block px-2 lg:px-4 py-2 items-center justify-center bg-(--primary) text-(--primary-foreground) rounded-xl lg:rounded-[2vw] font-medium shadow-md duration-500 hover:bg-(--button-hover) transition-colors"
-          >
+        <Button
+          asChild
+          className="inline-flex items-center justify-center px-2 lg:px-4 py-2 bg-primary text-primary-foreground font-medium shadow-md hover:bg-button-hover transition-colors duration-500"
+        >
+          <a href="#dreamCatalog">
             {t.hero.viewDreams}
             <ArrowDownwardOutlinedIcon
               sx={{
@@ -69,20 +64,13 @@ export const Hero = () => {
               }}
             />
           </a>
-
-          <a
-            href={"#add-dream"}
-            className="inline-block px-2 lg:px-4 py-2 items-center justify-center bg-(--primary) text-(--primary-foreground) rounded-xl lg:rounded-[2vw] font-medium shadow-md duration-500 hover:bg-(--button-hover) transition-colors"
-          >
-            {t.hero.addDream}
-          </a>
-        </div>
+        </Button>
 
         <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center flex-wrap gap-4 my-4 sm:my-8">
           {statsHero.map((stat) => (
             <div
               key={stat.label}
-              className="flex-1 min-w-30 sm:min-w-37.5 mx-auto sm:mx-4 p-4 rounded-[1vw] text-center bg-(--background) hover:transition-transform transform hover:scale-105 shadow-md cursor-default"
+              className="flex-1 min-w-30 sm:min-w-37.5 h-30 mx-auto sm:mx-4 p-4 rounded-[1vw] text-center bg-(--background) hover:transition-transform transform hover:scale-105 shadow-md cursor-default"
             >
               <p className="text-2xl sm:text-3xl font-bold text-(--primary)">
                 {stat.value}

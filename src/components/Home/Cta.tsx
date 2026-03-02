@@ -21,14 +21,6 @@ export const Cta = () => {
           <Button asChild size="lg" className="text-base">
             <Link to="/dreams">{t.cta.viewDreams}</Link>
           </Button>
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="text-base border-background/30 text-background hover:bg-background/10 hover:text-background"
-          >
-            <Link to="/register">{t.cta.register}</Link>
-          </Button>
         </div>
       </div>
     </section>

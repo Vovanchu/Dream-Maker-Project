@@ -20,7 +20,7 @@ export const LogInOut = () => {
         >
           <Button
             variant="outline"
-            className="hover:bg-(--primary) hover:text-(--primary-foreground) transition-colors duration-300"
+            className="text-(--foreground) hover:bg-(--primary) hover:text-(--primary) transition-colors duration-300 cursor-pointer"
           >
             <LogOut />
             {t.nav.logout}
@@ -30,7 +30,7 @@ export const LogInOut = () => {
         <Link to="/login">
           <Button
             variant="outline"
-            className="hover:bg-(--primary) hover:text-(--primary-foreground) transition-colors duration-300"
+            className="text-(--foreground) hover:bg-(--primary) hover:text-(--primary) transition-colors duration-300 cursor-pointer"
           >
             <LoginOutlinedIcon />
             {t.nav.login}
