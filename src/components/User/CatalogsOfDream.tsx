@@ -6,8 +6,6 @@ import {
 } from "./components/Filter";
 import { useState } from "react";
 
-import { dreams } from "@/const/dreams";
-
 export const CatalogOfDreams = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<CategoryType>("all");
@@ -32,14 +30,7 @@ export const CatalogOfDreams = () => {
         budget={budget}
       />
 
-      <div>
-        {dreams.map((dream) => (
-          <div key={dream.dream_id}>
-            <h2>{dream.title}</h2>
-            <p>{dream.description}</p>
-          </div>
-        ))}
-      </div>
+      <div></div>
     </div>
   );
 };
