@@ -19,8 +19,15 @@ export const InfoGridSection = ({
 }: InfoGridSectionProps) => {
   return (
     <section
+<<<<<<< HEAD
       id={`${steps[0].value ? "statistics" : "howItWorks"}`}
       className="bg-secondary py-20 px-6 flex flex-col items-center justify-center"
+=======
+      id={steps[0].value ? "statistics" : "howItWorks"}
+      className={`py-20 px-6 flex flex-col items-center bg-secondary ${
+        steps[0].value ? "pt-0 pb-20" : ""
+      }`}
+>>>>>>> afc2e7a (Fix mistake with blocks in hero and add come photo for exemples)
     >
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl font-bold text-(--foreground) font-playfair">

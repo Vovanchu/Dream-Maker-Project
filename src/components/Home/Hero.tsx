@@ -1,6 +1,11 @@
 import { useTranslation } from "@/hooks/useTranslation";
+<<<<<<< HEAD
 import HeroImg from "@/UI/Photo/DarkThemeBackgroundPhoto.jpeg";
 import HeroImgLight from "@/UI/Photo/LightThemeBackgroundPhoto.jpeg";
+=======
+import LightHeroImg from "@/UI/Photo/backgroung-image.jpg";
+import DarkHeroImg from "@/UI/Photo/images.jpeg";
+>>>>>>> afc2e7a (Fix mistake with blocks in hero and add come photo for exemples)
 import { useContext } from "react";
 import { themes } from "@/const/colors";
 import ThemeContext from "@/Context/Theme/ThemeContext";
@@ -75,7 +80,7 @@ export const Hero = () => {
           {statsHero.map((stat) => (
             <div
               key={stat.label}
-              className="flex-1 min-w-30 sm:min-w-37.5 h-30 mx-auto sm:mx-4 p-4 rounded-[1vw] text-center bg-(--background) hover:transition-transform transform hover:scale-105 shadow-md cursor-default"
+              className="flex-1 min-w-35 h-30 mx-auto sm:mx-4 p-4 rounded-[1vw] text-center bg-(--background) hover:transition-transform transform hover:scale-105 shadow-md cursor-default"
             >
               <p className="text-2xl sm:text-3xl font-bold text-(--primary)">
                 {stat.value}
