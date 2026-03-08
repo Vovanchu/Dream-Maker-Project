@@ -1,11 +1,6 @@
 import { useTranslation } from "@/hooks/useTranslation";
-<<<<<<< HEAD
 import HeroImg from "@/UI/Photo/DarkThemeBackgroundPhoto.jpeg";
 import HeroImgLight from "@/UI/Photo/LightThemeBackgroundPhoto.jpeg";
-=======
-import LightHeroImg from "@/UI/Photo/backgroung-image.jpg";
-import DarkHeroImg from "@/UI/Photo/images.jpeg";
->>>>>>> afc2e7a (Fix mistake with blocks in hero and add come photo for exemples)
 import { useContext } from "react";
 import { themes } from "@/const/colors";
 import ThemeContext from "@/Context/Theme/ThemeContext";
