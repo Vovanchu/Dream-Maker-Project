@@ -1,18 +1,34 @@
 import { Card } from "@/components/Auth/Card";
 import { LanguageSwitcher } from "@/components/Header/components/LanguageSwitcher";
 import { ThemeSwitcher } from "@/components/Header/components/ThemeSwitcher";
+import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
-import { Heart } from "lucide-react";
+import { ArrowLeftFromLine, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Identification = () => {
   const t = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center gap-8 bg-muted px-4 py-8 sm:px-6 lg:px-8">
       {/* Top Switchers */}
-      <div className="flex flex-row gap-4 self-end sm:self-auto">
-        <ThemeSwitcher />
-        <LanguageSwitcher />
+      <div className="flex flex-row sm:items-center sm:justify-between w-full max-w-md gap-4">
+        {/* Back Button */}
+        <Button
+          type="button"
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 cursor-pointer"
+        >
+          <ArrowLeftFromLine className="w-5 h-5" />
+          {t.forms.buttons.back || "Back to Home"}
+        </Button>
+
+        {/* Switchers */}
+        <div className="flex items-center gap-4 justify-end cursor-pointer">
+          <ThemeSwitcher />
+          <LanguageSwitcher />
+        </div>
       </div>
 
       {/* Logo */}

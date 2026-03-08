@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
-import { admin } from "@/const/Role";
-import { useUser } from "@/hooks/useUser";
+
 import { useTranslation } from "@/hooks/useTranslation";
+import { useUser } from "@/hooks/useUser";
+
 import {
   Field,
   FieldError,
@@ -12,9 +14,23 @@ import {
   FieldLabel,
   FieldSet,
 } from "@/components/ui/field";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
 import { Eye, EyeOff, UserPlus } from "lucide-react";
+
+import type { RegisterData } from "@/types/authData.type";
+import { loginUser, registerUser } from "@/api/services/auth";
 
 export const RegisterForm = () => {
   const t = useTranslation();
@@ -23,23 +39,54 @@ export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  const personTypes = ["child", "elderly", "veteran", "disabled"] as const;
+
   const schema = z
     .object({
-      name: z
+      full_name: z
         .string()
-        .min(1, { message: t.register.invalidName })
+        .min(1, { message: t.validation.requiredName })
         .regex(/^[a-zA-Zа-яА-ЯёЁ\s'-]+$/, {
-          message: t.register.invalidName,
+          message: t.validation.invalidName,
         }),
+
       email: z
         .string()
-        .min(1, { message: t.register.emailErrors.required })
-        .email({ message: t.register.emailErrors.invalid }),
-      password: z.string().min(8, { message: t.register.pw.minLength }),
-      confirmPassword: z.string().min(8, { message: t.register.pw.minLength }),
+        .min(1, { message: t.validation.requiredEmail })
+        .email({ message: t.validation.invalidEmail }),
+
+      password: z
+        .string()
+        .min(8, { message: t.validation.minPassword })
+        .refine((val) => /[A-Z]/.test(val), {
+          message: t.validation.passwordUppercase,
+        })
+        .refine((val) => /[a-z]/.test(val), {
+          message: t.validation.passwordLowercase,
+        })
+        .refine((val) => /\d/.test(val), {
+          message: t.validation.passwordDigit,
+        }),
+
+      confirmPassword: z
+        .string()
+        .min(8, { message: t.validation.minPassword })
+        .refine((val) => /[A-Z]/.test(val), {
+          message: t.validation.passwordUppercase,
+        })
+        .refine((val) => /[a-z]/.test(val), {
+          message: t.validation.passwordLowercase,
+        })
+        .refine((val) => /\d/.test(val), {
+          message: t.validation.passwordDigit,
+        }),
+
+      person_type: z.enum(personTypes, {
+        message: t.validation.requiredPersonType,
+      }),
     })
     .refine((data) => data.password === data.confirmPassword, {
-      message: t.register.pw.noMatch,
+      message: t.validation.passwordNoMatch,
       path: ["confirmPassword"],
     });
 
@@ -48,6 +95,7 @@ export const RegisterForm = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     setError,
     reset,
     formState: { errors, isSubmitting },
@@ -56,21 +104,31 @@ export const RegisterForm = () => {
   });
 
   const onSubmit: SubmitHandler<RegisterFormFields> = async (data) => {
+    const { confirmPassword, ...rest } = data;
+
+    const registerData: RegisterData = {
+      ...rest,
+      role: "user",
+    };
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const registerResponse = await registerUser(registerData);
 
-      if (data.email === admin.email) {
-        setError("root", {
-          message: t.register.emailErrors.alreadyUsed,
+      if (registerResponse.status === 200) {
+        const loginResponse = await loginUser({
+          email: registerData.email,
+          password: registerData.password,
         });
-        return;
-      }
 
-      loginAs("user");
+        const { access_token } = loginResponse.data;
+        loginAs("user", access_token);
+      }
     } catch {
       setError("root", {
-        message: t.register.somethingWrong,
+        message: t.feedback.errors.somethingWrong,
       });
+    } finally {
+      reset();
     }
   };
 
@@ -81,40 +139,36 @@ export const RegisterForm = () => {
           <FieldGroup>
             {/* Name */}
             <Field>
-              <FieldLabel
-                htmlFor="register-name"
-                className="text-accent-foreground"
-              >
-                {t.register.name}
+              <FieldLabel htmlFor="register-name">
+                {t.forms.labels.name}
               </FieldLabel>
+
               <Input
                 id="register-name"
-                {...register("name")}
-                placeholder={t.register.name}
-                className="text-accent-foreground"
+                {...register("full_name")}
+                placeholder={t.forms.placeholders.name}
               />
-              {errors.name && (
+
+              {errors.full_name && (
                 <FieldError className="text-red-500">
-                  {errors.name.message}
+                  {errors.full_name.message}
                 </FieldError>
               )}
             </Field>
 
             {/* Email */}
             <Field>
-              <FieldLabel
-                className="text-accent-foreground"
-                htmlFor="register-email"
-              >
-                {t.register.email}
+              <FieldLabel htmlFor="register-email">
+                {t.forms.labels.email}
               </FieldLabel>
+
               <Input
                 id="register-email"
                 type="email"
                 {...register("email")}
-                placeholder="test@gmail.com"
-                className="text-accent-foreground"
+                placeholder={t.forms.placeholders.email}
               />
+
               {errors.email && (
                 <FieldError className="text-red-500">
                   {errors.email.message}
@@ -124,67 +178,125 @@ export const RegisterForm = () => {
 
             {/* Password */}
             <Field>
-              <FieldLabel
-                className="text-accent-foreground"
-                htmlFor="register-password"
-              >
-                {t.register.password}
+              <FieldLabel htmlFor="register-password">
+                {t.forms.labels.password}
               </FieldLabel>
 
               <div className="relative">
                 <Input
                   id="register-password"
                   type={showPassword ? "text" : "password"}
+                  placeholder={t.forms.placeholders.password}
                   {...register("password")}
-                  className="text-accent-foreground pr-10"
+                  className="pr-10"
                 />
 
-                <button
+                <Button
+                  variant="ghost"
                   type="button"
                   onClick={() => setShowPassword((p) => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
+                </Button>
               </div>
 
-              {errors.password && (
-                <FieldError className="text-red-500">
-                  {errors.password.message}
-                </FieldError>
-              )}
+              <FieldError className="text-red-500">
+                {errors.password?.message}
+              </FieldError>
             </Field>
 
             {/* Confirm Password */}
             <Field>
-              <FieldLabel
-                className="text-accent-foreground"
-                htmlFor="register-confirm"
-              >
-                {t.register.confirmPassword}
+              <FieldLabel htmlFor="register-confirm">
+                {t.forms.labels.confirmPassword}
               </FieldLabel>
 
               <div className="relative">
                 <Input
                   id="register-confirm"
                   type={showConfirm ? "text" : "password"}
+                  placeholder={t.forms.placeholders.password}
                   {...register("confirmPassword")}
-                  className="text-accent-foreground pr-10"
+                  className="pr-10"
                 />
 
                 <Button
                   variant="ghost"
                   type="button"
                   onClick={() => setShowConfirm((p) => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0 text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0"
                 >
                   {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
                 </Button>
               </div>
 
-              {errors.confirmPassword && (
+              <FieldError className="text-red-500">
+                {errors.confirmPassword?.message}
+              </FieldError>
+            </Field>
+
+            {/* Person Type */}
+            <Field>
+              <FieldLabel>{t.pages.register.personType}</FieldLabel>
+
+              <Select
+                onValueChange={(value) =>
+                  setValue(
+                    "person_type",
+                    value as RegisterFormFields["person_type"],
+                    { shouldValidate: true },
+                  )
+                }
+              >
+                <SelectTrigger className="w-full cursor-pointer">
+                  <SelectValue placeholder={t.forms.placeholders.category} />
+                </SelectTrigger>
+
+                <SelectContent
+                  className="
+    bg-accent/90
+    backdrop-blur-md
+    border
+    border-border
+    shadow-xl
+  "
+                >
+                  <SelectGroup>
+                    <SelectItem
+                      value="child"
+                      className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
+                    >
+                      {t.categories.child}
+                    </SelectItem>
+
+                    <SelectItem
+                      value="elderly"
+                      className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
+                    >
+                      {t.categories.elderly}
+                    </SelectItem>
+
+                    <SelectItem
+                      value="veteran"
+                      className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
+                    >
+                      {t.categories.veteran}
+                    </SelectItem>
+
+                    <SelectItem
+                      value="disabled"
+                      className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
+                    >
+                      {t.categories.disabled}
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+
+              {errors.person_type && (
                 <FieldError className="text-red-500">
-                  {errors.confirmPassword.message}
+                  {errors.person_type.message}
                 </FieldError>
               )}
             </Field>
@@ -204,21 +316,22 @@ export const RegisterForm = () => {
             className="cursor-pointer"
           >
             {isSubmitting ? (
-              t.register.loading
+              t.pages.register.loading
             ) : (
               <>
                 <UserPlus className="mr-2" size={18} />
-                {t.register.submit}
+                {t.forms.buttons.register}
               </>
             )}
           </Button>
+
           <Button
             type="button"
             variant="outline"
             onClick={() => reset()}
-            className="text-accent-foreground cursor-pointer"
+            className="cursor-pointer"
           >
-            {t.register.cancel}
+            {t.forms.buttons.cancel}
           </Button>
         </Field>
       </FieldGroup>

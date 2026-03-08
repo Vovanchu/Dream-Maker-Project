@@ -1,20 +1,27 @@
 import { useState } from "react";
-import type { ReactNode } from "react";
-import { UserContext } from "./UserContext";
 import type { UserRole } from "../../types/user.type";
+import { UserContext } from "./UserContext";
 
-interface UserProviderProps {
-  children: ReactNode;
-}
-
-export const UserProvider = ({ children }: UserProviderProps) => {
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [role, setRole] = useState<UserRole | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
-  const loginAs = (role: UserRole) => setRole(role);
-  const logout = () => setRole(null);
+  const loginAs = (role: UserRole, token?: string) => {
+    setRole(role);
+    if (token) {
+      setToken(token);
+      localStorage.setItem("token", token);
+    }
+  };
+
+  const logout = () => {
+    setRole(null);
+    setToken(null);
+    localStorage.removeItem("token");
+  };
 
   return (
-    <UserContext.Provider value={{ role, loginAs, logout }}>
+    <UserContext.Provider value={{ role, token, loginAs, logout }}>
       {children}
     </UserContext.Provider>
   );

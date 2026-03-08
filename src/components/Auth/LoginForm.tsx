@@ -2,7 +2,6 @@ import { useState } from "react";
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { admin, user } from "@/const/Role";
 import { useUser } from "@/hooks/useUser";
 import { useTranslation } from "@/hooks/useTranslation";
 import {
@@ -16,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
+import { loginUser } from "@/api/services/auth";
 
 export const LoginForm = () => {
   const t = useTranslation();
@@ -25,14 +25,15 @@ export const LoginForm = () => {
   const schema = z.object({
     email: z
       .string()
-      .min(1, { message: t.login.errors.requiredEmail })
-      .email({ message: t.login.errors.invalidEmail }),
+      .min(1, { message: t.validation.requiredEmail })
+      .email({ message: t.validation.invalidEmail }),
     password: z.string().min(1, {
-      message: t.login.errors.requiredPassword,
+      message: t.validation.requiredPassword,
     }),
   });
 
   type LoginFormFields = z.infer<typeof schema>;
+  type UserRole = "user" | "admin";
 
   const {
     register,
@@ -45,21 +46,23 @@ export const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginFormFields> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      const response = await loginUser({
+        email: data.email,
+        password: data.password,
+      });
 
-    if (data.email === admin.email && data.password === admin.password) {
-      loginAs("admin");
-      return;
+      if (response.status === 200) {
+        const { access_token } = response.data;
+
+        const role: UserRole = "user";
+        loginAs(role, access_token);
+      }
+    } catch {
+      setError("root", {
+        message: t.feedback.errors.somethingWrong,
+      });
     }
-
-    if (data.email === user.email && data.password === user.password) {
-      loginAs("user");
-      return;
-    }
-
-    setError("root", {
-      message: t.login.errors.invalidCredentials,
-    });
   };
 
   return (
@@ -69,7 +72,7 @@ export const LoginForm = () => {
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="login-email" className="text-foreground">
-                {t.login.email}
+                {t.forms.labels.email}
                 <sup className="text-red-700 text-sm">*</sup>
               </FieldLabel>
 
@@ -77,15 +80,13 @@ export const LoginForm = () => {
                 id="login-email"
                 type="email"
                 {...register("email")}
-                placeholder="test@gmail.com"
+                placeholder={t.forms.placeholders.email}
                 className="text-accent-foreground"
               />
 
-              {errors.email && (
-                <FieldError className="text-red-500">
-                  {errors.email.message}
-                </FieldError>
-              )}
+              <FieldError className="text-red-500">
+                {errors.email?.message}
+              </FieldError>
             </Field>
 
             <Field>
@@ -94,12 +95,14 @@ export const LoginForm = () => {
                   htmlFor="login-password"
                   className="text-foreground"
                 >
-                  {t.login.password}
+                  {t.forms.labels.password}
                   <sup className="text-red-700 text-sm">*</sup>
                 </FieldLabel>
 
                 <FieldLabel className="text-accent">
-                  <Link to="/reset-passwor">{t.login.forgotPassword}</Link>
+                  <Link to="/reset-password">
+                    {t.pages.login.forgotPassword}
+                  </Link>
                 </FieldLabel>
               </div>
 
@@ -108,6 +111,7 @@ export const LoginForm = () => {
                   id="login-password"
                   type={showPassword ? "text" : "password"}
                   {...register("password")}
+                  placeholder={t.forms.placeholders.password}
                   className="text-accent-foreground pr-10"
                 />
 
@@ -129,8 +133,11 @@ export const LoginForm = () => {
           </FieldGroup>
         </FieldSet>
 
-        {/* Root error */}
-        {errors.root && <FieldError>{errors.root.message}</FieldError>}
+        {errors.root && (
+          <FieldError className="text-red-500">
+            {errors.root.message}
+          </FieldError>
+        )}
 
         <Field orientation="horizontal">
           <Button
@@ -138,15 +145,16 @@ export const LoginForm = () => {
             disabled={isSubmitting}
             className="cursor-pointer"
           >
-            {isSubmitting ? t.login.loading : t.login.submit}
+            {isSubmitting ? t.pages.login.loading : t.forms.buttons.submit}
           </Button>
+
           <Button
             type="button"
             variant="outline"
             onClick={() => reset()}
             className="text-accent-foreground cursor-pointer"
           >
-            {t.login.cancel}
+            {t.forms.buttons.cancel}
           </Button>
         </Field>
       </FieldGroup>

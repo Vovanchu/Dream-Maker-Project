@@ -35,7 +35,7 @@ const Header = () => {
       <header className="flex items-center justify-between px-6 py-4 bg-(--background) text-(--foreground) sticky top-0 z-50 shadow-md">
         {/* Logo */}
         <a
-          href="/"
+          href="#"
           className="flex items-center gap-2 font-playfair font-semibold text-2xl md:text-3xl"
         >
           <FavoriteIcon sx={{ color: "var(--primary)" }} />
