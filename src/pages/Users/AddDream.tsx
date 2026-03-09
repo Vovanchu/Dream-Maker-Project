@@ -1,15 +1,15 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslation } from "@/hooks/useTranslation";
 
-// Задаємо схему валідації через Zod
-const getSchema = (t: any) =>
-  z.object({
+export const AddDreamPage = () => {
+  const t = useTranslation();
+
+  const schema = z.object({
     name: z.string().min(1, { message: t.validation.requiredName }),
     age: z
-      .number({ invalid_type_error: t.validation.invalidName })
+      .number({ message: t.validation.invalidName })
       .min(1, { message: t.validation.invalidName }),
     city: z.string().min(1, { message: t.validation.requiredName }),
     dreamTitle: z.string().min(3, { message: "Title is too short" }),
@@ -19,14 +19,9 @@ const getSchema = (t: any) =>
     format: z.string().min(1, { message: t.pages.addDream.formatRequired }),
     category: z.string().min(1, { message: t.pages.addDream.categoryRequired }),
     budget: z
-      .number({ invalid_type_error: "Budget must be a number" })
+      .number({ message: "Budget must be a number" })
       .min(1, { message: t.pages.addDream.budgetRequired }),
   });
-
-export const AddDreamPage = () => {
-  const t = useTranslation();
-
-  const schema = getSchema(t);
 
   const {
     register,
@@ -47,8 +42,7 @@ export const AddDreamPage = () => {
     },
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = () => {
     alert(t.feedback.success.dreamSubmitted);
     reset();
   };
@@ -155,7 +149,7 @@ export const AddDreamPage = () => {
 
           <div className="flex flex-col gap-1">
             <select {...register("format")} className="input-field">
-              <option value="">{t.forms.placeholders.format}</option>
+              <option value="">{t.forms.placeholders.name}</option>
               <option value="online">{t.fmt.online}</option>
               <option value="offline">{t.fmt.offline}</option>
             </select>

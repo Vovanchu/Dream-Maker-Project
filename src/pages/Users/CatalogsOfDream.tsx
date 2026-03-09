@@ -3,7 +3,7 @@ import {
   Filter,
   type CategoryType,
   type FormatType,
-} from "./components/Filter";
+} from "../../components/User/Filter";
 import { useState } from "react";
 
 export const CatalogOfDreams = () => {

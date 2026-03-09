@@ -10,9 +10,13 @@ import { LogInOut } from "./components/LogInOut";
 import { MobileMenu } from "./components/MobileMenu";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
+import { useUser } from "@/hooks/useUser";
+import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { role } = useUser();
 
   const t = useTranslation();
 
@@ -57,6 +61,12 @@ const Header = () => {
 
         {/* Desktop Controls */}
         <div className="hidden md:flex items-center gap-2">
+          {role ? (
+            <Link to="/user/add-dream">
+              <Button>Add dream</Button>
+            </Link>
+          ) : null}
+
           <ThemeSwitcher />
 
           <LanguageSwitcher />

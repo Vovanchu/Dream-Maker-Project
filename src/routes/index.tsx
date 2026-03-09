@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 
-import { ProtectedRoute } from "../Context/Role/ProtectedRoute";
 import { PublicRoute } from "../Context/Role/PublicRoute";
 
-//import { HomePage } from "../pages/Home/HomePage";
-import { DashboardPage } from "../pages/DashboardPage/DashboardPage";
+import { HomePage } from "../pages/Home/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import { Identification } from "@/pages/Auth/Identification";
+import { UserRoutes } from "./UserRoutes";
+import { AdminRoutes } from "./AdminRoutes";
 
 export const AppRoutes = () => {
   return (
@@ -15,7 +15,7 @@ export const AppRoutes = () => {
         path="/"
         element={
           <PublicRoute>
-            <DashboardPage />
+            <HomePage />
           </PublicRoute>
         }
       />
@@ -37,15 +37,9 @@ export const AppRoutes = () => {
         }
       />
 
-      {/* Захищені маршрути */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute allowedRoles={["admin", "user"]}>
-            <DashboardPage />
-          </ProtectedRoute>
-        }
-      />
+      {AdminRoutes}
+
+      {UserRoutes}
 
       {/* Catch-all 404 */}
       <Route path="*" element={<NotFoundPage />} />

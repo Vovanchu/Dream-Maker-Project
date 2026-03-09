@@ -89,6 +89,7 @@ const en = {
     disabled: "Person with disability",
   },
   fmt: { online: "Online", offline: "Offline" },
+
   forms: {
     labels: {
       name: "Name",
@@ -104,6 +105,7 @@ const en = {
       format: "Format",
       budget: "Budget",
     },
+
     placeholders: {
       name: "Your name",
       email: "Enter email: example@gmail.com",
@@ -116,6 +118,7 @@ const en = {
       donationAmount: "Enter amount",
       category: "Select category",
     },
+
     buttons: {
       submit: "Submit",
       cancel: "Cancel",
@@ -124,163 +127,123 @@ const en = {
       login: "Log in",
       register: "Register",
     },
-    forms: {
-      labels: {
-        name: "Name",
-        email: "Email",
-        password: "Password",
-        confirmPassword: "Confirm password",
-        age: "Age",
-        city: "City",
-        dreamTitle: "Dream title",
-        dreamDescription: "Detailed description",
-        donationAmount: "Donation amount (UAH)",
-        category: "Category",
-        format: "Format",
-        budget: "Budget",
-      },
+  },
 
-      placeholders: {
-        name: "Your name",
-        email: "Enter email: example@gmail.com",
-        password: "Enter password",
-        confirmPassword: "Repeat password",
-        age: "E.g., 8",
-        city: "E.g., Kyiv",
-        dreamTitle: "Short dream title",
-        dreamDescription: "Tell us more about the dream and why it matters...",
-        donationAmount: "Enter amount",
-        category: "Select category",
-      },
+  validation: {
+    requiredEmail: "Email is required",
+    requiredPassword: "Password is required",
+    invalidEmail: "Invalid email format",
 
-      buttons: {
-        submit: "Submit",
-        cancel: "Cancel",
-        back: "Back home",
-        close: "Close",
-        login: "Log in",
-        register: "Register",
-      },
-    },
+    invalidName: "Invalid Name",
+    requiredName: "Name is required",
 
-    validation: {
-      requiredEmail: "Email is required",
-      requiredPassword: "Password is required",
-      invalidEmail: "Invalid email format",
+    selectStatus: "Select status",
+    invalidStatus: "Invalid status",
+    requiredPersonType: "Person type is required",
 
-      invalidName: "Invalid Name",
-      requiredName: "Name is required",
+    minPassword: "Minimum 8 characters",
+    passwordUppercase: "One uppercase letter",
+    passwordLowercase: "One lowercase letter",
+    passwordDigit: "One digit",
+    passwordNoMatch: "Passwords do not match",
+    passwordMatch: "Passwords match",
+  },
 
-      selectStatus: "Select status",
-      invalidStatus: "Invalid status",
-      requiredPersonType: "Person type is required",
-
-      minPassword: "Minimum 8 characters",
-      passwordUppercase: "One uppercase letter",
-      passwordLowercase: "One lowercase letter",
-      passwordDigit: "One digit",
-      passwordNoMatch: "Passwords do not match",
-      passwordMatch: "Passwords match",
+  feedback: {
+    success: {
+      dreamSubmitted: "Dream submitted successfully!",
+      accountCreated: "Account created!",
+      emailSent: "Email sent!",
+      donation: "Thank you for your generosity!",
     },
-
-    feedback: {
-      success: {
-        dreamSubmitted: "Dream submitted successfully!",
-        accountCreated: "Account created!",
-        emailSent: "Email sent!",
-        donation: "Thank you for your generosity!",
-      },
-      info: {
-        dreamModeration:
-          "Thank you for your submission. Our team will review your application within 24 hours.",
-        resetInstructions: "We sent password reset instructions to",
-        confirmEmail: "We sent a confirmation email to",
-        checkInbox: "Check your inbox.",
-      },
-      errors: {
-        somethingWrong: "Something went wrong",
-        userNotFound: "No account found with this email",
-        wrongPassword: "Incorrect password",
-        invalidCredentials: "Invalid email or password",
-        emailUsed: "Email already in use",
-      },
+    info: {
+      dreamModeration:
+        "Thank you for your submission. Our team will review your application within 24 hours.",
+      resetInstructions: "We sent password reset instructions to",
+      confirmEmail: "We sent a confirmation email to",
+      checkInbox: "Check your inbox.",
     },
-    modals: {
-      donation: {
-        collected: "Collected",
-        of: "of",
-        remaining: "Remaining to collect",
-        support: "Support Dream",
-      },
-      success: {
-        addAnother: "Add another dream",
-        toCatalog: "To dream catalog",
-        toLogin: "Go to Sign In",
-        toHome: "To homepage",
-      },
-    },
-    pages: {
-      addDream: {
-        pageTitle: "Add a New Dream",
-        pageSubtitle:
-          "Fill out the form below to submit a dream for moderation",
-        summary: "Submitted dream summary",
-        personInfo: "Person information",
-        dreamInfo: "Dream description",
-        formatCategory: "Format and category",
-        budgetSection: "Budget",
-        formatRequired: "Fulfillment format *",
-        categoryRequired: "Category *",
-        budgetRequired: "Required amount",
-      },
-      login: {
-        title: "Sign In",
-        subtitle: "Sign in to your account",
-        forgotPassword: "Forgot password?",
-        showPassword: "Show password",
-        hidePassword: "Hide password",
-        loading: "Signing in...",
-        or: "or",
-        google: "Sign in with Google",
-        noAccount: "Don't have an account?",
-        register: "Sign Up",
-      },
-      register: {
-        title: "Sign Up",
-        subtitle: "Create an account on the platform",
-        loading: "Registering...",
-        hasAccount: "Already have an account?",
-        login: "Sign In",
-        personType: "Select person type",
-      },
-      reset: {
-        title: "Reset Password",
-        subtitle: "Enter your email and we'll send recovery instructions",
-        loading: "Sending...",
-        backToLogin: "Back to Sign In",
-        sendAgain: "Send again",
-      },
-    },
-    categories: {
-      child: "Child",
-      elderly: "Elderly person",
-      veteran: "Veteran",
-      disabled: "Person with disability",
-    },
-    theme: {
-      light: "Light",
-      dark: "Dark",
-      system: "System",
-      toggle: "Toggle theme",
-    },
-    lang: { label: "Language" },
-    misc: {
-      openMenu: "Open menu",
-      closeMenu: "Close menu",
-      mainNav: "Main navigation",
-      mobileNav: "Mobile navigation",
+    errors: {
+      somethingWrong: "Something went wrong",
+      userNotFound: "No account found with this email",
+      wrongPassword: "Incorrect password",
+      invalidCredentials: "Invalid email or password",
+      emailUsed: "Email already in use",
     },
   },
+  modals: {
+    donation: {
+      collected: "Collected",
+      of: "of",
+      remaining: "Remaining to collect",
+      support: "Support Dream",
+    },
+    success: {
+      addAnother: "Add another dream",
+      toCatalog: "To dream catalog",
+      toLogin: "Go to Sign In",
+      toHome: "To homepage",
+    },
+  },
+  pages: {
+    addDream: {
+      pageTitle: "Add a New Dream",
+      pageSubtitle: "Fill out the form below to submit a dream for moderation",
+      summary: "Submitted dream summary",
+      personInfo: "Person information",
+      dreamInfo: "Dream description",
+      formatCategory: "Format and category",
+      budgetSection: "Budget",
+      formatRequired: "Fulfillment format *",
+      categoryRequired: "Category *",
+      budgetRequired: "Required amount",
+    },
+    login: {
+      title: "Sign In",
+      subtitle: "Sign in to your account",
+      forgotPassword: "Forgot password?",
+      showPassword: "Show password",
+      hidePassword: "Hide password",
+      loading: "Signing in...",
+      or: "or",
+      google: "Sign in with Google",
+      noAccount: "Don't have an account?",
+      register: "Sign Up",
+    },
+    register: {
+      title: "Sign Up",
+      subtitle: "Create an account on the platform",
+      loading: "Registering...",
+      hasAccount: "Already have an account?",
+      login: "Sign In",
+      personType: "Select person type",
+    },
+    reset: {
+      title: "Reset Password",
+      subtitle: "Enter your email and we'll send recovery instructions",
+      loading: "Sending...",
+      backToLogin: "Back to Sign In",
+      sendAgain: "Send again",
+    },
+  },
+  categories: {
+    child: "Child",
+    elderly: "Elderly person",
+    veteran: "Veteran",
+    disabled: "Person with disability",
+  },
+  theme: {
+    light: "Light",
+    dark: "Dark",
+    system: "System",
+    toggle: "Toggle theme",
+  },
+  lang: { label: "Language" },
+  misc: {
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    mainNav: "Main navigation",
+    mobileNav: "Mobile navigation",
+  },
 };
-
 export default en;
