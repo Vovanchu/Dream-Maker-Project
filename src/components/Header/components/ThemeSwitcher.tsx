@@ -22,13 +22,16 @@ export const ThemeSwitcher = () => {
 
   const getClass = () =>
     clsx(
-      "flex items-center gap-2 w-full rounded-md px-2 py-1 transition-colors duration-300 cursor-pointer",
+      "flex items-center gap-2 w-full rounded-md px-2 py-1 transition-colors duration-300 cursor-pointer ",
     );
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button variant="link" className="cursor-pointer text-foreground">
+        <Button
+          variant="link"
+          className="cursor-pointer text-foreground border border-transparent rounded-md transition-all duration-300 hover:border-gray-400 hover:bg-accent"
+        >
           {selectedTheme === themes.light ? (
             <LightModeOutlinedIcon />
           ) : (

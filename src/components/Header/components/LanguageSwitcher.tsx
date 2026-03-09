@@ -24,7 +24,10 @@ export const LanguageSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button variant="link" className="cursor-pointer text-foreground">
+        <Button
+          variant="link"
+          className="cursor-pointer text-foreground border border-transparent rounded-md transition-all duration-300 hover:border-gray-400 hover:bg-accent"
+        >
           <LanguageIcon />
         </Button>
       </DropdownMenuTrigger>
