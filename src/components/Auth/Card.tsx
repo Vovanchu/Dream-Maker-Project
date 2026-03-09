@@ -1,4 +1,4 @@
-import { GoogleIcon } from "@/assets/icon/gogleIcon";
+import { GoogleIcon } from "@/assets/gogleIcon";
 import { LoginForm } from "@/components/Auth/LoginForm";
 import { RegisterForm } from "@/components/Auth/RegisterForm";
 import { useTranslation } from "@/hooks/useTranslation";

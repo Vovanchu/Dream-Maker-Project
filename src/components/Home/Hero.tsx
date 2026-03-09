@@ -1,5 +1,6 @@
 import { useTranslation } from "@/hooks/useTranslation";
-import HeroImg from "@/UI/Photo/backgroung-image.jpg";
+import HeroImg from "@/UI/Photo/DarkThemeBackgroundPhoto.jpeg";
+import HeroImgLight from "@/UI/Photo/LightThemeBackgroundPhoto.jpeg";
 import { useContext } from "react";
 import { themes } from "@/const/colors";
 import ThemeContext from "@/Context/Theme/ThemeContext";
@@ -37,14 +38,18 @@ export const Hero = () => {
           : "before:bg-white/5",
         "bg-cover bg-center",
       )}
-      style={{ backgroundImage: `url(${HeroImg})` }}
+      style={{
+        backgroundImage: `url(${
+          selectedTheme === themes.dark ? HeroImg : HeroImgLight
+        })`,
+      }}
     >
       <div className="max-w-3xl text-center flex flex-col items-center justify-center gap-6">
         <h1 className="text-5xl font-extrabold p-4 rounded-lg font-playfair">
           {t.hero.title}
         </h1>
         <p
-          className={`max-w-2lg text-xl ${
+          className={`max-w-lg text-xl ${
             selectedTheme === themes.dark ? "text-white" : "text-black"
           }`}
         >
