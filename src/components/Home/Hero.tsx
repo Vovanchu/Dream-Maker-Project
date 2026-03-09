@@ -1,5 +1,5 @@
 import { useTranslation } from "@/hooks/useTranslation";
-import HeroImg from "@/UI/Photo/backgroung-image.jpg";
+import HeroImg from "@/UI/Photo/DarkThemeBackgroundPhoto.jpg";
 import { useContext } from "react";
 import { themes } from "@/const/colors";
 import ThemeContext from "@/Context/Theme/ThemeContext";
