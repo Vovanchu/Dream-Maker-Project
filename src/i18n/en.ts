@@ -95,15 +95,23 @@ const en = {
       name: "Name",
       email: "Email",
       password: "Password",
-      confirmPassword: "Confirm password",
+      confirmPassword: "Confirm Password",
       age: "Age",
       city: "City",
-      dreamTitle: "Dream title",
-      dreamDescription: "Detailed description",
-      donationAmount: "Donation amount (UAH)",
+
+      dreamTitle: "Dream Title",
+      dreamDescription: "Detailed Description",
+      dreamDeadline: "Dream Deadline",
+
       category: "Category",
       format: "Format",
-      budget: "Budget",
+      budget: "Amount",
+
+      personInfo: "Person Information",
+      dreamInfo: "Dream Description",
+      formatCategory: "Format and Category",
+      budgetSection: "Budget",
+      contactPhone: "Contact Phone",
     },
 
     placeholders: {
@@ -111,12 +119,17 @@ const en = {
       email: "Enter email: example@gmail.com",
       password: "Enter password",
       confirmPassword: "Repeat password",
-      age: "E.g., 8",
-      city: "E.g., Kyiv",
+      age: "For example, 8",
+      city: "For example, Kyiv",
       dreamTitle: "Short dream title",
-      dreamDescription: "Tell us more about the dream and why it matters...",
+      dreamDescription:
+        "Describe the dream in more detail and why it is important...",
+      budget: "Enter the dream budget",
       donationAmount: "Enter amount",
-      category: "Select category",
+      category: "Select a category",
+      format: "Select execution format",
+      contactPhone: "Enter phone number: +380XXXXXXXXX",
+      dreamDeadline: "Select dream deadline",
     },
 
     buttons: {
@@ -131,22 +144,31 @@ const en = {
 
   validation: {
     requiredEmail: "Email is required",
-    requiredPassword: "Password is required",
     invalidEmail: "Invalid email format",
-
-    invalidName: "Invalid Name",
-    requiredName: "Name is required",
-
-    selectStatus: "Select status",
-    invalidStatus: "Invalid status",
-    requiredPersonType: "Person type is required",
-
+    requiredPassword: "Password is required",
     minPassword: "Minimum 8 characters",
     passwordUppercase: "One uppercase letter",
     passwordLowercase: "One lowercase letter",
     passwordDigit: "One digit",
     passwordNoMatch: "Passwords do not match",
     passwordMatch: "Passwords match",
+
+    invalidName: "Invalid name",
+    requiredName: "Name is required",
+    requiredCity: "City is required",
+
+    invalidAge: "Invalid age",
+    maxAge: "Age must be less than 120",
+
+    shortTitle: "Title is too short",
+    shortDescription: "Description is too short",
+
+    invalidBudget: "Budget must be a number",
+    maxBudget: "Budget cannot exceed 10,000",
+
+    requiredPhone: "Phone number is required",
+    requiredDeadline: "Dream deadline is required",
+    requiredPersonType: "Person type is required",
   },
 
   feedback: {

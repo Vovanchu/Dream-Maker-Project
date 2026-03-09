@@ -106,28 +106,40 @@ const uk = {
       name: "Ім’я",
       email: "Email",
       password: "Пароль",
-      confirmPassword: "Підтвердіть пароль",
+      confirmPassword: "Підтвердження пароля",
       age: "Вік",
       city: "Місто",
+
       dreamTitle: "Назва мрії",
       dreamDescription: "Детальний опис",
-      donationAmount: "Сума пожертви (грн)",
+      dreamDeadline: "Дата виконання мрії",
+
       category: "Категорія",
       format: "Формат",
-      budget: "Бюджет",
+      budget: "Сума",
+
+      personInfo: "Інформація про людину",
+      dreamInfo: "Опис мрії",
+      formatCategory: "Формат та категорія",
+      budgetSection: "Бюджет",
+      contactPhone: "Контактний телефон",
     },
 
     placeholders: {
       name: "Ваше ім’я",
-      email: "Введіть email",
+      email: "Введіть email, наприклад: example@gmail.com",
       password: "Введіть пароль",
       confirmPassword: "Повторіть пароль",
-      age: "Напр., 8",
-      city: "Напр., Київ",
+      age: "Наприклад, 8",
+      city: "Наприклад, Київ",
       dreamTitle: "Коротка назва мрії",
-      dreamDescription: "Розкажіть більше про мрію та чому вона важлива...",
+      dreamDescription: "Розкажіть детальніше про мрію та чому вона важлива...",
+      budget: "Вкажіть бюджет мрії",
       donationAmount: "Введіть суму",
       category: "Оберіть категорію",
+      format: "Оберіть формат виконання",
+      contactPhone: "Введіть номер телефону, наприклад: +380XXXXXXXXX",
+      dreamDeadline: "Оберіть дату виконання мрії",
     },
 
     buttons: {
@@ -141,23 +153,32 @@ const uk = {
   },
 
   validation: {
-    requiredEmail: "Email обов’язковий",
-    requiredPassword: "Пароль обов’язковий",
-    invalidEmail: "Невірний формат email",
-
-    invalidName: "Некоректне ім’я",
-    requiredName: "Ім’я обов’язкове",
-
-    selectStatus: "Оберіть статус",
-    invalidStatus: "Некоректний статус",
-    requiredPersonType: "Тип особи обов’язковий",
-
+    requiredEmail: "Потрібно вказати електронну пошту",
+    invalidEmail: "Неправильний формат електронної пошти",
+    requiredPassword: "Потрібно вказати пароль",
     minPassword: "Мінімум 8 символів",
-    passwordUppercase: "Одна велика літера",
-    passwordLowercase: "Одна маленька літера",
-    passwordDigit: "Одна цифра",
+    passwordUppercase: "Щонайменше одна велика літера",
+    passwordLowercase: "Щонайменше одна мала літера",
+    passwordDigit: "Щонайменше одна цифра",
     passwordNoMatch: "Паролі не співпадають",
     passwordMatch: "Паролі співпадають",
+
+    invalidName: "Невірне ім’я",
+    requiredName: "Потрібно вказати ім’я",
+    requiredCity: "Потрібно вказати місто",
+
+    invalidAge: "Невірний вік",
+    maxAge: "Вік не може перевищувати 120",
+
+    shortTitle: "Назва занадто коротка",
+    shortDescription: "Опис занадто короткий",
+
+    invalidBudget: "Бюджет має бути числом",
+    maxBudget: "Бюджет не може перевищувати 10 000",
+
+    requiredPhone: "Потрібно вказати номер телефону",
+    requiredDeadline: "Потрібно вказати дату виконання мрії",
+    requiredPersonType: "Потрібно вказати тип людина/звірка",
   },
 
   feedback: {
