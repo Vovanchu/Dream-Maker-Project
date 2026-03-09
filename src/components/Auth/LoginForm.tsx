@@ -44,10 +44,6 @@ export const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginFormFields> = async (data) => {
-    const access_token = "ABVGBDFG";
-    const role: UserRole = "user";
-    loginAs(role, access_token);
-
     try {
       const response = await loginUser({
         email: data.email,
