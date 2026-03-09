@@ -263,33 +263,15 @@ export const RegisterForm = () => {
   "
                 >
                   <SelectGroup>
-                    <SelectItem
-                      value="child"
-                      className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
-                    >
-                      {t.categories.child}
-                    </SelectItem>
-
-                    <SelectItem
-                      value="elderly"
-                      className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
-                    >
-                      {t.categories.elderly}
-                    </SelectItem>
-
-                    <SelectItem
-                      value="veteran"
-                      className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
-                    >
-                      {t.categories.veteran}
-                    </SelectItem>
-
-                    <SelectItem
-                      value="disabled"
-                      className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
-                    >
-                      {t.categories.disabled}
-                    </SelectItem>
+                    {personTypes.map((type) => (
+                      <SelectItem
+                        key={type}
+                        value={type}
+                        className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
+                      >
+                        {t.categories[type]}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
