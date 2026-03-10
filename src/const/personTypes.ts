@@ -5,7 +5,7 @@ export type PersonTypes = {
   label: string;
 };
 
-export const getPersonsType = (
+export const getPersonType = (
   t: ReturnType<typeof useTranslation>,
 ): PersonTypes[] => [
   { value: "child", label: t.categories.child },

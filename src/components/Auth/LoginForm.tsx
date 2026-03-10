@@ -23,7 +23,7 @@ export const LoginForm = () => {
   const { loginAs } = useUser();
   const [showPassword, setShowPassword] = useState(false);
 
-  const schema = z.object({
+  const LoginFormSchema = z.object({
     email: z
       .string({ message: t.validation.requiredEmail })
       .email({ message: t.validation.invalidEmail }),
@@ -32,18 +32,18 @@ export const LoginForm = () => {
     }),
   });
 
-  type LoginFormFields = z.infer<typeof schema>;
+  type TLoginFormFields = z.infer<typeof LoginFormSchema>;
   type UserRole = "user" | "admin";
 
-  const form = useForm<LoginFormFields>({
-    resolver: zodResolver(schema),
+  const form = useForm<TLoginFormFields>({
+    resolver: zodResolver(LoginFormSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit: SubmitHandler<LoginFormFields> = async (data) => {
+  const onSubmit: SubmitHandler<TLoginFormFields> = async (data) => {
     try {
       const response = await loginUser({
         email: data.email,

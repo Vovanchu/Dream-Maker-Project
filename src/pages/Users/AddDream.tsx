@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -21,14 +21,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getPersonsType } from "@/const/personTypes";
+import { getPersonType } from "@/const/personTypes";
 import Header from "@/components/Header/Header";
 
 export const AddDreamPage = () => {
   const t = useTranslation();
 
-  const schema = z.object({
-    name: z.string().min(1, { message: t.validation.requiredName }),
+  const DreamFormSchema = z.object({
+    name: z
+      .string()
+      .min(1, { message: t.validation.requiredName })
+      .regex(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ\s'-]+$/, {
+        message: t.validation.invalidName,
+      }),
     age: z
       .number({ message: t.validation.invalidAge })
       .min(1, { message: t.validation.invalidAge })
@@ -44,33 +49,42 @@ export const AddDreamPage = () => {
       .number({ message: t.validation.invalidBudget })
       .min(1, { message: t.pages.addDream.budgetRequired })
       .max(10000, { message: t.validation.maxBudget }),
-    contactPhone: z.string().min(5, { message: t.validation.requiredPhone }),
+    contactPhone: z
+      .string()
+      .min(10, { message: t.validation.requiredPhone })
+      .regex(/^\+?[0-9\s\-()]{10,15}$/, {
+        message: t.validation.invalidPhone,
+      }),
     dreamDeadline: z.date().min(1, { message: t.validation.requiredDeadline }),
   });
 
-  const form = useForm({
-    resolver: zodResolver(schema),
+  type TDreamFormFields = z.infer<typeof DreamFormSchema>;
+
+  const form = useForm<TDreamFormFields>({
+    resolver: zodResolver(DreamFormSchema),
     defaultValues: {
       name: "",
-      age: undefined,
+      age: 0,
       city: "",
       dreamTitle: "",
       dreamDescription: "",
       format: "",
       category: "",
-      budget: undefined,
+      budget: 0,
       contactPhone: "",
       dreamDeadline: new Date(),
     },
   });
 
-  const onSubmit = (data: z.infer<typeof schema>) => {
+  const onSubmit: SubmitHandler<TDreamFormFields> = (
+    data: z.infer<typeof DreamFormSchema>,
+  ) => {
     console.log(data);
     alert(t.feedback.success.dreamSubmitted);
     form.reset();
   };
 
-  const persons_type = getPersonsType(t);
+  const persons_type = getPersonType(t);
 
   return (
     <>
@@ -99,7 +113,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.name} *
+                        {t.forms.labels.name} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -118,7 +132,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.age} *
+                        {t.forms.labels.age} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -141,7 +155,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.city} *
+                        {t.forms.labels.city} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -160,7 +174,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="w-full text-foreground">
-                        {t.forms.labels.contactPhone} *
+                        {t.forms.labels.contactPhone} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -190,7 +204,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.dreamTitle} *
+                        {t.forms.labels.dreamTitle} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -209,7 +223,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.dreamDescription} *
+                        {t.forms.labels.dreamDescription} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
                         <Textarea
@@ -229,7 +243,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.dreamDeadline} *
+                        {t.forms.labels.dreamDeadline} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -268,7 +282,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.format} *
+                        {t.forms.labels.format} <sup>*</sup>
                       </FormLabel>
 
                       <Select
@@ -310,7 +324,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.category} *
+                        {t.forms.labels.category} <sup>*</sup>
                       </FormLabel>
 
                       <Select
@@ -326,9 +340,9 @@ export const AddDreamPage = () => {
                         </FormControl>
 
                         <SelectContent className="bg-accent/90 backdrop-blur-md border border-border shadow-xl">
-                          {persons_type.map((person_type, index) => (
+                          {persons_type.map((person_type) => (
                             <SelectItem
-                              key={index}
+                              key={person_type.value}
                               value={person_type.value}
                               className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
                             >
@@ -360,7 +374,7 @@ export const AddDreamPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.budget} *
+                        {t.forms.labels.budget} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -386,13 +400,13 @@ export const AddDreamPage = () => {
                 onClick={() => form.reset()}
                 className="text-foreground cursor-pointer"
               >
-                Скинути
+                {t.forms.buttons.cancel}
               </Button>
               <Button
                 onClick={form.handleSubmit(onSubmit)}
                 className=" cursor-pointer"
               >
-                Надіслати
+                {t.forms.buttons.submit}
               </Button>
             </div>
           </div>

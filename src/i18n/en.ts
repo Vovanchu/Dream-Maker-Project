@@ -167,6 +167,7 @@ const en = {
     maxBudget: "Budget cannot exceed 10,000",
 
     requiredPhone: "Phone number is required",
+    invalidPhone: "Invalid phone number",
     requiredDeadline: "Dream deadline is required",
     requiredPersonType: "Person type is required",
   },

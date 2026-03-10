@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -30,7 +31,7 @@ import { Eye, EyeOff, UserPlus } from "lucide-react";
 
 import type { RegisterData } from "@/types/authData.type";
 import { loginUser, registerUser } from "@/api/services/auth";
-import { getPersonsType } from "@/const/personTypes";
+import { getPersonType } from "@/const/personTypes";
 
 export const RegisterForm = () => {
   const t = useTranslation();
@@ -39,18 +40,22 @@ export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const schema = z
+  const RegisterFormSchema = z
     .object({
       full_name: z
         .string()
         .min(1, { message: t.validation.requiredName })
-        .regex(/^[a-zA-Zа-яА-ЯёЁ\s'-]+$/, {
+        .regex(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ\s'-]+$/, {
           message: t.validation.invalidName,
         }),
       email: z
         .string()
         .min(1, { message: t.validation.requiredEmail })
-        .email({ message: t.validation.invalidEmail }),
+        .email({
+          pattern:
+            /^(?!\.)(?!.*\.\.)([a-z0-9_'+\-\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\-]*\.)+[a-z]{2,}$/i,
+          message: t.validation.invalidEmail,
+        }),
       password: z
         .string()
         .min(8, { message: t.validation.minPassword })
@@ -84,10 +89,10 @@ export const RegisterForm = () => {
       path: ["confirmPassword"],
     });
 
-  type RegisterFormFields = z.infer<typeof schema>;
+  type TRegisterFormFields = z.infer<typeof RegisterFormSchema>;
 
-  const form = useForm<RegisterFormFields>({
-    resolver: zodResolver(schema),
+  const form = useForm<TRegisterFormFields>({
+    resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
       full_name: "",
       email: "",
@@ -97,7 +102,7 @@ export const RegisterForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<RegisterFormFields> = async (data) => {
+  const onSubmit: SubmitHandler<TRegisterFormFields> = async (data) => {
     const { ...rest } = data;
     const registerData: RegisterData = { ...rest, role: "user" };
 
@@ -118,7 +123,7 @@ export const RegisterForm = () => {
     }
   };
 
-  const persons_type = getPersonsType(t);
+  const persons_type = getPersonType(t);
 
   return (
     <Form {...form}>
@@ -242,9 +247,9 @@ export const RegisterForm = () => {
                 </FormControl>
                 <SelectContent className="bg-accent/90 backdrop-blur-md border border-border shadow-xl">
                   <SelectGroup>
-                    {persons_type.map((person_type, index) => (
+                    {persons_type.map((person_type) => (
                       <SelectItem
-                        key={index}
+                        key={person_type.value}
                         value={person_type.value}
                         className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
                       >

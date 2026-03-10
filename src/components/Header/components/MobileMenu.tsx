@@ -12,7 +12,6 @@ export const MobileMenu = ({ setIsOpen, navItems }: MobileMenuProps) => {
   return (
     <>
       <div className="md:hidden fixed top-18 left-0 w-full h-[calc(100vh-4.5rem)] bg-background shadow-lg z-40 flex flex-col">
-        {/* NAV - центр */}
         <div className="flex-1 flex flex-col items-center justify-center gap-6">
           {navItems.map((item) => (
             <a
