@@ -19,7 +19,7 @@ export const Cta = () => {
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Button asChild size="lg" className="text-base">
-            <Link to="/dreams">{t.cta.viewDreams}</Link>
+            <Link to="/user/dreams">{t.cta.viewDreams}</Link>
           </Button>
         </div>
       </div>

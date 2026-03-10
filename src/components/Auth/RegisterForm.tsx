@@ -108,7 +108,7 @@ export const RegisterForm = () => {
 
     try {
       const registerResponse = await registerUser(registerData);
-      if (registerResponse.status === 200) {
+      if (registerResponse.status === 201) {
         const loginResponse = await loginUser({
           email: registerData.email,
           password: registerData.password,

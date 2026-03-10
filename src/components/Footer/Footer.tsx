@@ -61,7 +61,7 @@ export function Footer() {
             <ul className="flex flex-col gap-2">
               <li>
                 <Link
-                  to="/login"
+                  to="/auth/login"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t.nav.login}

@@ -13,7 +13,7 @@ export const LogInOut = () => {
     <>
       {role ? (
         <Link
-          to="/login"
+          to="/auth/login"
           onClick={() => {
             logout();
           }}
@@ -27,7 +27,7 @@ export const LogInOut = () => {
           </Button>
         </Link>
       ) : (
-        <Link to="/login">
+        <Link to="/auth/login">
           <Button
             variant="outline"
             className="text-(--foreground) hover:bg-(--primary) hover:text-(--primary) transition-colors duration-300 cursor-pointer"

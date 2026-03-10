@@ -13,6 +13,7 @@ import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { useUser } from "@/hooks/useUser";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,13 +50,14 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
-            <a
+            <HashLink
+              smooth
+              to={item.path}
               key={item.path}
-              href={item.path}
               className="text-sm font-medium text-(--muted-foreground) hover:text-(--primary) transition-colors duration-300"
             >
               {item.label}
-            </a>
+            </HashLink>
           ))}
         </nav>
 
