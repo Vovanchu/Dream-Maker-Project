@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-useless-escape */
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -8,12 +8,13 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useUser } from "@/hooks/useUser";
 
 import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldSet,
-} from "@/components/ui/field";
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 import {
   Select,
@@ -26,11 +27,11 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
 import { Eye, EyeOff, UserPlus } from "lucide-react";
 
 import type { RegisterData } from "@/types/authData.type";
 import { loginUser, registerUser } from "@/api/services/auth";
+import { getPersonType } from "@/const/personTypes";
 
 export const RegisterForm = () => {
   const t = useTranslation();
@@ -39,22 +40,22 @@ export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const personTypes = ["child", "elderly", "veteran", "disabled"] as const;
-
-  const schema = z
+  const RegisterFormSchema = z
     .object({
       full_name: z
         .string()
         .min(1, { message: t.validation.requiredName })
-        .regex(/^[a-zA-Zа-яА-ЯёЁ\s'-]+$/, {
+        .regex(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ\s'-]+$/, {
           message: t.validation.invalidName,
         }),
-
       email: z
         .string()
         .min(1, { message: t.validation.requiredEmail })
-        .email({ message: t.validation.invalidEmail }),
-
+        .email({
+          pattern:
+            /^(?!\.)(?!.*\.\.)([a-z0-9_'+\-\.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9\-]*\.)+[a-z]{2,}$/i,
+          message: t.validation.invalidEmail,
+        }),
       password: z
         .string()
         .min(8, { message: t.validation.minPassword })
@@ -67,7 +68,6 @@ export const RegisterForm = () => {
         .refine((val) => /\d/.test(val), {
           message: t.validation.passwordDigit,
         }),
-
       confirmPassword: z
         .string()
         .min(8, { message: t.validation.minPassword })
@@ -80,224 +80,205 @@ export const RegisterForm = () => {
         .refine((val) => /\d/.test(val), {
           message: t.validation.passwordDigit,
         }),
-
-      person_type: z.enum(personTypes, {
-        message: t.validation.requiredPersonType,
-      }),
+      person_type: z
+        .string()
+        .min(1, { message: t.pages.addDream.categoryRequired }),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: t.validation.passwordNoMatch,
       path: ["confirmPassword"],
     });
 
-  type RegisterFormFields = z.infer<typeof schema>;
+  type TRegisterFormFields = z.infer<typeof RegisterFormSchema>;
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    setError,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<RegisterFormFields>({
-    resolver: zodResolver(schema),
+  const form = useForm<TRegisterFormFields>({
+    resolver: zodResolver(RegisterFormSchema),
+    defaultValues: {
+      full_name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      person_type: "",
+    },
   });
 
-  const onSubmit: SubmitHandler<RegisterFormFields> = async (data) => {
-    const { confirmPassword, ...rest } = data;
-
-    const registerData: RegisterData = {
-      ...rest,
-      role: "user",
-    };
+  const onSubmit: SubmitHandler<TRegisterFormFields> = async (data) => {
+    const { ...rest } = data;
+    const registerData: RegisterData = { ...rest, role: "user" };
 
     try {
       const registerResponse = await registerUser(registerData);
-
       if (registerResponse.status === 200) {
         const loginResponse = await loginUser({
           email: registerData.email,
           password: registerData.password,
         });
-
         const { access_token } = loginResponse.data;
         loginAs("user", access_token);
       }
     } catch {
-      setError("root", {
-        message: t.feedback.errors.somethingWrong,
-      });
+      form.setError("root", { message: t.feedback.errors.somethingWrong });
     } finally {
-      reset();
+      form.reset();
     }
   };
 
+  const persons_type = getPersonType(t);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FieldGroup>
-        <FieldSet>
-          <FieldGroup>
-            {/* Name */}
-            <Field>
-              <FieldLabel htmlFor="register-name">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        {/* Name */}
+        <FormField
+          control={form.control}
+          name="full_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-foreground">
                 {t.forms.labels.name}
-              </FieldLabel>
+              </FormLabel>
+              <FormControl>
+                <Input placeholder={t.forms.placeholders.name} {...field} />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
 
-              <Input
-                id="register-name"
-                {...register("full_name")}
-                placeholder={t.forms.placeholders.name}
-              />
-
-              {errors.full_name && (
-                <FieldError className="text-red-500">
-                  {errors.full_name.message}
-                </FieldError>
-              )}
-            </Field>
-
-            {/* Email */}
-            <Field>
-              <FieldLabel htmlFor="register-email">
+        {/* Email */}
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-foreground">
                 {t.forms.labels.email}
-              </FieldLabel>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  type="email"
+                  placeholder={t.forms.placeholders.email}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
 
-              <Input
-                id="register-email"
-                type="email"
-                {...register("email")}
-                placeholder={t.forms.placeholders.email}
-              />
-
-              {errors.email && (
-                <FieldError className="text-red-500">
-                  {errors.email.message}
-                </FieldError>
-              )}
-            </Field>
-
-            {/* Password */}
-            <Field>
-              <FieldLabel htmlFor="register-password">
+        {/* Password */}
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-foreground">
                 {t.forms.labels.password}
-              </FieldLabel>
+              </FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder={t.forms.placeholders.password}
+                    className="pr-10"
+                    {...field}
+                  />
+                  <Button
+                    variant="ghost"
+                    type="button"
+                    onClick={() => setShowPassword((p) => !p)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition cursor-pointer"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </Button>
+                </div>
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
 
-              <div className="relative">
-                <Input
-                  id="register-password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder={t.forms.placeholders.password}
-                  {...register("password")}
-                  className="pr-10"
-                />
-
-                <Button
-                  variant="ghost"
-                  type="button"
-                  onClick={() => setShowPassword((p) => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0"
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </Button>
-              </div>
-
-              <FieldError className="text-red-500">
-                {errors.password?.message}
-              </FieldError>
-            </Field>
-
-            {/* Confirm Password */}
-            <Field>
-              <FieldLabel htmlFor="register-confirm">
+        {/* Confirm Password */}
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-foreground">
                 {t.forms.labels.confirmPassword}
-              </FieldLabel>
+              </FormLabel>
+              <FormControl>
+                <div className="relative">
+                  <Input
+                    type={showConfirm ? "text" : "password"}
+                    placeholder={t.forms.placeholders.password}
+                    className="pr-10"
+                    {...field}
+                  />
+                  <Button
+                    variant="ghost"
+                    type="button"
+                    onClick={() => setShowConfirm((p) => !p)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition cursor-pointer"
+                  >
+                    {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </Button>
+                </div>
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
 
-              <div className="relative">
-                <Input
-                  id="register-confirm"
-                  type={showConfirm ? "text" : "password"}
-                  placeholder={t.forms.placeholders.password}
-                  {...register("confirmPassword")}
-                  className="pr-10"
-                />
-
-                <Button
-                  variant="ghost"
-                  type="button"
-                  onClick={() => setShowConfirm((p) => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0"
-                >
-                  {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
-                </Button>
-              </div>
-
-              <FieldError className="text-red-500">
-                {errors.confirmPassword?.message}
-              </FieldError>
-            </Field>
-
-            {/* Person Type */}
-            <Field>
-              <FieldLabel>{t.pages.register.personType}</FieldLabel>
-
-              <Select
-                onValueChange={(value) =>
-                  setValue(
-                    "person_type",
-                    value as RegisterFormFields["person_type"],
-                    { shouldValidate: true },
-                  )
-                }
-              >
-                <SelectTrigger className="w-full cursor-pointer">
-                  <SelectValue placeholder={t.forms.placeholders.category} />
-                </SelectTrigger>
-
-                <SelectContent
-                  className="
-    bg-accent/90
-    backdrop-blur-md
-    border
-    border-border
-    shadow-xl
-  "
-                >
+        {/* Person Type */}
+        <FormField
+          control={form.control}
+          name="person_type"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-foreground">
+                {t.pages.register.personType}
+              </FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className="w-full cursor-pointer">
+                    <SelectValue placeholder={t.forms.placeholders.category} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent className="bg-accent/90 backdrop-blur-md border border-border shadow-xl">
                   <SelectGroup>
-                    {personTypes.map((type) => (
+                    {persons_type.map((person_type) => (
                       <SelectItem
-                        key={type}
-                        value={type}
+                        key={person_type.value}
+                        value={person_type.value}
                         className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
                       >
-                        {t.categories[type]}
+                        {person_type.label}
                       </SelectItem>
                     ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
 
-              {errors.person_type && (
-                <FieldError className="text-red-500">
-                  {errors.person_type.message}
-                </FieldError>
-              )}
-            </Field>
-          </FieldGroup>
-        </FieldSet>
-
-        {errors.root && (
-          <FieldError className="text-red-500">
-            {errors.root.message}
-          </FieldError>
+        {/* Root error */}
+        {form.formState.errors.root && (
+          <p className="text-sm text-red-500">
+            {form.formState.errors.root.message}
+          </p>
         )}
 
-        <Field orientation="horizontal">
+        {/* Buttons */}
+        <div className="flex gap-3">
           <Button
             type="submit"
-            disabled={isSubmitting}
+            disabled={form.formState.isSubmitting}
             className="cursor-pointer"
           >
-            {isSubmitting ? (
+            {form.formState.isSubmitting ? (
               t.pages.register.loading
             ) : (
               <>
@@ -310,13 +291,13 @@ export const RegisterForm = () => {
           <Button
             type="button"
             variant="outline"
-            onClick={() => reset()}
-            className="cursor-pointer"
+            onClick={() => form.reset()}
+            className="text-accent-foreground cursor-pointer"
           >
             {t.forms.buttons.cancel}
           </Button>
-        </Field>
-      </FieldGroup>
-    </form>
+        </div>
+      </form>
+    </Form>
   );
 };

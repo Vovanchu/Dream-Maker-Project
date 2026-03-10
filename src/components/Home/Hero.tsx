@@ -75,7 +75,7 @@ export const Hero = () => {
           {statsHero.map((stat) => (
             <div
               key={stat.label}
-              className="flex-1 min-w-30 sm:min-w-37.5 h-30 mx-auto sm:mx-4 p-4 rounded-[1vw] text-center bg-(--background) hover:transition-transform transform hover:scale-105 shadow-md cursor-default"
+              className="flex-1 min-w-35 h-30 mx-auto sm:mx-4 p-4 rounded-[1vw] text-center bg-(--background) hover:transition-transform transform hover:scale-105 shadow-md cursor-default"
             >
               <p className="text-2xl sm:text-3xl font-bold text-(--primary)">
                 {stat.value}

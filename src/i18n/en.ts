@@ -6,7 +6,6 @@ const en = {
     madeWith: "Made with",
     inUkraine: "in Ukraine",
   },
-
   nav: {
     howItWorks: "How It Works",
     dreamCatalog: "Dream Catalog",
@@ -19,7 +18,6 @@ const en = {
     account: "Account",
     resetPassword: "Reset Password",
   },
-
   hero: {
     title: "Fulfill someone's dream today",
     description:
@@ -30,7 +28,6 @@ const en = {
     donors: "Donors",
     cities: "Cities of Ukraine",
   },
-
   how: {
     title: "How It Works",
     subtitle: "Four simple steps from submitting a dream to making it real",
@@ -51,7 +48,6 @@ const en = {
       desc: "The dream comes true, and we publish a report for transparency.",
     },
   },
-
   stats: {
     title: "Our Results",
     subtitle: "Together we are changing lives for the better every day",
@@ -64,7 +60,6 @@ const en = {
     raised: "UAH raised",
     raisedDesc: "Total donations amount",
   },
-
   cta: {
     title: "Ready to fulfill someone's dream?",
     description:
@@ -72,7 +67,6 @@ const en = {
     viewDreams: "Browse Dreams",
     register: "Sign Up",
   },
-
   dreams: {
     title: "Dream Catalog",
     subtitle: "Choose a dream you want to help fulfill",
@@ -88,33 +82,36 @@ const en = {
     fulfill: "Fulfill Dream",
     yearsShort: "y.o.",
   },
-
   cat: {
     child: "Child",
     elderly: "Elderly",
     veteran: "Veteran",
     disabled: "Person with disability",
   },
-
-  fmt: {
-    online: "Online",
-    offline: "Offline",
-  },
+  fmt: { online: "Online", offline: "Offline" },
 
   forms: {
     labels: {
       name: "Name",
       email: "Email",
       password: "Password",
-      confirmPassword: "Confirm password",
+      confirmPassword: "Confirm Password",
       age: "Age",
       city: "City",
-      dreamTitle: "Dream title",
-      dreamDescription: "Detailed description",
-      donationAmount: "Donation amount (UAH)",
+
+      dreamTitle: "Dream Title",
+      dreamDescription: "Detailed Description",
+      dreamDeadline: "Dream Deadline",
+
       category: "Category",
       format: "Format",
-      budget: "Budget",
+      budget: "Amount",
+
+      personInfo: "Person Information",
+      dreamInfo: "Dream Description",
+      formatCategory: "Format and Category",
+      budgetSection: "Budget",
+      contactPhone: "Contact Phone",
     },
 
     placeholders: {
@@ -122,12 +119,17 @@ const en = {
       email: "Enter email: example@gmail.com",
       password: "Enter password",
       confirmPassword: "Repeat password",
-      age: "E.g., 8",
-      city: "E.g., Kyiv",
+      age: "For example, 8",
+      city: "For example, Kyiv",
       dreamTitle: "Short dream title",
-      dreamDescription: "Tell us more about the dream and why it matters...",
+      dreamDescription:
+        "Describe the dream in more detail and why it is important...",
+      budget: "Enter the dream budget",
       donationAmount: "Enter amount",
-      category: "Select category",
+      category: "Select a category",
+      format: "Select execution format",
+      contactPhone: "Enter phone number: +380XXXXXXXXX",
+      dreamDeadline: "Select dream deadline",
     },
 
     buttons: {
@@ -142,22 +144,32 @@ const en = {
 
   validation: {
     requiredEmail: "Email is required",
-    requiredPassword: "Password is required",
     invalidEmail: "Invalid email format",
-
-    invalidName: "Invalid Name",
-    requiredName: "Name is required",
-
-    selectStatus: "Select status",
-    invalidStatus: "Invalid status",
-    requiredPersonType: "Person type is required",
-
+    requiredPassword: "Password is required",
     minPassword: "Minimum 8 characters",
     passwordUppercase: "One uppercase letter",
     passwordLowercase: "One lowercase letter",
     passwordDigit: "One digit",
     passwordNoMatch: "Passwords do not match",
     passwordMatch: "Passwords match",
+
+    invalidName: "Invalid name",
+    requiredName: "Name is required",
+    requiredCity: "City is required",
+
+    invalidAge: "Invalid age",
+    maxAge: "Age must be less than 120",
+
+    shortTitle: "Title is too short",
+    shortDescription: "Description is too short",
+
+    invalidBudget: "Budget must be a number",
+    maxBudget: "Budget cannot exceed 10,000",
+
+    requiredPhone: "Phone number is required",
+    invalidPhone: "Invalid phone number",
+    requiredDeadline: "Dream deadline is required",
+    requiredPersonType: "Person type is required",
   },
 
   feedback: {
@@ -167,7 +179,6 @@ const en = {
       emailSent: "Email sent!",
       donation: "Thank you for your generosity!",
     },
-
     info: {
       dreamModeration:
         "Thank you for your submission. Our team will review your application within 24 hours.",
@@ -175,7 +186,6 @@ const en = {
       confirmEmail: "We sent a confirmation email to",
       checkInbox: "Check your inbox.",
     },
-
     errors: {
       somethingWrong: "Something went wrong",
       userNotFound: "No account found with this email",
@@ -184,7 +194,6 @@ const en = {
       emailUsed: "Email already in use",
     },
   },
-
   modals: {
     donation: {
       collected: "Collected",
@@ -192,7 +201,6 @@ const en = {
       remaining: "Remaining to collect",
       support: "Support Dream",
     },
-
     success: {
       addAnother: "Add another dream",
       toCatalog: "To dream catalog",
@@ -200,7 +208,6 @@ const en = {
       toHome: "To homepage",
     },
   },
-
   pages: {
     addDream: {
       pageTitle: "Add a New Dream",
@@ -214,7 +221,6 @@ const en = {
       categoryRequired: "Category *",
       budgetRequired: "Required amount",
     },
-
     login: {
       title: "Sign In",
       subtitle: "Sign in to your account",
@@ -227,7 +233,6 @@ const en = {
       noAccount: "Don't have an account?",
       register: "Sign Up",
     },
-
     register: {
       title: "Sign Up",
       subtitle: "Create an account on the platform",
@@ -236,7 +241,6 @@ const en = {
       login: "Sign In",
       personType: "Select person type",
     },
-
     reset: {
       title: "Reset Password",
       subtitle: "Enter your email and we'll send recovery instructions",
@@ -245,25 +249,19 @@ const en = {
       sendAgain: "Send again",
     },
   },
-
   categories: {
     child: "Child",
     elderly: "Elderly person",
     veteran: "Veteran",
     disabled: "Person with disability",
   },
-
   theme: {
     light: "Light",
     dark: "Dark",
     system: "System",
     toggle: "Toggle theme",
   },
-
-  lang: {
-    label: "Language",
-  },
-
+  lang: { label: "Language" },
   misc: {
     openMenu: "Open menu",
     closeMenu: "Close menu",
@@ -271,5 +269,4 @@ const en = {
     mobileNav: "Mobile navigation",
   },
 };
-
 export default en;

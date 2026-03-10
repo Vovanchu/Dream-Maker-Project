@@ -1,4 +1,4 @@
-import type { FormatType } from "@/components/User/components/Filter";
+import type { FormatType } from "@/components/User/Filter";
 import type { Dream } from "@/types/dreams.type";
 
 const sampleTitles = [

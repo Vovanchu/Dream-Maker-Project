@@ -1,4 +1,4 @@
-import type { FormatType } from "@/components/User/components/Filter";
+import type { FormatType } from "@/components/User/Filter";
 
 export interface Dream {
   dream_id: string;

@@ -10,7 +10,8 @@ interface PublicRouteProps {
 export const PublicRoute = ({ children }: PublicRouteProps) => {
   const { role } = useUser();
 
-  if (role) return <Navigate to="/dashboard" replace />;
+  if (role === "admin") return <Navigate to="/admin" replace />;
+  if (role === "user") return <Navigate to="/user" replace />;
 
   return children;
 };
