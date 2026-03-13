@@ -20,7 +20,7 @@ import { loginUser } from "@/api/services/auth";
 
 export const LoginForm = () => {
   const t = useTranslation();
-  const { loginAs } = useUser();
+  const { login } = useUser();
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginFormSchema = z.object({
@@ -33,7 +33,6 @@ export const LoginForm = () => {
   });
 
   type TLoginFormFields = z.infer<typeof LoginFormSchema>;
-  type UserRole = "user" | "admin";
 
   const form = useForm<TLoginFormFields>({
     resolver: zodResolver(LoginFormSchema),
@@ -45,16 +44,12 @@ export const LoginForm = () => {
 
   const onSubmit: SubmitHandler<TLoginFormFields> = async (data) => {
     try {
-      const response = await loginUser({
+      await loginUser({
         email: data.email,
         password: data.password,
       });
 
-      if (response.status === 200) {
-        const { access_token } = response.data;
-        const role: UserRole = "user";
-        loginAs(role, access_token);
-      }
+      login();
     } catch {
       form.setError("root", {
         message: t.feedback.errors.somethingWrong,
@@ -101,7 +96,7 @@ export const LoginForm = () => {
                   <sup className="text-red-700 text-sm">*</sup>
                 </FormLabel>
                 <span className="text-accent text-sm">
-                  <Link to="/reset-password">
+                  <Link to="/auth/forgotPassword">
                     {t.pages.login.forgotPassword}
                   </Link>
                 </span>

@@ -17,6 +17,7 @@ const en = {
     navigation: "Navigation",
     account: "Account",
     resetPassword: "Reset Password",
+    myDreams: "Dreams",
   },
   hero: {
     title: "Fulfill someone's dream today",
@@ -139,6 +140,7 @@ const en = {
       close: "Close",
       login: "Log in",
       register: "Register",
+      make: "Make a dream",
     },
   },
 

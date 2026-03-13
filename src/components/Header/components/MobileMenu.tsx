@@ -6,9 +6,14 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 interface MobileMenuProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   navItems: navigationItem[];
+  handleNavClick: (path: string) => void;
 }
 
-export const MobileMenu = ({ setIsOpen, navItems }: MobileMenuProps) => {
+export const MobileMenu = ({
+  setIsOpen,
+  navItems,
+  handleNavClick,
+}: MobileMenuProps) => {
   return (
     <>
       <div className="md:hidden fixed top-18 left-0 w-full h-[calc(100vh-4.5rem)] bg-background shadow-lg z-40 flex flex-col">
@@ -17,7 +22,10 @@ export const MobileMenu = ({ setIsOpen, navItems }: MobileMenuProps) => {
             <a
               key={item.path}
               href={item.path}
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                handleNavClick(item.path);
+              }}
               className="text-lg font-medium text-foreground hover:text-primary transition-colors"
             >
               {item.label}

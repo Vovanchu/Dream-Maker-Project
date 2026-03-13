@@ -4,6 +4,7 @@ import { AppRoutes } from "./routes";
 import { LanguageProvider } from "./Context/Lang/LangProvider";
 
 function App() {
+  console.log("app");
   return (
     <LanguageProvider>
       <ThemeProvider>

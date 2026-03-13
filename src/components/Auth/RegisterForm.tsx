@@ -35,7 +35,7 @@ import { getPersonType } from "@/const/personTypes";
 
 export const RegisterForm = () => {
   const t = useTranslation();
-  const { loginAs } = useUser();
+  const { login } = useUser();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -107,15 +107,14 @@ export const RegisterForm = () => {
     const registerData: RegisterData = { ...rest, role: "user" };
 
     try {
-      const registerResponse = await registerUser(registerData);
-      if (registerResponse.status === 201) {
-        const loginResponse = await loginUser({
-          email: registerData.email,
-          password: registerData.password,
-        });
-        const { access_token } = loginResponse.data;
-        loginAs("user", access_token);
-      }
+      await registerUser(registerData);
+
+      await loginUser({
+        email: registerData.email,
+        password: registerData.password,
+      });
+
+      login();
     } catch {
       form.setError("root", { message: t.feedback.errors.somethingWrong });
     } finally {

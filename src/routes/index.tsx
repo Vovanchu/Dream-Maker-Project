@@ -8,7 +8,7 @@ import { HomeLayout } from "@/pages/Home/HomeLayout";
 
 export const AppRoutes = () => (
   <Routes>
-    {/* Публічні сторінки */}
+    {/* Public pages */}
     <Route
       path="/"
       element={
@@ -26,7 +26,7 @@ export const AppRoutes = () => (
       }
     />
     <Route
-      path="/register"
+      path="/auth/register"
       element={
         <PublicRoute>
           <Identification />
@@ -34,9 +34,8 @@ export const AppRoutes = () => (
       }
     />
 
-    {/* Лейаути ролей */}
-    {UserRoutes}
-    {AdminRoutes}
+    {UserRoutes()}
+    {AdminRoutes()}
 
     {/* Catch-all 404 */}
     <Route path="*" element={<NotFoundPage />} />

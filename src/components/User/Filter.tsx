@@ -2,19 +2,27 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { Slider } from "@/components/ui/slider";
 import { Search } from "lucide-react";
 import { Label } from "@/components/ui/label";
-
-export type CategoryType = "all" | "child" | "elderly" | "veteran" | "disabled";
-export type FormatType = "all" | "online" | "offline";
+import type { FormatType, PersonType } from "@/types/dreams.type";
 
 interface FilterProps {
   search: string;
   setSearch: (value: string) => void;
-  category: CategoryType;
-  setCategory: (value: CategoryType) => void;
+  category: PersonType;
+  setCategory: (value: PersonType) => void;
   format: FormatType;
   setFormat: (value: FormatType) => void;
   budget: number[];
   setBudget: (value: number[]) => void;
+}
+
+interface IPersonFilter {
+  id: PersonType;
+  label: string;
+}
+
+interface IFormatFilter {
+  id: FormatType;
+  label: string;
 }
 
 export const Filter = ({
@@ -29,7 +37,7 @@ export const Filter = ({
 }: FilterProps) => {
   const t = useTranslation();
 
-  const categories: { id: CategoryType; label: string }[] = [
+  const categories: IPersonFilter[] = [
     { id: "all", label: t.dreams.all },
     { id: "child", label: t.cat.child },
     { id: "elderly", label: t.cat.elderly },
@@ -37,7 +45,7 @@ export const Filter = ({
     { id: "disabled", label: t.cat.disabled },
   ];
 
-  const formats: { id: FormatType; label: string }[] = [
+  const formats: IFormatFilter[] = [
     { id: "all", label: t.dreams.all },
     { id: "online", label: t.fmt.online },
     { id: "offline", label: t.fmt.offline },

@@ -69,7 +69,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/register"
+                  to="/auth/register"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   {t.nav.register}

@@ -1,61 +1,42 @@
+import { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
-import {
-  Filter,
-  type CategoryType,
-  type FormatType,
-} from "../../components/User/Filter";
-import { useEffect, useState } from "react";
-import { getDreams } from "@/api/services/dreams";
-import type { DreamCatalog } from "@/types/dreams.type";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Filter } from "@/components/User/Filter";
+import type { DreamCatalog, FormatType, PersonType } from "@/types/dreams.type";
+import dreamsData from "@/const/dreams.json";
+import { DreamGrid } from "@/components/User/Dreams/DreamGrid";
+
+const formattedDreams: DreamCatalog = dreamsData.map((d) => ({
+  ...d,
+  format: d.format as FormatType,
+  person_type: d.person_type as PersonType,
+}));
 
 export const CatalogOfDreams = () => {
-  const [dreams, setDreams] = useState<DreamCatalog>([]);
+  const [dreams] = useState<DreamCatalog>(formattedDreams);
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState<CategoryType>("all");
+  const [category, setCategory] = useState<PersonType>("all");
   const [format, setFormat] = useState<FormatType>("all");
   const [budget, setBudget] = useState([0, 10000]);
 
   const t = useTranslation();
 
-  useEffect(() => {
-    getDreams()
-      .then((response) => {
-        setDreams(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  // filteredDreams — застосовуємо всі фільтри
   const filteredDreams = dreams.filter((dream) => {
-    const matchesSearch =
-      dream.title.toLowerCase().includes(search.toLowerCase()) ||
-      dream.description.toLowerCase().includes(search.toLowerCase());
-
-    const matchesCategory =
-      category === "all" || dream.person_type === category;
-    const matchesFormat =
-      format === "all" || dream.participation_format === format;
-
-    const dreamBudget = Number(dream.target_budget);
-    const matchesBudget = dreamBudget >= budget[0] && dreamBudget <= budget[1];
-
-    return matchesSearch && matchesCategory && matchesFormat && matchesBudget;
+    return (
+      (category === "all" || dream.person_type === category) &&
+      (format === "all" || dream.format === format) &&
+      dream.budget >= budget[0] &&
+      dream.budget <= budget[1] &&
+      (dream.dreamTitle.toLowerCase().includes(search.toLowerCase()) ||
+        dream.dreamDescription.toLowerCase().includes(search.toLowerCase()))
+    );
   });
 
   return (
-    <div className="h-screen bg-background">
-      <h1 className="text-foreground font-playfair">{t.dreams.title}</h1>
-      <p className="text-muted-foreground">{t.dreams.subtitle}</p>
+    <div className="min-h-screen bg-background px-6 py-8 flex flex-col items-center justify-center">
+      <h1 className="text-foreground font-playfair text-3xl md:text-4xl">
+        {t.dreams.title}
+      </h1>
+      <p className="text-muted-foreground mt-2">{t.dreams.subtitle}</p>
 
       <Filter
         search={search}
@@ -64,40 +45,11 @@ export const CatalogOfDreams = () => {
         setCategory={setCategory}
         format={format}
         setFormat={setFormat}
-        setBudget={setBudget}
         budget={budget}
+        setBudget={setBudget}
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {filteredDreams.map((dream) => (
-          <Card
-            key={dream.dream_id}
-            className="hover:shadow-xl transition-shadow duration-200"
-          >
-            <CardHeader>
-              <CardTitle>{dream.title}</CardTitle>
-            </CardHeader>
-
-            <CardContent className="space-y-2">
-              <p>{dream.description}</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary">{dream.person_type}</Badge>
-                <Badge variant="secondary">{dream.participation_format}</Badge>
-                <Badge variant="secondary">
-                  {dream.is_completed ? "Виконано" : "В процесі"}
-                </Badge>
-              </div>
-            </CardContent>
-
-            <CardFooter className="flex justify-between items-center">
-              <span>Бюджет: {dream.target_budget} ₴</span>
-              <span className="text-xs text-muted-foreground">
-                Додано: {new Date(dream.created_at).toLocaleDateString()}
-              </span>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      <DreamGrid dreams={filteredDreams} />
     </div>
   );
 };
