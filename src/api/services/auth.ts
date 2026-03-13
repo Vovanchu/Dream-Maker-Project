@@ -41,3 +41,14 @@ export const logoutUser = async () => {
 
   return response;
 };
+
+export const forgotPassword = (data: { email: string }) => {
+  return api.post("/auth/forgot-password", data);
+};
+
+export const resetPassword = (data: {
+  token: string;
+  new_password: string;
+}) => {
+  return api.post("/auth/reset-password", data);
+};
