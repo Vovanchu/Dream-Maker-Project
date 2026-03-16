@@ -16,9 +16,7 @@ export const registerUser = (data: RegisterData) => {
 };
 
 export const getUser = async () => {
-  const response = api.get("/auth/me", {
-    withCredentials: true,
-  });
+  const response = await api.get("/auth/me", { withCredentials: true });
 
   return response;
 };
