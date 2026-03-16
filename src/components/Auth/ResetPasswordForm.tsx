@@ -41,9 +41,11 @@ export const ResetPasswordForm = () => {
   });
 
   const onSubmit: SubmitHandler<TFields> = async (data) => {
+    if (!token) return;
+
     try {
       await resetPassword({
-        token: token!,
+        token: token,
         new_password: data.password,
       });
 

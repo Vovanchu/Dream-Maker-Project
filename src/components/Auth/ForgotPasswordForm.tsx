@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,14 +15,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { forgotPassword } from "@/api/services/auth";
 
-export const ForgotPasswordForm = () => {
-  const t = useTranslation();
-
-  const Schema = z.object({
+const createForgotPasswordSchema = (t: any) =>
+  z.object({
     email: z
       .string({ message: t.validation.requiredEmail })
       .email({ message: t.validation.invalidEmail }),
   });
+
+export const ForgotPasswordForm = () => {
+  const t = useTranslation();
+
+  const Schema = createForgotPasswordSchema(t);
 
   type TFields = z.infer<typeof Schema>;
 
