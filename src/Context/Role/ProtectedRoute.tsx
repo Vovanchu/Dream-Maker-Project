@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
   allowedRoles: ("admin" | "user")[];
-  children: ReactNode; // <- змінили тип
+  children: ReactNode;
 }
 
 export const ProtectedRoute = ({

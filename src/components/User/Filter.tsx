@@ -2,26 +2,26 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { Slider } from "@/components/ui/slider";
 import { Search } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import type { FormatType, PersonType } from "@/types/dreams.type";
+import type { format_type, person_type } from "@/types/dreams.type";
 
 interface FilterProps {
   search: string;
   setSearch: (value: string) => void;
-  category: PersonType;
-  setCategory: (value: PersonType) => void;
-  format: FormatType;
-  setFormat: (value: FormatType) => void;
+  category: person_type;
+  setCategory: (value: person_type) => void;
+  format: format_type;
+  setFormat: (value: format_type) => void;
   budget: number[];
   setBudget: (value: number[]) => void;
 }
 
 interface IPersonFilter {
-  id: PersonType;
+  id: person_type;
   label: string;
 }
 
 interface IFormatFilter {
-  id: FormatType;
+  id: format_type;
   label: string;
 }
 

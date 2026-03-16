@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Filter } from "@/components/User/Filter";
-import type { DreamCatalog, FormatType, PersonType } from "@/types/dreams.type";
+import type {
+  DreamCatalog,
+  format_type,
+  person_type,
+} from "@/types/dreams.type";
 import dreamsData from "@/const/dreams.json";
 import { DreamGrid } from "@/components/User/Dreams/DreamGrid";
 import {
@@ -14,8 +18,8 @@ import {
 
 const formattedDreams: DreamCatalog = dreamsData.map((d) => ({
   ...d,
-  format: d.format as FormatType,
-  person_type: d.person_type as PersonType,
+  format: d.format as format_type,
+  person_type: d.person_type as person_type,
 }));
 
 const ITEMS_PER_PAGE = 6;
@@ -23,8 +27,8 @@ const ITEMS_PER_PAGE = 6;
 export const CatalogOfDreams = () => {
   const [dreams] = useState<DreamCatalog>(formattedDreams);
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState<PersonType>("all");
-  const [format, setFormat] = useState<FormatType>("all");
+  const [category, setCategory] = useState<person_type>("all");
+  const [format, setFormat] = useState<format_type>("all");
   const [budget, setBudget] = useState([0, 10000]);
 
   const t = useTranslation();
@@ -40,7 +44,6 @@ export const CatalogOfDreams = () => {
     );
   });
 
-  // розбиваємо на сторінки по 6 мрій
   const pages = Array.from(
     { length: Math.ceil(filteredDreams.length / ITEMS_PER_PAGE) },
     (_, i) =>
@@ -67,7 +70,7 @@ export const CatalogOfDreams = () => {
 
       {filteredDreams.length === 0 ? (
         <p className="text-muted-foreground mt-12 text-center">
-          Нічого не знайдено
+          {t.dreams.notFound}
         </p>
       ) : (
         <Carousel

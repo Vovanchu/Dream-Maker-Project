@@ -1,5 +1,5 @@
-export type PersonType = "all" | "child" | "elderly" | "veteran" | "disabled";
-export type FormatType = "all" | "online" | "offline";
+export type person_type = "all" | "child" | "elderly" | "veteran" | "disabled";
+export type format_type = "all" | "online" | "offline";
 
 export interface Dream {
   dream_id: string;
@@ -13,8 +13,8 @@ export interface Dream {
   city: string;
   dreamTitle: string;
   dreamDescription: string;
-  format: FormatType;
-  person_type: PersonType;
+  format: format_type;
+  person_type: person_type;
   budget: number;
   image: string;
 }
@@ -27,7 +27,7 @@ export interface CreateDream {
   city: string;
   dreamTitle: string;
   dreamDescription: string;
-  format: FormatType;
-  person_type: PersonType;
+  format: format_type;
+  person_type: person_type;
   budget: number;
 }

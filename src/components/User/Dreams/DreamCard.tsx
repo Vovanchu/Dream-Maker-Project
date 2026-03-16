@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import type { Dream } from "@/types/dreams.type";
 import { useTranslation } from "@/hooks/useTranslation";
 
-interface DreamCardProps {
+interface IDreamCardProps {
   dream: Dream;
 }
 
-export const DreamCard = ({ dream }: DreamCardProps) => {
+export const DreamCard = ({ dream }: IDreamCardProps) => {
   const t = useTranslation();
   const collected = Math.floor(dream.budget * 0.72);
   const progress = Math.floor((collected / dream.budget) * 100);

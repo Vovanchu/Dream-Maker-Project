@@ -1,13 +1,16 @@
 import type { Dream } from "@/types/dreams.type";
 import { DreamCard } from "./DreamCard";
+import { useTranslation } from "@/hooks/useTranslation";
 
-interface DreamGridProps {
+interface IDreamGridProps {
   dreams: Dream[];
 }
 
-export const DreamGrid = ({ dreams }: DreamGridProps) => {
+export const DreamGrid = ({ dreams }: IDreamGridProps) => {
+  const t = useTranslation();
+
   if (!dreams.length) {
-    return <p className="text-muted-foreground mt-6">Мрії не знайдено</p>;
+    return <p className="text-muted-foreground mt-6">{t.dreams.notFound}</p>;
   }
 
   return (
