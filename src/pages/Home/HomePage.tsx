@@ -1,4 +1,3 @@
-import Header from "@/components/Header/Header";
 import { Hero } from "@/components/Home/Hero";
 import { InfoGridSection } from "@/components/Home/InfoGridSection";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -12,7 +11,6 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 import { Cta } from "@/components/Home/Cta";
-import { Footer } from "@/components/Footer/Footer";
 import type { StatItem, StepItem } from "@/types/statsAndSteps.types";
 
 // HomePage.tsxр
@@ -71,22 +69,18 @@ export const HomePage = () => {
 
   return (
     <>
-      <Header />
-      <main>
-        <Hero />
-        <InfoGridSection
-          steps={steps}
-          title={t.how.title}
-          subtitle={t.how.subtitle}
-        />
-        <InfoGridSection
-          steps={stats}
-          title={t.stats.title}
-          subtitle={t.stats.subtitle}
-        />
-        <Cta />
-      </main>
-      <Footer />
+      <Hero />
+      <InfoGridSection
+        steps={steps}
+        title={t.how.title}
+        subtitle={t.how.subtitle}
+      />
+      <InfoGridSection
+        steps={stats}
+        title={t.stats.title}
+        subtitle={t.stats.subtitle}
+      />
+      <Cta />
     </>
   );
 };

@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPersonType } from "@/const/personTypes";
-import Header from "@/components/Header/Header";
 
 export const AddDreamPage = () => {
   const t = useTranslation();
@@ -44,7 +43,9 @@ export const AddDreamPage = () => {
       .string()
       .min(10, { message: t.validation.shortDescription }),
     format: z.string().min(1, { message: t.pages.addDream.formatRequired }),
-    category: z.string().min(1, { message: t.pages.addDream.categoryRequired }),
+    person_type: z
+      .string()
+      .min(1, { message: t.pages.addDream.categoryRequired }),
     budget: z
       .number({ message: t.validation.invalidBudget })
       .min(1, { message: t.pages.addDream.budgetRequired })
@@ -69,7 +70,7 @@ export const AddDreamPage = () => {
       dreamTitle: "",
       dreamDescription: "",
       format: "",
-      category: "",
+      person_type: "",
       budget: 0,
       contactPhone: "",
       dreamDeadline: new Date(),
@@ -88,7 +89,6 @@ export const AddDreamPage = () => {
 
   return (
     <>
-      <Header />
       <div className="min-h-screen bg-muted flex flex-col items-center py-12 px-4">
         <h1 className="text-3xl text-foreground font-bold text-center mb-4">
           {t.pages.addDream.pageTitle}
@@ -320,7 +320,7 @@ export const AddDreamPage = () => {
 
                 <FormField
                   control={form.control}
-                  name="category"
+                  name="person_type"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">

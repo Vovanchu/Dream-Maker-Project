@@ -1,48 +1,43 @@
 import { Routes, Route } from "react-router-dom";
-
 import { PublicRoute } from "../Context/Role/PublicRoute";
-
-import { HomePage } from "../pages/Home/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import { Identification } from "@/pages/Auth/Identification";
 import { UserRoutes } from "./UserRoutes";
 import { AdminRoutes } from "./AdminRoutes";
+import { HomeLayout } from "@/pages/Home/HomeLayout";
 
-export const AppRoutes = () => {
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <PublicRoute>
-            <HomePage />
-          </PublicRoute>
-        }
-      />
+export const AppRoutes = () => (
+  <Routes>
+    {/* Public pages */}
+    <Route
+      path="/"
+      element={
+        <PublicRoute>
+          <HomeLayout />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/auth/login"
+      element={
+        <PublicRoute>
+          <Identification />
+        </PublicRoute>
+      }
+    />
+    <Route
+      path="/auth/register"
+      element={
+        <PublicRoute>
+          <Identification />
+        </PublicRoute>
+      }
+    />
 
-      <Route
-        path="/login"
-        element={
-          <PublicRoute>
-            <Identification />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/register"
-        element={
-          <PublicRoute>
-            <Identification />
-          </PublicRoute>
-        }
-      />
+    {UserRoutes()}
+    {AdminRoutes()}
 
-      {AdminRoutes}
-
-      {UserRoutes}
-
-      {/* Catch-all 404 */}
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-  );
-};
+    {/* Catch-all 404 */}
+    <Route path="*" element={<NotFoundPage />} />
+  </Routes>
+);

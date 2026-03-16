@@ -18,6 +18,7 @@ const uk = {
     navigation: "Навігація",
     account: "Акаунт",
     resetPassword: "Скинути пароль",
+    myDreams: "Мрії",
   },
 
   hero: {
@@ -149,6 +150,7 @@ const uk = {
       close: "Закрити",
       login: "Увійти",
       register: "Зареєструватися",
+      make: "Здійснити мрію",
     },
   },
 

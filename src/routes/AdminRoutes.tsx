@@ -2,7 +2,7 @@
 import { Route } from "react-router-dom";
 import { ProtectedRoute } from "../Context/Role/ProtectedRoute";
 
-export const AdminRoutes = (
+export const AdminRoutes = () => (
   <>
     <Route
       path="/admin"

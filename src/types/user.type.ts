@@ -1,8 +1,8 @@
 export type UserRole = "admin" | "user";
 
-export interface UserContextType {
+export type UserContextType = {
   role: UserRole | null;
-  token: string | null;
-  loginAs: (role: UserRole, token?: string) => void;
-  logout: () => void;
-}
+  loading: boolean;
+  login: () => Promise<void>;
+  logout: () => Promise<void>;
+};

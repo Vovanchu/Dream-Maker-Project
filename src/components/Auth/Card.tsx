@@ -49,7 +49,7 @@ export const Card = () => {
       {isLogin && (
         <p className="text-center text-sm text-muted-foreground mt-3">
           {t.pages.login.noAccount}{" "}
-          <Link to="/register" className="text-primary hover:underline">
+          <Link to="/auth/register" className="text-primary hover:underline">
             {t.pages.login.register}
           </Link>
         </p>

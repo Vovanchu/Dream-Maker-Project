@@ -1,14 +1,33 @@
-import type { FormatType } from "@/components/User/Filter";
+export type person_type = "all" | "child" | "elderly" | "veteran" | "disabled";
+export type format_type = "all" | "online" | "offline";
 
 export interface Dream {
   dream_id: string;
-  dreamer_id: string;
-  title: string;
-  description: string;
-  image: string; // URL
-  participationFormat: FormatType;
-  target_budget: number; // decimal
-  isCompleted: boolean;
-  createdAt: string; // ISO date string
-  updatedAt: string; // ISO date string
+  owner_id: string;
+  is_completed: boolean;
+  created_at: string;
+  updated_at: string;
+
+  name: string;
+  age: number;
+  city: string;
+  dreamTitle: string;
+  dreamDescription: string;
+  format: format_type;
+  person_type: person_type;
+  budget: number;
+  image: string;
+}
+
+export type DreamCatalog = Dream[];
+
+export interface CreateDream {
+  name: string;
+  age: number;
+  city: string;
+  dreamTitle: string;
+  dreamDescription: string;
+  format: format_type;
+  person_type: person_type;
+  budget: number;
 }
