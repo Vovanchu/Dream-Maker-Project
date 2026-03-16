@@ -23,11 +23,8 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
-<<<<<<< HEAD
     "embla-carousel-react": "^8.6.0",
-=======
     "i18next": "^25.8.18",
->>>>>>> 8f75c0f (Fix mistake,renamed file)
     "lucide-react": "^0.575.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.0",
