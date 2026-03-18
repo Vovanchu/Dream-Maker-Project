@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -13,14 +12,13 @@ import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { useUser } from "@/hooks/useUser";
 import { Button } from "../ui/button";
+import { useNavClick } from "@/hooks/useNavClick";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { role } = useUser();
   const t = useTranslation();
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
@@ -40,32 +38,19 @@ const Header = () => {
 
   const navItems = role ? userNavItems : guestNavItems;
 
-  const handleNavClick = (path: string) => {
-    if (path.startsWith("#")) {
-      if (location.pathname !== "/") {
-        navigate("/", { state: { scrollTo: "#statistics" } });
-      } else {
-        const el = document.querySelector(path);
-        el?.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      navigate(path);
-    }
-    setIsOpen(false);
-  };
+  const { handleNavClick } = useNavClick(setIsOpen);
 
   return (
     <>
       <header className="flex items-center justify-between px-6 py-4 bg-(--background) text-(--foreground) sticky top-0 z-50 shadow-md">
         {/* Logo */}
-        <a
-          href="#"
+        <Link
+          to="/"
           className="flex items-center gap-2 font-playfair font-semibold text-2xl md:text-3xl"
-          onClick={() => handleNavClick("#")}
         >
           <FavoriteIcon sx={{ color: "var(--primary)" }} />
           {t.site.name}
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
@@ -82,12 +67,6 @@ const Header = () => {
 
         {/* Desktop Controls */}
         <div className="hidden md:flex items-center gap-2">
-          {role ? (
-            <Link to="/user/add-dream">
-              <Button className="cursor-pointer">{t.nav.addDream}</Button>
-            </Link>
-          ) : null}
-
           <ThemeSwitcher />
           <LanguageSwitcher />
           <LogInOut />
