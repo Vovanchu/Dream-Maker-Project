@@ -3,12 +3,12 @@ import HeroImg from "@/UI/Photo/DarkThemeBackgroundPhoto.jpeg";
 import HeroImgLight from "@/UI/Photo/LightThemeBackgroundPhoto.jpeg";
 import { useContext } from "react";
 import { themes } from "@/const/colors";
+import { ThemeContext } from "@/Context/Theme/ThemeContext";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 import type { HeroStats } from "@/types/heroStats.type";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { useNavClick } from "@/hooks/useNavClick";
-import { ThemeContext } from "@/Context/Theme/ThemeContext";
 
 export const Hero = () => {
   const { theme } = useContext(ThemeContext);
@@ -32,9 +32,9 @@ export const Hero = () => {
   const { handleNavClick } = useNavClick();
 
   return (
-    <section
+    <div
       className={cn(
-        "relative min-h-screen py-20 pb-10 flex flex-col items-start justify-center text-foreground",
+        "relative min-h-screen flex flex-col items-start justify-center text-foreground",
         "before:absolute before:inset-0 before:z-0 before:pointer-events-none",
         theme === themes.dark ? "before:bg-black/20" : "before:bg-white/5",
         "bg-cover bg-center",
@@ -88,6 +88,6 @@ export const Hero = () => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
