@@ -2,21 +2,36 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Button } from "../ui/button";
+import { useUser } from "@/hooks/useUser";
+import { getNavItems } from "../utils/navigation";
+import { useNavigationHandler } from "@/hooks/useNavigation";
 
 export function Footer() {
   const t = useTranslation();
+  const { role } = useUser();
+
+  let navItems;
+
+  if (role) {
+    navItems = getNavItems(t, true);
+  } else {
+    navItems = getNavItems(t, false);
+  }
+
+  const { handleNavClick } = useNavigationHandler();
 
   return (
     <footer className="bg-muted border-t border-border">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
-            <Link to="/" className="flex items-center gap-2 group">
+            <a href="#" className="flex items-center gap-2 group">
               <FavoriteIcon className="h-6 w-6 text-primary fill-primary" />
               <span className="font-serif text-lg font-bold text-foreground">
                 {t.site.name}
               </span>
-            </Link>
+            </a>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-xs">
               {t.cta.description}
             </p>
@@ -26,32 +41,18 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-foreground mb-3">
               {t.nav.navigation}
             </h3>
-            <ul className="flex flex-col gap-2">
-              <li>
-                <a
-                  href="#howItWorks"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            {/* Desktop Navigation */}
+            <nav className="flex flex-col items-start">
+              {navItems.map((item) => (
+                <Button
+                  key={item.path}
+                  onClick={() => handleNavClick(item.path)}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer bg-transparent hover:bg-transparent m-0 p-0"
                 >
-                  {t.nav.howItWorks}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#dreamCatalog"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {t.nav.dreamCatalog}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#statistics"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {t.nav.statistics}
-                </a>
-              </li>
-            </ul>
+                  {item.label}
+                </Button>
+              ))}
+            </nav>
           </div>
 
           <div>

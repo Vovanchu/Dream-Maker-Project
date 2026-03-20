@@ -9,15 +9,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { themes } from "@/const/colors";
-import ThemeContext from "@/Context/Theme/ThemeContext";
 import { useContext } from "react";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import { clsx } from "clsx";
 import { useTranslation } from "@/hooks/useTranslation";
+import { ThemeContext } from "@/Context/Theme/ThemeContext";
 
 export const ThemeSwitcher = () => {
-  const { selectedTheme, setSelectedTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   const t = useTranslation();
 
   const getClass = () =>
@@ -32,7 +32,7 @@ export const ThemeSwitcher = () => {
           variant="link"
           className="cursor-pointer text-foreground border border-transparent rounded-md transition-all duration-300 hover:border-gray-400 hover:bg-accent"
         >
-          {selectedTheme === themes.light ? (
+          {theme === themes.light ? (
             <LightModeOutlinedIcon />
           ) : (
             <DarkModeOutlinedIcon />
@@ -44,13 +44,13 @@ export const ThemeSwitcher = () => {
         className="bg-(--background) text-(--foreground)"
       >
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={() => setSelectedTheme(themes.dark)}>
+          <DropdownMenuItem onClick={() => setTheme(themes.dark)}>
             <DropdownMenuLabel className={getClass()}>
               <DarkModeOutlinedIcon />
               {t.theme.dark}
             </DropdownMenuLabel>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setSelectedTheme(themes.light)}>
+          <DropdownMenuItem onClick={() => setTheme(themes.light)}>
             <DropdownMenuLabel className={getClass()}>
               <LightModeOutlinedIcon />
               {t.theme.light}

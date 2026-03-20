@@ -20,7 +20,7 @@ export const InfoGridSection = ({
   return (
     <section
       id={`${steps[0].value ? "statistics" : "howItWorks"}`}
-      className="bg-secondary py-20 px-6 flex flex-col items-center justify-center"
+      className="bg-secondary py-10 px-6 flex flex-col items-center justify-center"
     >
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-4xl font-bold text-(--foreground) font-playfair">
