@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPersonType } from "@/const/personTypes";
+import { addDreamApi } from "@/api/services/dreams";
+import type { format_type, person_type } from "@/types/dreams.type";
 
 export const AddDreamPage = () => {
   const t = useTranslation();
@@ -99,7 +101,6 @@ export const AddDreamPage = () => {
 
         <Form {...form}>
           <div className="w-full max-w-3xl space-y-8">
-            {/* --- Блок: Інформація про мечту */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-foreground">
@@ -168,7 +169,7 @@ export const AddDreamPage = () => {
               </CardContent>
             </Card>
 
-            {/* --- Блок: Формат та категорія --- */}
+            {/* --- Block: Format and Category --- */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-foreground">
@@ -260,7 +261,7 @@ export const AddDreamPage = () => {
               </CardContent>
             </Card>
 
-            {/* --- Блок: Бюджет --- */}
+            {/* --- Block: Budget --- */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-foreground">
@@ -295,7 +296,7 @@ export const AddDreamPage = () => {
               </CardContent>
             </Card>
 
-            {/* --- Кнопки --- */}
+            {/* --- Buttons --- */}
             <div className="flex justify-end space-x-4">
               <Button
                 variant="outline"
@@ -305,7 +306,7 @@ export const AddDreamPage = () => {
                 {t.forms.buttons.cancel}
               </Button>
               <Button
-                onClick={form.handleSubmit(onSubmit)}
+                onClick={form.handleSubmit(onSubmit, console.log)}
                 className=" cursor-pointer"
               >
                 {t.forms.buttons.submit}

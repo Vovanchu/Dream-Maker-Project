@@ -113,6 +113,8 @@ const en = {
       formatCategory: "Format and Category",
       budgetSection: "Budget",
       contactPhone: "Contact Phone",
+
+      imageUrl: "Image URL",
     },
 
     placeholders: {
@@ -131,6 +133,8 @@ const en = {
       format: "Select execution format",
       contactPhone: "Enter phone number: +380XXXXXXXXX",
       dreamDeadline: "Select dream deadline",
+
+      imageUrl: "Enter image URL",
     },
 
     buttons: {
@@ -172,6 +176,8 @@ const en = {
     invalidPhone: "Invalid phone number",
     requiredDeadline: "Dream deadline is required",
     requiredPersonType: "Person type is required",
+
+    invalidUrl: "Invalid image url",
   },
 
   feedback: {
