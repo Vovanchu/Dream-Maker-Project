@@ -22,8 +22,6 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPersonType } from "@/const/personTypes";
-import { addDreamApi } from "@/api/services/dreams";
-import type { format_type, person_type } from "@/types/dreams.type";
 
 export const AddDreamPage = () => {
   const t = useTranslation();

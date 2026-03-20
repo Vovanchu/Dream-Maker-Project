@@ -1,3 +1,4 @@
+// types/dreams.type.ts
 export type person_type = "all" | "child" | "elderly" | "veteran" | "disabled";
 export type format_type = "all" | "online" | "offline";
 

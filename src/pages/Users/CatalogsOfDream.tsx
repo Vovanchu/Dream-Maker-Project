@@ -83,7 +83,7 @@ export const CatalogOfDreams = () => {
   }
 
   if (loading) {
-    <Loader />;
+    return <Loader />;
   }
 
   return (
