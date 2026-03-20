@@ -22,12 +22,11 @@ export interface Dream {
 export type DreamCatalog = Dream[];
 
 export interface CreateDream {
-  name: string;
-  age: number;
-  city: string;
-  dreamTitle: string;
-  dreamDescription: string;
-  format: format_type;
+  title: string;
+  description: string;
   person_type: person_type;
-  budget: number;
+  participation_format: format_type;
+  target_budget: number;
+  city: string;
+  image_url: string;
 }

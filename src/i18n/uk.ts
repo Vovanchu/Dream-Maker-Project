@@ -124,6 +124,8 @@ const uk = {
       formatCategory: "Формат та категорія",
       budgetSection: "Бюджет",
       contactPhone: "Контактний телефон",
+
+      imageUrl: "URL зображення",
     },
 
     placeholders: {
@@ -141,6 +143,8 @@ const uk = {
       format: "Оберіть формат виконання",
       contactPhone: "Введіть номер телефону, наприклад: +380XXXXXXXXX",
       dreamDeadline: "Оберіть дату виконання мрії",
+
+      imageUrl: "Введіть URL зображення",
     },
 
     buttons: {
@@ -182,6 +186,8 @@ const uk = {
     invalidPhone: "Неправильний формат номеру телефону",
     requiredDeadline: "Потрібно вказати дату виконання мрії",
     requiredPersonType: "Потрібно вказати тип людина/звірка",
+
+    invalidUrl: "Неправильний URL",
   },
 
   feedback: {

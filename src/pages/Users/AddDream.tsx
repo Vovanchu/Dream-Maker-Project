@@ -22,41 +22,30 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPersonType } from "@/const/personTypes";
+import { addDreamApi } from "@/api/services/dreams";
+import type { format_type, person_type } from "@/types/dreams.type";
 
 export const AddDreamPage = () => {
   const t = useTranslation();
 
   const DreamFormSchema = z.object({
-    name: z
-      .string()
-      .min(1, { message: t.validation.requiredName })
-      .regex(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ\s'-]+$/, {
-        message: t.validation.invalidName,
-      }),
-    age: z
-      .number({ message: t.validation.invalidAge })
-      .min(1, { message: t.validation.invalidAge })
-      .max(120, { message: t.validation.maxAge }),
-    city: z.string().min(1, { message: t.validation.requiredCity }),
     dreamTitle: z.string().min(3, { message: t.validation.shortTitle }),
     dreamDescription: z
       .string()
       .min(10, { message: t.validation.shortDescription }),
+    city: z.string().min(1, { message: t.validation.requiredCity }),
     format: z.string().min(1, { message: t.pages.addDream.formatRequired }),
     person_type: z
       .string()
       .min(1, { message: t.pages.addDream.categoryRequired }),
     budget: z
-      .number({ message: t.validation.invalidBudget })
+      .number()
       .min(1, { message: t.pages.addDream.budgetRequired })
-      .max(10000, { message: t.validation.maxBudget }),
-    contactPhone: z
-      .string()
-      .min(10, { message: t.validation.requiredPhone })
-      .regex(/^\+?[0-9\s\-()]{10,15}$/, {
-        message: t.validation.invalidPhone,
+      .max(10000, { message: t.validation.maxBudget })
+      .refine((val) => !isNaN(val), {
+        message: t.validation.invalidBudget,
       }),
-    dreamDeadline: z.date().min(1, { message: t.validation.requiredDeadline }),
+    imageUrl: z.string().url({ message: t.validation.invalidUrl }).optional(),
   });
 
   type TDreamFormFields = z.infer<typeof DreamFormSchema>;
@@ -64,25 +53,36 @@ export const AddDreamPage = () => {
   const form = useForm<TDreamFormFields>({
     resolver: zodResolver(DreamFormSchema),
     defaultValues: {
-      name: "",
-      age: 0,
-      city: "",
       dreamTitle: "",
       dreamDescription: "",
+      city: "",
       format: "",
       person_type: "",
       budget: 0,
-      contactPhone: "",
-      dreamDeadline: new Date(),
+      imageUrl: "",
     },
   });
 
-  const onSubmit: SubmitHandler<TDreamFormFields> = (
-    data: z.infer<typeof DreamFormSchema>,
-  ) => {
-    console.log(data);
-    alert(t.feedback.success.dreamSubmitted);
-    form.reset();
+  const onSubmit: SubmitHandler<TDreamFormFields> = async (data) => {
+    const payload = {
+      title: data.dreamTitle,
+      description: data.dreamDescription,
+      person_type: data.person_type as person_type,
+      participation_format: data.format as format_type,
+      target_budget: data.budget,
+      city: data.city,
+      image_url:
+        data.imageUrl?.trim() ||
+        "https://via.placeholder.com/400x300?text=NoImage",
+    };
+
+    try {
+      await addDreamApi(payload);
+      alert(t.feedback.success.dreamSubmitted);
+      form.reset();
+    } catch {
+      alert(t.feedback.errors.somethingWrong);
+    }
   };
 
   const persons_type = getPersonType(t);
@@ -99,97 +99,7 @@ export const AddDreamPage = () => {
 
         <Form {...form}>
           <div className="w-full max-w-3xl space-y-8">
-            {/* --- Блок: Інформація про людину --- */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-foreground">
-                  {t.forms.labels.personInfo}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground">
-                        {t.forms.labels.name} <sup>*</sup>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={t.forms.placeholders.name}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-500" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="age"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground">
-                        {t.forms.labels.age} <sup>*</sup>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder={t.forms.placeholders.age}
-                          {...field}
-                          onChange={(e) =>
-                            field.onChange(e.target.valueAsNumber)
-                          }
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-500" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground">
-                        {t.forms.labels.city} <sup>*</sup>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={t.forms.placeholders.city}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-500" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="contactPhone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="w-full text-foreground">
-                        {t.forms.labels.contactPhone} <sup>*</sup>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={t.forms.placeholders.contactPhone}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-500" />
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
-            </Card>
-
-            {/* --- Блок: Інформація про мечту */}
+            {/* --- Block: Information about dream */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-foreground">
@@ -239,25 +149,35 @@ export const AddDreamPage = () => {
 
                 <FormField
                   control={form.control}
-                  name="dreamDeadline"
+                  name="imageUrl"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.dreamDeadline} <sup>*</sup>
+                        {t.forms.labels.imageUrl}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          type="date"
-                          className="w-1/2 text-muted-foreground"
+                          placeholder={t.forms.placeholders.imageUrl}
                           {...field}
-                          value={
-                            field.value instanceof Date
-                              ? field.value.toISOString().split("T")[0]
-                              : ""
-                          }
-                          onChange={(e) =>
-                            field.onChange(new Date(e.target.value))
-                          }
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-500" />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-foreground">
+                        {t.forms.labels.city}
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder={t.forms.placeholders.city}
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage className="text-red-500" />
@@ -267,7 +187,7 @@ export const AddDreamPage = () => {
               </CardContent>
             </Card>
 
-            {/* --- Блок: Формат та категорія --- */}
+            {/* --- Block: Format and Category --- */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-foreground">
@@ -359,7 +279,7 @@ export const AddDreamPage = () => {
               </CardContent>
             </Card>
 
-            {/* --- Блок: Бюджет --- */}
+            {/* --- Block: Budget --- */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-foreground">
@@ -393,7 +313,7 @@ export const AddDreamPage = () => {
               </CardContent>
             </Card>
 
-            {/* --- Кнопки --- */}
+            {/* --- Buttons --- */}
             <div className="flex justify-end space-x-4">
               <Button
                 variant="outline"
@@ -403,7 +323,7 @@ export const AddDreamPage = () => {
                 {t.forms.buttons.cancel}
               </Button>
               <Button
-                onClick={form.handleSubmit(onSubmit)}
+                onClick={form.handleSubmit(onSubmit, console.log)}
                 className=" cursor-pointer"
               >
                 {t.forms.buttons.submit}
