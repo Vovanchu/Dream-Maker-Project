@@ -1,3 +1,4 @@
+// types/dreams.type.ts
 export type person_type = "all" | "child" | "elderly" | "veteran" | "disabled";
 export type format_type = "all" | "online" | "offline";
 
@@ -8,15 +9,13 @@ export interface Dream {
   created_at: string;
   updated_at: string;
 
-  name: string;
-  age: number;
   city: string;
-  dreamTitle: string;
-  dreamDescription: string;
-  format: format_type;
+  title: string;
+  description: string;
+  participation_format: format_type;
   person_type: person_type;
-  budget: number;
-  image: string;
+  target_budget: string;
+  image_url: string;
 }
 
 export type DreamCatalog = Dream[];

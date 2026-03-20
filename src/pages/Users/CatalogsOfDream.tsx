@@ -51,13 +51,15 @@ export const CatalogOfDreams = () => {
   }, []);
 
   const filteredDreams = dreams.filter((dream) => {
+    const dreamBudget = parseFloat(dream.target_budget);
+
     return (
       (category === "all" || dream.person_type === category) &&
-      (format === "all" || dream.format === format) &&
-      dream.budget >= budget[0] &&
-      dream.budget <= budget[1] &&
-      (dream.dreamTitle.toLowerCase().includes(search.toLowerCase()) ||
-        dream.dreamDescription.toLowerCase().includes(search.toLowerCase()))
+      (format === "all" || dream.participation_format === format) &&
+      dreamBudget >= budget[0] &&
+      dreamBudget <= budget[1] &&
+      (dream.title.toLowerCase().includes(search.toLowerCase()) ||
+        dream.description.toLowerCase().includes(search.toLowerCase()))
     );
   });
 
@@ -72,7 +74,7 @@ export const CatalogOfDreams = () => {
   }
 
   if (loading) {
-    <Loader />;
+    return <Loader />;
   }
 
   return (
