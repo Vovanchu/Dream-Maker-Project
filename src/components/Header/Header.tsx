@@ -5,14 +5,14 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { X } from "lucide-react";
 
 import { useTranslation } from "@/hooks/useTranslation";
-import type { navigationItem } from "@/types/navItems.type";
 import { LogInOut } from "./components/LogInOut";
 import { MobileMenu } from "./components/MobileMenu";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { useUser } from "@/hooks/useUser";
 import { Button } from "../ui/button";
-import { useNavClick } from "@/hooks/useNavClick";
+import { getNavItems } from "../../utils/navigation";
+import { useNavigationHandler } from "@/hooks/useNavigation";
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -24,21 +24,9 @@ const Header = () => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
-  const guestNavItems: navigationItem[] = [
-    { label: t.nav.howItWorks, path: "#howItWorks" },
-    { label: t.nav.dreamCatalog, path: "#dreamCatalog" },
-    { label: t.nav.statistics, path: "#statistics" },
-  ];
+  const navItems = getNavItems(t, role);
 
-  const userNavItems: navigationItem[] = [
-    { label: t.nav.myDreams, path: "/user/dreams" },
-    { label: t.nav.addDream, path: "/user/add-dream" },
-    { label: t.nav.statistics, path: "#statistics" },
-  ];
-
-  const navItems = role ? userNavItems : guestNavItems;
-
-  const { handleNavClick } = useNavClick(setIsOpen);
+  const { handleNavClick } = useNavigationHandler(setIsOpen);
 
   return (
     <>

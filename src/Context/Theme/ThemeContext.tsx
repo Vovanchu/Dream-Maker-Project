@@ -1,14 +1,13 @@
-import React from "react";
-import { themes } from "../../const/colors";
+import { createContext } from "react";
 
-interface ThemeContextType {
-  selectedTheme: typeof themes.light | typeof themes.dark;
-  setSelectedTheme: (theme: typeof themes.light | typeof themes.dark) => void;
-}
+export type Theme = "light" | "dark";
 
-const ThemeContext = React.createContext<ThemeContextType>({
-  selectedTheme: themes.light,
-  setSelectedTheme: () => {},
+type ThemeContextType = {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+};
+
+export const ThemeContext = createContext<ThemeContextType>({
+  theme: "light",
+  setTheme: () => {},
 });
-
-export default ThemeContext;
