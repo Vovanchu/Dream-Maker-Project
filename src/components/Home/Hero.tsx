@@ -32,9 +32,9 @@ export const Hero = () => {
   const { handleNavClick } = useNavClick();
 
   return (
-    <div
+    <section
       className={cn(
-        "relative min-h-screen flex flex-col items-start justify-center text-foreground",
+        "relative min-h-screen py-20 pb-10 flex flex-col items-start justify-center text-foreground",
         "before:absolute before:inset-0 before:z-0 before:pointer-events-none",
         theme === themes.dark ? "before:bg-black/20" : "before:bg-white/5",
         "bg-cover bg-center",
@@ -88,6 +88,6 @@ export const Hero = () => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
