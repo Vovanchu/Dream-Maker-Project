@@ -16,10 +16,6 @@ export const useNavClick = (setIsOpen?: (v: boolean) => void) => {
       navigate(path);
     }
 
-<<<<<<< HEAD
-=======
-    // Викликаємо тільки якщо передали setIsOpen
->>>>>>> 8df88f2 (Add custom hooks for navigation, changed few files in header navigation)
     setIsOpen?.(false);
   };
 
