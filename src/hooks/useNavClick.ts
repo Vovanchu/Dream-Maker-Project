@@ -16,7 +16,6 @@ export const useNavClick = (setIsOpen?: (v: boolean) => void) => {
       navigate(path);
     }
 
-    // Викликаємо тільки якщо передали setIsOpen
     setIsOpen?.(false);
   };
 
