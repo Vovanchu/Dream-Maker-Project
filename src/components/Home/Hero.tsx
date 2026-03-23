@@ -3,11 +3,12 @@ import HeroImg from "@/UI/Photo/DarkThemeBackgroundPhoto.jpeg";
 import HeroImgLight from "@/UI/Photo/LightThemeBackgroundPhoto.jpeg";
 import { useContext } from "react";
 import { themes } from "@/const/colors";
+import { ThemeContext } from "@/Context/Theme/ThemeContext";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 import type { HeroStats } from "@/types/heroStats.type";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { ThemeContext } from "@/Context/Theme/ThemeContext";
+import { useNavClick } from "@/hooks/useNavClick";
 
 export const Hero = () => {
   const { theme } = useContext(ThemeContext);
@@ -27,6 +28,8 @@ export const Hero = () => {
       value: "89",
     },
   ];
+
+  const { handleNavClick } = useNavClick();
 
   return (
     <section
@@ -58,7 +61,7 @@ export const Hero = () => {
           asChild
           className="inline-flex items-center justify-center px-2 lg:px-4 py-2 bg-primary text-primary-foreground font-medium shadow-md hover:bg-button-hover transition-colors duration-500"
         >
-          <a href="#dreamCatalog">
+          <Button onClick={() => handleNavClick("#dreamCatalog")}>
             {t.hero.viewDreams}
             <ArrowDownwardOutlinedIcon
               sx={{
@@ -66,7 +69,7 @@ export const Hero = () => {
                 marginLeft: "0.5rem",
               }}
             />
-          </a>
+          </Button>
         </Button>
 
         <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center flex-wrap gap-4 my-4 sm:my-8">

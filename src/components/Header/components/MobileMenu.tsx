@@ -2,6 +2,7 @@ import type { navigationItem } from "@/types/navItems.type";
 import { LogInOut } from "./LogInOut";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { Button } from "@/components/ui/button";
 
 interface MobileMenuProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,17 +20,16 @@ export const MobileMenu = ({
       <div className="md:hidden fixed top-18 left-0 w-full h-[calc(100vh-4.5rem)] bg-background shadow-lg z-40 flex flex-col">
         <div className="flex-1 flex flex-col items-center justify-center gap-6">
           {navItems.map((item) => (
-            <a
+            <Button
               key={item.path}
-              href={item.path}
               onClick={() => {
                 setIsOpen(false);
                 handleNavClick(item.path);
               }}
-              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+              className="w-40 h-12 text-lg font-medium text-foreground hover:text-primary transition-colors"
             >
               {item.label}
-            </a>
+            </Button>
           ))}
         </div>
 
