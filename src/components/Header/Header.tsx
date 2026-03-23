@@ -11,7 +11,7 @@ import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { useUser } from "@/hooks/useUser";
 import { Button } from "../ui/button";
-import { getNavItems } from "../utils/navigation";
+import { getNavItems } from "../../utils/navigation";
 import { useNavigationHandler } from "@/hooks/useNavigation";
 import { Link } from "react-router-dom";
 
@@ -24,13 +24,7 @@ const Header = () => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
-  let navItems;
-
-  if (role) {
-    navItems = getNavItems(t, true);
-  } else {
-    navItems = getNavItems(t, false);
-  }
+  const navItems = getNavItems(t, role);
 
   const { handleNavClick } = useNavigationHandler(setIsOpen);
 

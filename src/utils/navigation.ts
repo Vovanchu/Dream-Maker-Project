@@ -1,10 +1,10 @@
-// utils/navigation.ts
 import type { navigationItem } from "@/types/navItems.type";
 import type { Translation } from "@/types/translation.type";
+import type { UserRole } from "@/types/user.type";
 
 export const getNavItems = (
   t: Translation,
-  role: boolean,
+  role: UserRole | null,
 ): navigationItem[] => {
   const guestNavItems: navigationItem[] = [
     { label: t.nav.howItWorks, path: "#howItWorks" },

@@ -1,4 +1,3 @@
-// hooks/useNavigation.ts
 import { useNavigate, useLocation } from "react-router-dom";
 
 export const useNavigationHandler = (setIsOpen?: (v: boolean) => void) => {

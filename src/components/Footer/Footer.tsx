@@ -4,20 +4,14 @@ import { useTranslation } from "@/hooks/useTranslation";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button } from "../ui/button";
 import { useUser } from "@/hooks/useUser";
-import { getNavItems } from "../utils/navigation";
+import { getNavItems } from "../../utils/navigation";
 import { useNavigationHandler } from "@/hooks/useNavigation";
 
 export function Footer() {
   const t = useTranslation();
   const { role } = useUser();
 
-  let navItems;
-
-  if (role) {
-    navItems = getNavItems(t, true);
-  } else {
-    navItems = getNavItems(t, false);
-  }
+  const navItems = getNavItems(t, role);
 
   const { handleNavClick } = useNavigationHandler();
 
