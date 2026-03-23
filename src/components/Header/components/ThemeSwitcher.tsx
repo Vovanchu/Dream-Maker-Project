@@ -20,9 +20,10 @@ export const ThemeSwitcher = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const t = useTranslation();
 
-  const getClass = () =>
+  const getClass = (code?: string) =>
     clsx(
-      "flex items-center gap-2 w-full rounded-md px-2 py-1 transition-colors duration-300 cursor-pointer ",
+      "flex items-center gap-2 w-full rounded-md px-2 py-1 transition-colors duration-300 cursor-pointer",
+      theme === code && "font-bold text-ring",
     );
 
   return (
@@ -45,13 +46,13 @@ export const ThemeSwitcher = () => {
       >
         <DropdownMenuGroup>
           <DropdownMenuItem onClick={() => setTheme(themes.dark)}>
-            <DropdownMenuLabel className={getClass()}>
+            <DropdownMenuLabel className={getClass("dark")}>
               <DarkModeOutlinedIcon />
               {t.theme.dark}
             </DropdownMenuLabel>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setTheme(themes.light)}>
-            <DropdownMenuLabel className={getClass()}>
+            <DropdownMenuLabel className={getClass("light")}>
               <LightModeOutlinedIcon />
               {t.theme.light}
             </DropdownMenuLabel>
