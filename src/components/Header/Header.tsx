@@ -1,58 +1,32 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { X } from "lucide-react";
 
 import { useTranslation } from "@/hooks/useTranslation";
-import type { navigationItem } from "@/types/navItems.type";
 import { LogInOut } from "./components/LogInOut";
 import { MobileMenu } from "./components/MobileMenu";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { useUser } from "@/hooks/useUser";
 import { Button } from "../ui/button";
+import { getNavItems } from "../../utils/navigation";
+import { useNavigationHandler } from "@/hooks/useNavigation";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { role } = useUser();
   const t = useTranslation();
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
 
-  const guestNavItems: navigationItem[] = [
-    { label: t.nav.howItWorks, path: "#howItWorks" },
-    { label: t.nav.dreamCatalog, path: "#dreamCatalog" },
-    { label: t.nav.statistics, path: "#statistics" },
-  ];
+  const navItems = getNavItems(t, role);
 
-  const userNavItems: navigationItem[] = [
-    { label: t.nav.myDreams, path: "/user/dreams" },
-    { label: t.nav.addDream, path: "/user/add-dream" },
-    { label: t.nav.statistics, path: "#statistics" },
-  ];
-
-  const navItems = role ? userNavItems : guestNavItems;
-
-  const handleNavClick = (path: string) => {
-    if (path.startsWith("#")) {
-      if (location.pathname !== "/") {
-        navigate("/", { state: { scrollTo: "#statistics" } });
-      } else {
-        const el = document.querySelector(path);
-        el?.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      navigate(path);
-    }
-    setIsOpen(false);
-  };
+  const { handleNavClick } = useNavigationHandler(setIsOpen);
 
   return (
     <>

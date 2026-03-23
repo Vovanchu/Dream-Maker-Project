@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
-import ThemeContext from "./ThemeContext";
-import { themes } from "../../const/colors";
+import { ThemeContext, type Theme } from "./ThemeContext";
+
+const STORAGE_KEY = "app_theme";
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [selectedTheme, setSelectedTheme] = useState(themes.light);
+  const [theme, setTheme] = useState<Theme>(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return (saved as Theme) || "light";
+  });
 
   useEffect(() => {
-    const root = document.documentElement;
+    localStorage.setItem(STORAGE_KEY, theme);
 
-    if (selectedTheme === themes.dark) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [selectedTheme]);
+    // опціонально — додаємо клас на html
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(theme);
+  }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ selectedTheme, setSelectedTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

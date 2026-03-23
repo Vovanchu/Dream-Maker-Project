@@ -16,22 +16,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff, UserPlus } from "lucide-react";
+import { Check, Eye, EyeOff, UserPlus, X } from "lucide-react";
 
 import type { RegisterData } from "@/types/authData.type";
 import { loginUser, registerUser } from "@/api/services/auth";
-import { getPersonType } from "@/const/personTypes";
+import { passwordRules } from "@/const/passwordRules";
 
 export const RegisterForm = () => {
   const t = useTranslation();
@@ -39,6 +30,7 @@ export const RegisterForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [passwordValue, setPasswordValue] = useState("");
 
   const RegisterFormSchema = z
     .object({
@@ -80,9 +72,6 @@ export const RegisterForm = () => {
         .refine((val) => /\d/.test(val), {
           message: t.validation.passwordDigit,
         }),
-      person_type: z
-        .string()
-        .min(1, { message: t.pages.addDream.categoryRequired }),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: t.validation.passwordNoMatch,
@@ -98,7 +87,6 @@ export const RegisterForm = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      person_type: "",
     },
   });
 
@@ -122,7 +110,7 @@ export const RegisterForm = () => {
     }
   };
 
-  const persons_type = getPersonType(t);
+  const showRules = passwordValue.length > 0;
 
   return (
     <Form {...form}>
@@ -137,7 +125,11 @@ export const RegisterForm = () => {
                 {t.forms.labels.name}
               </FormLabel>
               <FormControl>
-                <Input placeholder={t.forms.placeholders.name} {...field} />
+                <Input
+                  placeholder={t.forms.placeholders.name}
+                  {...field}
+                  className="text-accent-foreground"
+                />
               </FormControl>
               <FormMessage className="text-red-500" />
             </FormItem>
@@ -158,6 +150,7 @@ export const RegisterForm = () => {
                   type="email"
                   placeholder={t.forms.placeholders.email}
                   {...field}
+                  className="text-accent-foreground"
                 />
               </FormControl>
               <FormMessage className="text-red-500" />
@@ -179,8 +172,12 @@ export const RegisterForm = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder={t.forms.placeholders.password}
-                    className="pr-10"
+                    className="text-accent-foreground pr-10"
                     {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setPasswordValue(e.target.value);
+                    }}
                   />
                   <Button
                     variant="ghost"
@@ -211,7 +208,7 @@ export const RegisterForm = () => {
                   <Input
                     type={showConfirm ? "text" : "password"}
                     placeholder={t.forms.placeholders.password}
-                    className="pr-10"
+                    className="text-accent-foreground pr-10"
                     {...field}
                   />
                   <Button
@@ -229,39 +226,33 @@ export const RegisterForm = () => {
           )}
         />
 
-        {/* Person Type */}
-        <FormField
-          control={form.control}
-          name="person_type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-foreground">
-                {t.pages.register.personType}
-              </FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger className="w-full cursor-pointer">
-                    <SelectValue placeholder={t.forms.placeholders.category} />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="bg-accent/90 backdrop-blur-md border border-border shadow-xl">
-                  <SelectGroup>
-                    {persons_type.map((person_type) => (
-                      <SelectItem
-                        key={person_type.value}
-                        value={person_type.value}
-                        className="cursor-pointer hover:bg-accent-foreground/10 focus:bg-accent-foreground/10"
-                      >
-                        {person_type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
+        {/* Password rules */}
+        {showRules && (
+          <ul className="mt-2 space-y-1">
+            {passwordRules.map((rule) => {
+              const passed = rule.test(passwordValue);
+              return (
+                <li
+                  key={rule.label}
+                  className="flex items-center gap-2 text-xs"
+                >
+                  {passed ? (
+                    <Check size={13} className="text-green-500 shrink-0" />
+                  ) : (
+                    <X size={13} className="text-red-400 shrink-0" />
+                  )}
+                  <span
+                    className={
+                      passed ? "text-green-600" : "text-muted-foreground"
+                    }
+                  >
+                    {rule.label}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
         {/* Root error */}
         {form.formState.errors.root && (
@@ -290,7 +281,10 @@ export const RegisterForm = () => {
           <Button
             type="button"
             variant="outline"
-            onClick={() => form.reset()}
+            onClick={() => {
+              form.reset();
+              setPasswordValue("");
+            }}
             className="text-accent-foreground cursor-pointer"
           >
             {t.forms.buttons.cancel}

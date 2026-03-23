@@ -7,10 +7,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import LanguageContext from "@/Context/Lang/LangConext";
 import { useContext } from "react";
 import LanguageIcon from "@mui/icons-material/Language";
 import { clsx } from "clsx";
+import { LanguageContext } from "@/Context/Lang/LangConext";
 
 export const LanguageSwitcher = () => {
   const { language, setLanguage } = useContext(LanguageContext);

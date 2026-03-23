@@ -8,7 +8,10 @@ export const Cta = () => {
   const t = useTranslation();
 
   return (
-    <section id="dreamCatalog" className="py-20 bg-foreground text-background">
+    <section
+      id="dreamCatalog"
+      className="pt-10 pb-20 bg-foreground text-background"
+    >
       <div className="mx-auto max-w-3xl px-4 text-center lg:px-8">
         <FavoriteIcon className="h-12 w-12 text-primary fill-primary mx-auto mb-6" />
         <h2 className="font-serif text-3xl font-bold md:text-4xl text-balance">
