@@ -2,9 +2,7 @@ import { api } from "@/api/index";
 import type { LoginData, RegisterData } from "@/types/authData.type";
 
 export const loginUser = (data: LoginData) => {
-  const response = api.post("/auth/login", data, {
-    withCredentials: true,
-  });
+  const response = api.post("/auth/login", data);
 
   return response;
 };
@@ -33,9 +31,7 @@ export const resetPassword = (data: {
 };
 
 export const logoutUser = async () => {
-  const response = api.get("/auth/logout", {
-    withCredentials: true,
-  });
+  const response = api.get("/auth/logout");
 
   return response;
 };
