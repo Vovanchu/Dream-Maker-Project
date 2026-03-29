@@ -5,12 +5,9 @@ import { Identification } from "@/pages/Auth/Identification";
 import { UserRoutes } from "./UserRoutes";
 import { AdminRoutes } from "./AdminRoutes";
 import { HomeLayout } from "@/pages/Home/HomeLayout";
-<<<<<<< HEAD
 import { ForgotPasswordPage } from "@/pages/Auth/ForgotPassword";
 import { ResetPasswordPage } from "@/pages/Auth/ResetPasswrod";
-=======
 import GoogleCallback from "@/pages/Auth/GoogleAuthPage";
->>>>>>> 4817390 (feat: add Google auth integration and fetch stats from API)
 
 export const AppRoutes = () => (
   <Routes>
@@ -40,7 +37,6 @@ export const AppRoutes = () => (
       }
     />
 
-<<<<<<< HEAD
     <Route
       path="/auth/forgotPassword"
       element={
@@ -58,9 +54,7 @@ export const AppRoutes = () => (
         </PublicRoute>
       }
     />
-=======
     <Route path="/auth/google/callback" element={<GoogleCallback />} />
->>>>>>> 4817390 (feat: add Google auth integration and fetch stats from API)
 
     {UserRoutes()}
     {AdminRoutes()}
