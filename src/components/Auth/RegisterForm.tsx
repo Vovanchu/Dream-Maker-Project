@@ -23,6 +23,7 @@ import { Check, Eye, EyeOff, UserPlus, X } from "lucide-react";
 import type { RegisterData } from "@/types/authData.type";
 import { loginUser, registerUser } from "@/api/services/auth";
 import { passwordRules } from "@/const/passwordRules";
+import axios from "axios";
 
 export const RegisterForm = () => {
   const t = useTranslation();
@@ -103,10 +104,45 @@ export const RegisterForm = () => {
       });
 
       login();
-    } catch {
-      form.setError("root", { message: t.feedback.errors.somethingWrong });
-    } finally {
       form.reset();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+
+        if (status === 400) {
+          const errors = error.response?.data?.detail;
+
+          if (Array.isArray(errors)) {
+            errors.forEach((err: { loc: (string | number)[]; msg: string }) => {
+              const field = err.loc?.[1];
+
+              if (field && field in data) {
+                form.setError(field as keyof TRegisterFormFields, {
+                  message: err.msg,
+                });
+              } else {
+                form.setError("root", { message: err.msg });
+              }
+            });
+          }
+        } else if (status === 401) {
+          form.setError("root", {
+            message: t.feedback.errors.invalidCredentials,
+          });
+        } else if (status === 409) {
+          form.setError("email", {
+            message: t.feedback.errors.emailUsed,
+          });
+        } else {
+          form.setError("root", {
+            message: t.feedback.errors.somethingWrong,
+          });
+        }
+      } else {
+        form.setError("root", {
+          message: t.feedback.errors.somethingWrong,
+        });
+      }
     }
   };
 
@@ -178,6 +214,9 @@ export const RegisterForm = () => {
                       field.onChange(e);
                       setPasswordValue(e.target.value);
                     }}
+                    onCopy={(e) => e.preventDefault()}
+                    onCut={(e) => e.preventDefault()}
+                    onPaste={(e) => e.preventDefault()}
                   />
                   <Button
                     variant="ghost"

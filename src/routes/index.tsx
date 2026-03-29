@@ -5,6 +5,8 @@ import { Identification } from "@/pages/Auth/Identification";
 import { UserRoutes } from "./UserRoutes";
 import { AdminRoutes } from "./AdminRoutes";
 import { HomeLayout } from "@/pages/Home/HomeLayout";
+import { ForgotPasswordPage } from "@/pages/Auth/ForgotPassword";
+import { ResetPasswordPage } from "@/pages/Auth/ResetPasswrod";
 
 export const AppRoutes = () => (
   <Routes>
@@ -30,6 +32,24 @@ export const AppRoutes = () => (
       element={
         <PublicRoute>
           <Identification />
+        </PublicRoute>
+      }
+    />
+
+    <Route
+      path="/auth/forgotPassword"
+      element={
+        <PublicRoute>
+          <ForgotPasswordPage />
+        </PublicRoute>
+      }
+    />
+
+    <Route
+      path="/auth/resetPassword"
+      element={
+        <PublicRoute>
+          <ResetPasswordPage />
         </PublicRoute>
       }
     />
