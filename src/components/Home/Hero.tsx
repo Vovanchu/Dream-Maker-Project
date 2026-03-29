@@ -58,18 +58,16 @@ export const Hero = () => {
         </p>
 
         <Button
-          asChild
-          className="inline-flex items-center justify-center px-2 lg:px-4 py-2 bg-primary text-primary-foreground font-medium shadow-md hover:bg-button-hover transition-colors duration-500"
+          onClick={() => handleNavClick("#dreamCatalog")}
+          className="inline-flex items-center justify-center px-2 lg:px-4 py-2 bg-primary text-primary-foreground font-medium shadow-md hover:bg-button-hover transition-colors duration-500 cursor-pointer"
         >
-          <Button onClick={() => handleNavClick("#dreamCatalog")}>
-            {t.hero.viewDreams}
-            <ArrowDownwardOutlinedIcon
-              sx={{
-                fontSize: "1rem",
-                marginLeft: "0.5rem",
-              }}
-            />
-          </Button>
+          {t.hero.viewDreams}
+          <ArrowDownwardOutlinedIcon
+            sx={{
+              fontSize: "1rem",
+              marginLeft: "0.5rem",
+            }}
+          />
         </Button>
 
         <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center flex-wrap gap-4 my-4 sm:my-8">

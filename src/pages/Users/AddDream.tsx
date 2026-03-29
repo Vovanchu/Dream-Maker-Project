@@ -27,36 +27,30 @@ export const AddDreamPage = () => {
   const t = useTranslation();
 
   const DreamFormSchema = z.object({
-    name: z
-      .string()
-      .min(1, { message: t.validation.requiredName })
-      .regex(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ\s'-]+$/, {
-        message: t.validation.invalidName,
-      }),
-    age: z
-      .number({ message: t.validation.invalidAge })
-      .min(1, { message: t.validation.invalidAge })
-      .max(120, { message: t.validation.maxAge }),
-    city: z.string().min(1, { message: t.validation.requiredCity }),
-    dreamTitle: z.string().min(3, { message: t.validation.shortTitle }),
-    dreamDescription: z
-      .string()
-      .min(10, { message: t.validation.shortDescription }),
-    format: z.string().min(1, { message: t.pages.addDream.formatRequired }),
+    title: z.string().min(3, { message: t.validation.shortTitle }),
+
+    description: z.string().min(10, { message: t.validation.shortDescription }),
+
     person_type: z
       .string()
       .min(1, { message: t.pages.addDream.categoryRequired }),
-    budget: z
+
+    participation_format: z
+      .string()
+      .min(1, { message: t.pages.addDream.formatRequired }),
+
+    target_budget: z
       .number({ message: t.validation.invalidBudget })
       .min(1, { message: t.pages.addDream.budgetRequired })
       .max(10000, { message: t.validation.maxBudget }),
-    contactPhone: z
+
+    city: z.string().min(1, { message: t.validation.requiredCity }),
+
+    image_url: z
       .string()
-      .min(10, { message: t.validation.requiredPhone })
-      .regex(/^\+?[0-9\s\-()]{10,15}$/, {
-        message: t.validation.invalidPhone,
-      }),
-    dreamDeadline: z.date().min(1, { message: t.validation.requiredDeadline }),
+      .url({ message: "Invalid image URL" })
+      .optional()
+      .or(z.literal("")),
   });
 
   type TDreamFormFields = z.infer<typeof DreamFormSchema>;
@@ -64,23 +58,29 @@ export const AddDreamPage = () => {
   const form = useForm<TDreamFormFields>({
     resolver: zodResolver(DreamFormSchema),
     defaultValues: {
-      name: "",
-      age: 0,
-      city: "",
-      dreamTitle: "",
-      dreamDescription: "",
-      format: "",
+      title: "",
+      description: "",
       person_type: "",
-      budget: 0,
-      contactPhone: "",
-      dreamDeadline: new Date(),
+      participation_format: "",
+      target_budget: 0,
+      city: "",
+      image_url: "",
     },
   });
 
-  const onSubmit: SubmitHandler<TDreamFormFields> = (
-    data: z.infer<typeof DreamFormSchema>,
-  ) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<TDreamFormFields> = (data) => {
+    const payload = {
+      title: data.title,
+      description: data.description,
+      person_type: data.person_type,
+      participation_format: data.participation_format,
+      target_budget: data.target_budget,
+      city: data.city,
+      image_url: data.image_url,
+    };
+
+    console.log(payload);
+
     alert(t.feedback.success.dreamSubmitted);
     form.reset();
   };
@@ -99,25 +99,26 @@ export const AddDreamPage = () => {
 
         <Form {...form}>
           <div className="w-full max-w-3xl space-y-8">
-            {/* --- Блок: Інформація про людину --- */}
+            {/* --- Блок: Інформація про мечту */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-foreground">
-                  {t.forms.labels.personInfo}
+                  {t.forms.labels.dreamInfo}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+              <CardContent className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="title"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.name} <sup>*</sup>
+                        {t.forms.labels.dreamTitle} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={t.forms.placeholders.name}
+                          placeholder={t.forms.placeholders.dreamTitle}
                           {...field}
                         />
                       </FormControl>
@@ -128,20 +129,17 @@ export const AddDreamPage = () => {
 
                 <FormField
                   control={form.control}
-                  name="age"
+                  name="description"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
-                        {t.forms.labels.age} <sup>*</sup>
+                        {t.forms.labels.dreamDescription} <sup>*</sup>
                       </FormLabel>
                       <FormControl>
-                        <Input
-                          type="number"
-                          placeholder={t.forms.placeholders.age}
+                        <Textarea
+                          placeholder={t.forms.placeholders.dreamDescription}
+                          className="h-32 resize-none"
                           {...field}
-                          onChange={(e) =>
-                            field.onChange(e.target.valueAsNumber)
-                          }
                         />
                       </FormControl>
                       <FormMessage className="text-red-500" />
@@ -167,103 +165,6 @@ export const AddDreamPage = () => {
                     </FormItem>
                   )}
                 />
-
-                <FormField
-                  control={form.control}
-                  name="contactPhone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="w-full text-foreground">
-                        {t.forms.labels.contactPhone} <sup>*</sup>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={t.forms.placeholders.contactPhone}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-500" />
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
-            </Card>
-
-            {/* --- Блок: Інформація про мечту */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-foreground">
-                  {t.forms.labels.dreamInfo}
-                </CardTitle>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="dreamTitle"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground">
-                        {t.forms.labels.dreamTitle} <sup>*</sup>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={t.forms.placeholders.dreamTitle}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-500" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="dreamDescription"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground">
-                        {t.forms.labels.dreamDescription} <sup>*</sup>
-                      </FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder={t.forms.placeholders.dreamDescription}
-                          className="h-32 resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-500" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="dreamDeadline"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground">
-                        {t.forms.labels.dreamDeadline} <sup>*</sup>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          type="date"
-                          className="w-1/2 text-muted-foreground"
-                          {...field}
-                          value={
-                            field.value instanceof Date
-                              ? field.value.toISOString().split("T")[0]
-                              : ""
-                          }
-                          onChange={(e) =>
-                            field.onChange(new Date(e.target.value))
-                          }
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-500" />
-                    </FormItem>
-                  )}
-                />
               </CardContent>
             </Card>
 
@@ -278,7 +179,7 @@ export const AddDreamPage = () => {
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
-                  name="format"
+                  name="participation_format"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
@@ -370,7 +271,7 @@ export const AddDreamPage = () => {
               <CardContent>
                 <FormField
                   control={form.control}
-                  name="budget"
+                  name="target_budget"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-foreground">
@@ -384,6 +285,7 @@ export const AddDreamPage = () => {
                           onChange={(e) =>
                             field.onChange(e.target.valueAsNumber)
                           }
+                          className="text-muted-foreground"
                         />
                       </FormControl>
                       <FormMessage className="text-red-500" />

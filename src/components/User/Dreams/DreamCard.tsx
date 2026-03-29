@@ -10,16 +10,17 @@ interface IDreamCardProps {
 
 export const DreamCard = ({ dream }: IDreamCardProps) => {
   const t = useTranslation();
-  const collected = Math.floor(dream.budget * 0.72);
-  const progress = Math.floor((collected / dream.budget) * 100);
+
+  const collected = Math.floor(dream.target_budget * 0.72);
+  const progress = Math.floor((collected / dream.target_budget) * 100);
 
   return (
     <Card className="overflow-hidden rounded-2xl border border-border bg-card hover:shadow-xl transition-all">
       {/* IMAGE */}
       <div className="relative h-48 w-full overflow-hidden">
         <img
-          src={dream.image}
-          alt={dream.dreamTitle}
+          src={dream.image_url}
+          alt={dream.title}
           className="h-full w-full object-cover"
         />
 
@@ -28,25 +29,22 @@ export const DreamCard = ({ dream }: IDreamCardProps) => {
           <Badge className="bg-blue-100 text-blue-700">
             {dream.person_type}
           </Badge>
-          <Badge className="bg-black/70 text-white">{dream.format}</Badge>
+          <Badge className="bg-black/70 text-white">
+            {dream.participation_format}
+          </Badge>
         </div>
       </div>
 
       {/* CONTENT */}
       <div className="p-5 space-y-3">
-        <h3 className="text-lg font-semibold text-foreground">
-          {dream.dreamTitle}
-        </h3>
+        <h3 className="text-lg font-semibold text-foreground">{dream.title}</h3>
 
         <p className="text-sm text-muted-foreground line-clamp-2">
-          {dream.dreamDescription}
+          {dream.description}
         </p>
 
         {/* META */}
         <div className="text-xs text-muted-foreground flex gap-4">
-          <span>
-            {dream.name}, {dream.age}
-          </span>
           <span>{dream.city}</span>
           <span>{new Date(dream.created_at).toLocaleDateString()}</span>
         </div>
@@ -54,7 +52,8 @@ export const DreamCard = ({ dream }: IDreamCardProps) => {
         {/* BUDGET */}
         <div className="flex justify-between text-sm text-muted-foreground">
           <span>
-            {collected.toLocaleString()} / {dream.budget.toLocaleString()} грн
+            {collected.toLocaleString()} /{" "}
+            {dream.target_budget.toLocaleString()} грн
           </span>
           <span className="font-medium">{progress}%</span>
         </div>

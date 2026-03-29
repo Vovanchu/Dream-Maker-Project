@@ -18,6 +18,7 @@ import { Eye, EyeOff, Check, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { loginUser } from "@/api/services/auth";
 import { passwordRules } from "@/const/passwordRules";
+import axios from "axios";
 
 export const LoginForm = () => {
   const t = useTranslation();
@@ -45,8 +46,44 @@ export const LoginForm = () => {
     try {
       await loginUser({ email: data.email, password: data.password });
       login();
-    } catch {
-      form.setError("root", { message: t.feedback.errors.somethingWrong });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+
+        if (status === 400) {
+          const errors = error.response?.data?.detail;
+
+          if (Array.isArray(errors)) {
+            errors.forEach((err: { loc: (string | number)[]; msg: string }) => {
+              const field = err.loc?.[1];
+
+              if (field && field in data) {
+                form.setError(field as keyof TLoginFormFields, {
+                  message: err.msg,
+                });
+              } else {
+                form.setError("root", { message: err.msg });
+              }
+            });
+          }
+        } else if (status === 401) {
+          form.setError("root", {
+            message: t.feedback.errors.invalidCredentials,
+          });
+        } else if (status === 404) {
+          form.setError("email", {
+            message: t.feedback.errors.userNotFound,
+          });
+        } else {
+          form.setError("root", {
+            message: t.feedback.errors.somethingWrong,
+          });
+        }
+      } else {
+        form.setError("root", {
+          message: t.feedback.errors.somethingWrong,
+        });
+      }
     }
   };
 

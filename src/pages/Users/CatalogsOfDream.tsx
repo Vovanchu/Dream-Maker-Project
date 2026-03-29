@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Filter } from "@/components/User/Filter";
 import type {
@@ -18,8 +18,9 @@ import {
 
 const formattedDreams: DreamCatalog = dreamsData.map((d) => ({
   ...d,
-  format: d.format as format_type,
+  participation_format: d.participation_format as format_type,
   person_type: d.person_type as person_type,
+  target_budget: Number(d.target_budget),
 }));
 
 const ITEMS_PER_PAGE = 6;
@@ -34,14 +35,21 @@ export const CatalogOfDreams = () => {
   const t = useTranslation();
 
   const filteredDreams = dreams.filter((dream) => {
-    return (
-      (category === "all" || dream.person_type === category) &&
-      (format === "all" || dream.format === format) &&
-      dream.budget >= budget[0] &&
-      dream.budget <= budget[1] &&
-      (dream.dreamTitle.toLowerCase().includes(search.toLowerCase()) ||
-        dream.dreamDescription.toLowerCase().includes(search.toLowerCase()))
-    );
+    const matchesCategory =
+      category === "all" || dream.person_type === category;
+
+    const matchesFormat =
+      format === "all" || dream.participation_format === format;
+
+    const matchesBudget =
+      dream.target_budget >= budget[0] && dream.target_budget <= budget[1];
+
+    const matchesSearch =
+      !search ||
+      dream.title.toLowerCase().includes(search.toLowerCase()) ||
+      dream.description.toLowerCase().includes(search.toLowerCase());
+
+    return matchesCategory && matchesFormat && matchesBudget && matchesSearch;
   });
 
   const pages = Array.from(
@@ -49,6 +57,10 @@ export const CatalogOfDreams = () => {
     (_, i) =>
       filteredDreams.slice(i * ITEMS_PER_PAGE, (i + 1) * ITEMS_PER_PAGE),
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background px-6 py-8 flex flex-col items-center">
@@ -87,8 +99,8 @@ export const CatalogOfDreams = () => {
 
           {pages.length > 1 && (
             <div className="flex justify-center gap-4 mt-6">
-              <CarouselPrevious className="static translate-y-0" />
-              <CarouselNext className="static translate-y-0" />
+              <CarouselPrevious className="static translate-y-0 text-muted-foreground cursor-pointer" />
+              <CarouselNext className="static translate-y-0 text-muted-foreground cursor-pointer" />
             </div>
           )}
         </Carousel>
