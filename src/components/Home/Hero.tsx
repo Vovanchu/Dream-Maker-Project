@@ -1,35 +1,61 @@
 import { useTranslation } from "@/hooks/useTranslation";
 import HeroImg from "@/UI/Photo/DarkThemeBackgroundPhoto.jpeg";
 import HeroImgLight from "@/UI/Photo/LightThemeBackgroundPhoto.jpeg";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { themes } from "@/const/colors";
 import { ThemeContext } from "@/Context/Theme/ThemeContext";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
-import type { HeroStats } from "@/types/heroStats.type";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { useNavClick } from "@/hooks/useNavClick";
+import { getStats } from "@/api/services/statisticts";
+
+interface StatsResponse {
+  total_users: number;
+  completed_dreams_count: number;
+  completed_dreams_budget: string;
+  unique_cities_count: number;
+}
 
 export const Hero = () => {
   const { theme } = useContext(ThemeContext);
+  const [stats, setStats] = useState<StatsResponse | null>(null);
   const t = useTranslation();
 
-  const statsHero: HeroStats[] = [
-    {
-      label: t.hero.dreamsCompleted,
-      value: "1,234",
-    },
-    {
-      label: t.hero.donors,
-      value: "567",
-    },
-    {
-      label: t.hero.cities,
-      value: "89",
-    },
-  ];
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const data = await getStats();
+        setStats(data);
+      } catch (err) {
+        console.error("Failed to fetch stats:", err);
+        setStats({
+          total_users: 0,
+          completed_dreams_count: 0,
+          completed_dreams_budget: "0",
+          unique_cities_count: 0,
+        });
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   const { handleNavClick } = useNavClick();
+
+  const statsHero = stats
+    ? [
+        { label: t.hero.donors, value: stats.total_users.toLocaleString() },
+        {
+          label: t.hero.dreamsCompleted,
+          value: stats.completed_dreams_count.toLocaleString(),
+        },
+        {
+          label: t.hero.cities,
+          value: stats.unique_cities_count.toLocaleString(),
+        },
+      ]
+    : [];
 
   return (
     <section
@@ -70,7 +96,7 @@ export const Hero = () => {
           />
         </Button>
 
-        <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center flex-wrap gap-4 my-4 sm:my-8">
+        <div className="flex flex-col sm:flex-row justify-center items-center flex-wrap gap-4 my-4 sm:my-8">
           {statsHero.map((stat) => (
             <div
               key={stat.label}

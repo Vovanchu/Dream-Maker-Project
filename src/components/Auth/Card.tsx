@@ -3,12 +3,18 @@ import { LoginForm } from "@/components/Auth/LoginForm";
 import { RegisterForm } from "@/components/Auth/RegisterForm";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Link, useLocation } from "react-router-dom";
+import { Button } from "../ui/button";
 
 export const Card = () => {
   const t = useTranslation();
   const { pathname } = useLocation();
 
   const isLogin = pathname.includes("login");
+
+  const handleGoogleLogin = () => {
+    console.log("Initiating Google login...");
+    window.open(`${import.meta.env.VITE_API_URL}/auth/google`, "_self");
+  };
 
   return (
     <div className="bg-card text-card-foreground flex flex-col gap-6 w-full max-w-md rounded-xl border p-8 shadow-lg sm:p-10">
@@ -37,13 +43,15 @@ export const Card = () => {
       </div>
 
       {/* Google login */}
-      <button
+      <Button
         type="button"
-        className="w-full text-foreground flex items-center justify-center gap-3 rounded-md border border-border px-4 py-2 hover:bg-muted transition-colors duration-200"
+        variant="outline"
+        className="w-full flex items-center justify-center gap-3 cursor-pointer"
+        onClick={handleGoogleLogin}
       >
         <GoogleIcon />
         {t.pages.login.google}
-      </button>
+      </Button>
 
       {/* Registration */}
       {isLogin && (
