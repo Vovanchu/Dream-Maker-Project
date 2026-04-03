@@ -250,6 +250,14 @@ const en = {
       backToLogin: "Back to Sign In",
       sendAgain: "Send again",
     },
+    googleAuth: {
+      title: "Google Authentication",
+      description:
+        "This feature is currently under development. Soon you will be able to sign in using your Google account.",
+      progress:
+        "We are working to make authentication faster and more convenient.",
+      back: "Back to Login",
+    },
   },
   categories: {
     child: "Child",

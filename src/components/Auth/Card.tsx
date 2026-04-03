@@ -3,7 +3,6 @@ import { LoginForm } from "@/components/Auth/LoginForm";
 import { RegisterForm } from "@/components/Auth/RegisterForm";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "../ui/button";
 
 export const Card = () => {
   const t = useTranslation();
@@ -43,25 +42,20 @@ export const Card = () => {
       </div>
 
       {/* Google login */}
-      <Button
+      <Link
+        to="/auth/google"
         type="button"
-        variant="outline"
         className="w-full flex items-center justify-center gap-3 cursor-pointer"
         onClick={handleGoogleLogin}
       >
         <GoogleIcon />
         {t.pages.login.google}
-      </Button>
-
-      {/* Registration */}
-      {isLogin && (
-        <p className="text-center text-sm text-muted-foreground mt-3">
-          {t.pages.login.noAccount}{" "}
-          <Link to="/auth/register" className="text-primary hover:underline">
-            {t.pages.login.register}
-          </Link>
-        </p>
-      )}
+      </Link>
+      <p className="text-center text-sm text-muted-foreground mt-3">
+        <Link to="/auth/register" className="text-primary hover:underline">
+          {t.pages.login.register}
+        </Link>
+      </p>
     </div>
   );
 };
