@@ -51,11 +51,16 @@ export const Card = () => {
         <GoogleIcon />
         {t.pages.login.google}
       </Link>
-      <p className="text-center text-sm text-muted-foreground mt-3">
-        <Link to="/auth/register" className="text-primary hover:underline">
-          {t.pages.login.register}
-        </Link>
-      </p>
+
+      {/* Registration */}
+      {isLogin && (
+        <p className="text-center text-sm text-muted-foreground mt-3">
+          {t.pages.login.noAccount}{" "}
+          <Link to="/auth/register" className="text-primary hover:underline">
+            {t.pages.login.register}
+          </Link>
+        </p>
+      )}
     </div>
   );
 };

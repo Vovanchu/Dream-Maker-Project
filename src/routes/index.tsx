@@ -7,7 +7,7 @@ import { AdminRoutes } from "./AdminRoutes";
 import { HomeLayout } from "@/pages/Home/HomeLayout";
 import { ForgotPasswordPage } from "@/pages/Auth/ForgotPassword";
 import { ResetPasswordPage } from "@/pages/Auth/ResetPasswrod";
-import GoogleCallback from "@/pages/Auth/GoogleAuthPage";
+import { GoogleAuthPage } from "@/pages/Auth/GoogleAuthPage";
 
 export const AppRoutes = () => (
   <Routes>
@@ -54,7 +54,8 @@ export const AppRoutes = () => (
         </PublicRoute>
       }
     />
-    <Route path="/auth/google/callback" element={<GoogleCallback />} />
+
+    <Route path="/auth/google" element={<GoogleAuthPage />} />
 
     {UserRoutes()}
     {AdminRoutes()}
