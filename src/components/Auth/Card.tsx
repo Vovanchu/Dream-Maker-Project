@@ -37,13 +37,14 @@ export const Card = () => {
       </div>
 
       {/* Google login */}
-      <button
+      <Link
+        to="/auth/google"
         type="button"
         className="w-full text-foreground flex items-center justify-center gap-3 rounded-md border border-border px-4 py-2 hover:bg-muted transition-colors duration-200"
       >
         <GoogleIcon />
         {t.pages.login.google}
-      </button>
+      </Link>
 
       {/* Registration */}
       {isLogin && (

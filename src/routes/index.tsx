@@ -7,6 +7,7 @@ import { AdminRoutes } from "./AdminRoutes";
 import { HomeLayout } from "@/pages/Home/HomeLayout";
 import { ForgotPasswordPage } from "@/pages/Auth/ForgotPassword";
 import { ResetPasswordPage } from "@/pages/Auth/ResetPasswrod";
+import { GoogleAuthPage } from "@/pages/Auth/GoogleAuthPage";
 
 export const AppRoutes = () => (
   <Routes>
@@ -50,6 +51,15 @@ export const AppRoutes = () => (
       element={
         <PublicRoute>
           <ResetPasswordPage />
+        </PublicRoute>
+      }
+    />
+
+    <Route
+      path="/auth/google"
+      element={
+        <PublicRoute>
+          <GoogleAuthPage />
         </PublicRoute>
       }
     />
