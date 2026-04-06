@@ -45,7 +45,7 @@ export const Card = () => {
       <Link
         to="/auth/google"
         type="button"
-        className="w-full flex items-center justify-center gap-3 cursor-pointer"
+        className="w-full flex items-center justify-center gap-3 cursor-pointer outline-none rounded-md border border-border px-4 py-2 hover:bg-muted transition-colors duration-200"
         onClick={handleGoogleLogin}
       >
         <GoogleIcon />
