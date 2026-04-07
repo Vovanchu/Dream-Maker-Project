@@ -125,7 +125,13 @@ const uk = {
       budgetSection: "Бюджет",
       contactPhone: "Контактний телефон",
 
-      imageUrl: "URL зображення",
+      image: {
+        title: "Фото мрії (необовʼязково)",
+        noFile: "Файл не вибрано",
+        instruction: "Перетягніть фото або оберіть файли",
+        formats: "PNG, JPG, WEBP · до 5 МБ",
+        added: "Фото додано ✓",
+      },
     },
 
     placeholders: {
@@ -149,6 +155,7 @@ const uk = {
 
     buttons: {
       submit: "Підтвердити",
+      submitting: "Надсилання...",
       cancel: "Скасувати",
       back: "Назад на головну",
       close: "Закрити",
@@ -243,6 +250,7 @@ const uk = {
       formatRequired: "Формат виконання *",
       categoryRequired: "Категорія *",
       budgetRequired: "Необхідна сума",
+      successMessage: "Мрію успішно надіслано!",
     },
 
     login: {

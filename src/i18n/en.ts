@@ -114,7 +114,13 @@ const en = {
       budgetSection: "Budget",
       contactPhone: "Contact Phone",
 
-      imageUrl: "Image URL",
+      image: {
+        title: "Dream photo (optional)",
+        noFile: "No file selected",
+        instruction: "Drag a photo or select files",
+        formats: "PNG, JPG, WEBP · up to 5 MB",
+        added: "Photo added",
+      },
     },
 
     placeholders: {
@@ -139,6 +145,7 @@ const en = {
 
     buttons: {
       submit: "Submit",
+      submitting: "Submitting...",
       cancel: "Cancel",
       back: "Back home",
       close: "Close",
@@ -228,6 +235,7 @@ const en = {
       formatRequired: "Fulfillment format *",
       categoryRequired: "Category *",
       budgetRequired: "Required amount",
+      successMessage: "Dream submitted successfully!",
     },
     login: {
       title: "Sign In",

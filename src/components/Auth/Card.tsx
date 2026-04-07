@@ -10,11 +10,6 @@ export const Card = () => {
 
   const isLogin = pathname.includes("login");
 
-  const handleGoogleLogin = () => {
-    console.log("Initiating Google login...");
-    window.open(`${import.meta.env.VITE_API_URL}/auth/google`, "_self");
-  };
-
   return (
     <div className="bg-card text-card-foreground flex flex-col gap-6 w-full max-w-md rounded-xl border p-8 shadow-lg sm:p-10">
       {/* Title */}
@@ -46,7 +41,6 @@ export const Card = () => {
         to="/auth/google"
         type="button"
         className="w-full flex items-center justify-center gap-3 cursor-pointer outline-none rounded-md border border-border px-4 py-2 hover:bg-muted transition-colors duration-200"
-        onClick={handleGoogleLogin}
       >
         <GoogleIcon />
         {t.pages.login.google}

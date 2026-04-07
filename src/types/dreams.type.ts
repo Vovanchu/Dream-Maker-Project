@@ -26,5 +26,5 @@ export interface CreateDream {
   participation_format: format_type;
   target_budget: number;
   city: string;
-  image_url: string;
+  image: string;
 }
