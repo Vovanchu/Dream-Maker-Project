@@ -9,6 +9,12 @@ export const getDreams = async (): Promise<DreamCatalog> => {
   return response.data;
 };
 
+export const completeDream = async (dreamId: string) => {
+  const response = await api.patch(`/dreams/${dreamId}/complete`);
+
+  return response.data;
+};
+
 export const uploadImageApi = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
