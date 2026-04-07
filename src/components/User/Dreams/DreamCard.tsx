@@ -7,12 +7,15 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 interface IDreamCardProps {
   dream: Dream;
+  handleCompleteClick: (dreamId: string) => void;
 }
 
-export const DreamCard = ({ dream }: IDreamCardProps) => {
+export const DreamCard = ({ dream, handleCompleteClick }: IDreamCardProps) => {
   const t = useTranslation();
 
-  const collected = Math.floor(dream.target_budget * 0.72);
+  const collected = dream.is_completed
+    ? 100
+    : Math.floor(dream.target_budget * 0.72);
   const progress = Math.floor((collected / dream.target_budget) * 100);
 
   return (
@@ -57,7 +60,10 @@ export const DreamCard = ({ dream }: IDreamCardProps) => {
           <div className="h-full bg-accent" style={{ width: `${progress}%` }} />
         </div>
 
-        <Button className="w-full bg-ring text-primary-foreground hover:bg-primary/90 cursor-pointer">
+        <Button
+          className="w-full bg-ring text-primary-foreground hover:bg-primary/90 cursor-pointer"
+          onClick={() => handleCompleteClick(dream.dream_id)}
+        >
           {t.forms.buttons.make}
         </Button>
       </div>

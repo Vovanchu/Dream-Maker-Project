@@ -14,8 +14,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { getDreams } from "@/api/services/dreams";
+import { completeDream, getDreams } from "@/api/services/dreams";
 import { Loader } from "lucide-react";
+import Swal from "sweetalert2";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -74,6 +75,26 @@ export const CatalogOfDreams = () => {
       filteredDreams.slice(i * ITEMS_PER_PAGE, (i + 1) * ITEMS_PER_PAGE),
   );
 
+  const handleCompleteClick = async (dreamId: string) => {
+    try {
+      await completeDream(dreamId);
+
+      Swal.fire({
+        title: t.pages.dreams.completeSuccessTitle,
+        text: t.pages.dreams.completeSuccessText,
+        icon: "success",
+        confirmButtonText: t.forms.buttons.cancel,
+      });
+    } catch {
+      Swal.fire({
+        title: t.pages.dreams.completeErrorTitle,
+        text: t.pages.dreams.completeErrorText,
+        icon: "error",
+        confirmButtonText: t.forms.buttons.cancel,
+      });
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -116,7 +137,10 @@ export const CatalogOfDreams = () => {
           <CarouselContent>
             {pages.map((pageDreams, pageIndex) => (
               <CarouselItem key={pageIndex}>
-                <DreamGrid dreams={pageDreams} />
+                <DreamGrid
+                  dreams={pageDreams}
+                  handleCompleteClick={handleCompleteClick}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>

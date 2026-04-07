@@ -290,6 +290,12 @@ const uk = {
         "Ми працюємо над тим, щоб зробити авторизацію швидшою та зручнішою.",
       back: "Повернутися до входу",
     },
+    dreams: {
+      completeSuccessTitle: "Статус змінено",
+      completeSuccessText: "Мрія успішно позначена як завершена.",
+      completeErrorTitle: "Помилка",
+      completeErrorText: "Сталася помилка при зміні статусу мрії.",
+    },
   },
 
   categories: {

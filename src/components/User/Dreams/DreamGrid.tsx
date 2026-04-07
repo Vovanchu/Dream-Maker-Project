@@ -4,9 +4,10 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 interface IDreamGridProps {
   dreams: Dream[];
+  handleCompleteClick: (dreamId: string) => void;
 }
 
-export const DreamGrid = ({ dreams }: IDreamGridProps) => {
+export const DreamGrid = ({ dreams, handleCompleteClick }: IDreamGridProps) => {
   const t = useTranslation();
 
   if (!dreams.length) {
@@ -16,7 +17,11 @@ export const DreamGrid = ({ dreams }: IDreamGridProps) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
       {dreams.map((dream) => (
-        <DreamCard key={dream.dream_id} dream={dream} />
+        <DreamCard
+          key={dream.dream_id}
+          dream={dream}
+          handleCompleteClick={handleCompleteClick}
+        />
       ))}
     </div>
   );

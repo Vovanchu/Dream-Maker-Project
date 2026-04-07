@@ -272,6 +272,12 @@ const en = {
         "We are working to make authentication faster and more convenient.",
       back: "Back to Login",
     },
+    dreams: {
+      completeSuccessTitle: "Status Updated",
+      completeSuccessText: "Dream successfully marked as completed.",
+      completeErrorTitle: "Error",
+      completeErrorText: "An error occurred while updating the dream status.",
+    },
   },
   categories: {
     child: "Child",
