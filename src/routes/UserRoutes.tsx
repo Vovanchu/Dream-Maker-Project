@@ -2,7 +2,7 @@
 import { Route } from "react-router-dom";
 import { HomePage } from "@/pages/Home/HomePage";
 import { CatalogOfDreams } from "@/pages/Users/CatalogsOfDream";
-import { AddDreamPage } from "@/pages/Users/AddDream";
+import { AddDreamPage } from "@/pages/Users/AddDreamPage";
 import { UserLayout } from "@/pages/Users/UserLayout";
 
 export const UserRoutes = () => (

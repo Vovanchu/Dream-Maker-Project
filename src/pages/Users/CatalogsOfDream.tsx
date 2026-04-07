@@ -6,7 +6,6 @@ import type {
   format_type,
   person_type,
 } from "@/types/dreams.type";
-import dreamsData from "@/const/dreams.json";
 import { DreamGrid } from "@/components/User/Dreams/DreamGrid";
 import {
   Carousel,
@@ -15,24 +14,41 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
-const formattedDreams: DreamCatalog = dreamsData.map((d) => ({
-  ...d,
-  participation_format: d.participation_format as format_type,
-  person_type: d.person_type as person_type,
-  target_budget: Number(d.target_budget),
-}));
+import { getDreams } from "@/api/services/dreams";
+import { Loader } from "lucide-react";
 
 const ITEMS_PER_PAGE = 6;
 
 export const CatalogOfDreams = () => {
-  const [dreams] = useState<DreamCatalog>(formattedDreams);
+  const [dreams, setDreams] = useState<DreamCatalog>([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<person_type>("all");
   const [format, setFormat] = useState<format_type>("all");
   const [budget, setBudget] = useState([0, 10000]);
 
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+
   const t = useTranslation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError("");
+
+      try {
+        const data = await getDreams();
+        setDreams(data);
+      } catch (err) {
+        console.error(err);
+        setError("Something went wrong!");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const filteredDreams = dreams.filter((dream) => {
     const matchesCategory =
@@ -61,6 +77,14 @@ export const CatalogOfDreams = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  if (error) {
+    console.log(error);
+  }
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-screen bg-background px-6 py-8 flex flex-col items-center">

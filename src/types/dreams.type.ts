@@ -1,3 +1,4 @@
+// types/dreams.type.ts
 export type person_type = "all" | "child" | "elderly" | "veteran" | "disabled";
 export type format_type = "all" | "online" | "offline";
 
@@ -25,5 +26,5 @@ export interface CreateDream {
   participation_format: format_type;
   target_budget: number;
   city: string;
-  image_url: string;
+  image: string;
 }

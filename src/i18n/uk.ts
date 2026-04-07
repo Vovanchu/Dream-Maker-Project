@@ -124,6 +124,14 @@ const uk = {
       formatCategory: "Формат та категорія",
       budgetSection: "Бюджет",
       contactPhone: "Контактний телефон",
+
+      image: {
+        title: "Фото мрії (необовʼязково)",
+        noFile: "Файл не вибрано",
+        instruction: "Перетягніть фото або оберіть файли",
+        formats: "PNG, JPG, WEBP · до 5 МБ",
+        added: "Фото додано ✓",
+      },
     },
 
     placeholders: {
@@ -141,10 +149,13 @@ const uk = {
       format: "Оберіть формат виконання",
       contactPhone: "Введіть номер телефону, наприклад: +380XXXXXXXXX",
       dreamDeadline: "Оберіть дату виконання мрії",
+
+      imageUrl: "Введіть URL зображення",
     },
 
     buttons: {
       submit: "Підтвердити",
+      submitting: "Надсилання...",
       cancel: "Скасувати",
       back: "Назад на головну",
       close: "Закрити",
@@ -182,6 +193,8 @@ const uk = {
     invalidPhone: "Неправильний формат номеру телефону",
     requiredDeadline: "Потрібно вказати дату виконання мрії",
     requiredPersonType: "Потрібно вказати тип людина/звірка",
+
+    invalidUrl: "Неправильний URL",
   },
 
   feedback: {
@@ -237,6 +250,7 @@ const uk = {
       formatRequired: "Формат виконання *",
       categoryRequired: "Категорія *",
       budgetRequired: "Необхідна сума",
+      successMessage: "Мрію успішно надіслано!",
     },
 
     login: {
