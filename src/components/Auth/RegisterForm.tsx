@@ -22,7 +22,7 @@ import { Check, Eye, EyeOff, UserPlus, X } from "lucide-react";
 
 import type { RegisterData } from "@/types/authData.type";
 import { loginUser, registerUser } from "@/api/services/auth";
-import { passwordRules } from "@/const/passwordRules";
+import { usePasswordRules } from "@/const/passwordRules";
 import axios from "axios";
 
 export const RegisterForm = () => {
@@ -146,6 +146,7 @@ export const RegisterForm = () => {
     }
   };
 
+  const passwordRules = usePasswordRules();
   const showRules = passwordValue.length > 0;
 
   return (

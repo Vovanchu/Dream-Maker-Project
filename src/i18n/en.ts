@@ -270,7 +270,7 @@ const en = {
       description:
         "We are verifying your account and preparing access to your profile. Please wait a few seconds...",
       progress: "Signing in via Google...",
-      footer: "Dream Fulfiller © 2026",
+      footer: "Dream Fulfiller © {year}",
       back: "Back to Sign In",
     },
     dreams: {
