@@ -288,7 +288,8 @@ const uk = {
       description:
         "Ми перевіряємо ваш акаунт та готуємо доступ до вашого профілю. Будь ласка, зачекайте декілька секунд...",
       progress: "Авторизація через Google...",
-      footer: "Dream Maker Project © {year}",
+      footer: "Dream Maker Project © 2026",
+      back: "Повернутись до входу",
     },
     dreams: {
       completeSuccessTitle: "Статус змінено",
