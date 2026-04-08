@@ -165,6 +165,7 @@ const en = {
     passwordDigit: "One digit",
     passwordNoMatch: "Passwords do not match",
     passwordMatch: "Passwords match",
+    passwordSpecialChar: "One special character",
 
     invalidName: "Invalid name",
     requiredName: "Name is required",
@@ -267,10 +268,9 @@ const en = {
     googleAuth: {
       title: "Google Authentication",
       description:
-        "This feature is currently under development. Soon you will be able to sign in using your Google account.",
-      progress:
-        "We are working to make authentication faster and more convenient.",
-      back: "Back to Login",
+        "We are verifying your account and preparing access to your profile. Please wait a few seconds...",
+      progress: "Signing in via Google...",
+      footer: "Dream Fulfiller © {year}",
     },
     dreams: {
       completeSuccessTitle: "Status Updated",
