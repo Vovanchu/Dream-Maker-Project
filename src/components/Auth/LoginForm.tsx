@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Eye, EyeOff, Check, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { loginUser } from "@/api/services/auth";
-import { passwordRules } from "@/const/passwordRules";
+import { usePasswordRules } from "@/const/passwordRules";
 import axios from "axios";
 
 export const LoginForm = () => {
@@ -87,6 +87,7 @@ export const LoginForm = () => {
     }
   };
 
+  const passwordRules = usePasswordRules();
   const showRules = passwordValue.length > 0;
 
   return (

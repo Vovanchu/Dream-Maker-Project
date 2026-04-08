@@ -3,12 +3,24 @@ import { LoginForm } from "@/components/Auth/LoginForm";
 import { RegisterForm } from "@/components/Auth/RegisterForm";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Link, useLocation } from "react-router-dom";
+import { Button } from "../ui/button";
 
 export const Card = () => {
   const t = useTranslation();
   const { pathname } = useLocation();
 
   const isLogin = pathname.includes("login");
+
+  const handleGoogleLogin = () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    if (!apiUrl) {
+      console.error("API URL not defined");
+      return;
+    }
+
+    window.location.href = `${apiUrl}/auth/google`;
+  };
 
   return (
     <div className="bg-card text-card-foreground flex flex-col gap-6 w-full max-w-md rounded-xl border p-8 shadow-lg sm:p-10">
@@ -37,14 +49,14 @@ export const Card = () => {
       </div>
 
       {/* Google login */}
-      <Link
-        to="/auth/google"
+      <Button
+        onClick={handleGoogleLogin}
         type="button"
         className="text-foreground w-full flex items-center justify-center gap-3 cursor-pointer outline-none rounded-md border border-border px-4 py-2 hover:bg-muted transition-colors duration-200"
       >
         <GoogleIcon />
         {t.pages.login.google}
-      </Link>
+      </Button>
 
       {/* Registration */}
       {isLogin && (

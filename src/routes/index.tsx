@@ -7,7 +7,7 @@ import { AdminRoutes } from "./AdminRoutes";
 import { HomeLayout } from "@/pages/Home/HomeLayout";
 import { ForgotPasswordPage } from "@/pages/Auth/ForgotPassword";
 import { ResetPasswordPage } from "@/pages/Auth/ResetPasswrod";
-import { GoogleAuthPage } from "@/pages/Auth/GoogleAuthPage";
+import { AuthCallback } from "@/components/Auth/AuthCallback";
 
 export const AppRoutes = () => (
   <Routes>
@@ -55,7 +55,7 @@ export const AppRoutes = () => (
       }
     />
 
-    <Route path="/auth/google" element={<GoogleAuthPage />} />
+    <Route path="/auth/callback" element={<AuthCallback />} />
 
     {UserRoutes()}
     {AdminRoutes()}
