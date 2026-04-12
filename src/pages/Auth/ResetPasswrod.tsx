@@ -4,11 +4,25 @@ import { ThemeSwitcher } from "@/components/Header/components/ThemeSwitcher";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
 import { ArrowLeftFromLine, Heart } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export const ResetPasswordPage = () => {
-  const t = useTranslation();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
   const navigate = useNavigate();
+
+  const t = useTranslation();
+
+  if (!token) {
+    navigate("/auth/login");
+  }
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/auth/login");
+    }
+  }, [token, navigate]);
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center gap-8 bg-muted px-4 py-8 sm:px-6 lg:px-8">

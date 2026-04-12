@@ -26,7 +26,7 @@ const en = {
     viewDreams: "Browse Dreams",
     addDream: "Add Dream",
     dreamsCompleted: "Dreams fulfilled",
-    donors: "Donors",
+    donors: "Number of users",
     cities: "Cities of Ukraine",
   },
   how: {
@@ -54,7 +54,7 @@ const en = {
     subtitle: "Together we are changing lives for the better every day",
     dreams: "Dreams fulfilled",
     dreamsDesc: "Real dreams fulfilled since launch",
-    donors: "Donors",
+    donors: "Number of users",
     donorsDesc: "People joined the platform",
     cities: "Cities",
     citiesDesc: "Across all of Ukraine",

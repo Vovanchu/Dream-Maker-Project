@@ -1,58 +1,30 @@
 import { useTranslation } from "@/hooks/useTranslation";
 import HeroImg from "@/UI/Photo/DarkThemeBackgroundPhoto.jpeg";
 import HeroImgLight from "@/UI/Photo/LightThemeBackgroundPhoto.jpeg";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { themes } from "@/const/colors";
 import { ThemeContext } from "@/Context/Theme/ThemeContext";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { useNavClick } from "@/hooks/useNavClick";
-import { getStats } from "@/api/services/statisticts";
+import type { StatsResponse } from "@/pages/Home/HomePage";
 
-interface StatsResponse {
-  total_users: number;
-  completed_dreams_count: number;
-  completed_dreams_budget: string;
-  unique_cities_count: number;
-}
-
-export const Hero = () => {
+export const Hero = ({ statsAPI }: { statsAPI: StatsResponse | null }) => {
   const { theme } = useContext(ThemeContext);
-  const [stats, setStats] = useState<StatsResponse | null>(null);
   const t = useTranslation();
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const data = await getStats();
-        setStats(data);
-      } catch (err) {
-        console.error("Failed to fetch stats:", err);
-        setStats({
-          total_users: 0,
-          completed_dreams_count: 0,
-          completed_dreams_budget: "0",
-          unique_cities_count: 0,
-        });
-      }
-    };
-
-    fetchStats();
-  }, []);
-
   const { handleNavClick } = useNavClick();
 
-  const statsHero = stats
+  const statsHero = statsAPI
     ? [
-        { label: t.hero.donors, value: stats.total_users.toLocaleString() },
+        { label: t.hero.donors, value: statsAPI.total_users.toLocaleString() },
         {
           label: t.hero.dreamsCompleted,
-          value: stats.completed_dreams_count.toLocaleString(),
+          value: statsAPI.completed_dreams_count.toLocaleString(),
         },
         {
           label: t.hero.cities,
-          value: stats.unique_cities_count.toLocaleString(),
+          value: statsAPI.unique_cities_count.toLocaleString(),
         },
       ]
     : [];

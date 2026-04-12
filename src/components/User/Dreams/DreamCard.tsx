@@ -1,4 +1,3 @@
-// DreamCard.tsx
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,12 +10,9 @@ interface IDreamCardProps {
 }
 
 export const DreamCard = ({ dream, handleCompleteClick }: IDreamCardProps) => {
-  const t = useTranslation();
+  const progress = dream.is_completed ? 100 : 0;
 
-  const collected = dream.is_completed
-    ? 100
-    : Math.floor(dream.target_budget * 0.72);
-  const progress = Math.floor((collected / dream.target_budget) * 100);
+  const t = useTranslation();
 
   return (
     <Card className="overflow-hidden rounded-2xl border border-border bg-card hover:shadow-xl transition-all">
@@ -49,10 +45,7 @@ export const DreamCard = ({ dream, handleCompleteClick }: IDreamCardProps) => {
         </div>
 
         <div className="flex justify-between text-sm text-muted-foreground">
-          <span>
-            {collected.toLocaleString()} /{" "}
-            {dream.target_budget.toLocaleString()} грн
-          </span>
+          <span>{dream.target_budget} грн</span>
           <span className="font-medium">{progress}%</span>
         </div>
 
@@ -62,7 +55,9 @@ export const DreamCard = ({ dream, handleCompleteClick }: IDreamCardProps) => {
 
         <Button
           className="w-full bg-ring text-primary-foreground hover:bg-primary/90 cursor-pointer"
-          onClick={() => handleCompleteClick(dream.dream_id)}
+          onClick={() => {
+            handleCompleteClick(dream.dream_id);
+          }}
         >
           {t.forms.buttons.make}
         </Button>

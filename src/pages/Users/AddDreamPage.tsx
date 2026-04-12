@@ -98,15 +98,9 @@ export const AddDreamPage = () => {
   const onSubmit = async (data: TDreamFormFields) => {
     try {
       setIsSubmitting(true);
-
-      let imageFile: File;
-      if (images[0]) {
-        imageFile = images[0];
-      } else {
-        const res = await fetch(notFoundImage);
-        const blob = await res.blob();
-        imageFile = new File([blob], "not-found.png", { type: "image/png" });
-      }
+      const imageFile = images[0]
+        ? (images[0] as File)
+        : new File([notFoundImage], "not-found.png", { type: "image/png" });
 
       await createDream({
         dream: { ...(data as CreateDream) },

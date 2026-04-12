@@ -47,7 +47,7 @@ export const AppRoutes = () => (
     />
 
     <Route
-      path="/auth/resetPassword"
+      path="/reset-password?token=:token"
       element={
         <PublicRoute>
           <ResetPasswordPage />
@@ -55,7 +55,14 @@ export const AppRoutes = () => (
       }
     />
 
-    <Route path="/auth/callback" element={<AuthCallback />} />
+    <Route
+      path="/auth/callback"
+      element={
+        <PublicRoute>
+          <AuthCallback />
+        </PublicRoute>
+      }
+    />
 
     {UserRoutes()}
     {AdminRoutes()}
