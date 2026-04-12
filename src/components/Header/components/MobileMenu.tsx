@@ -26,7 +26,7 @@ export const MobileMenu = ({
                 setIsOpen(false);
                 handleNavClick(item.path);
               }}
-              className="w-40 h-12 text-lg font-medium text-foreground hover:text-primary transition-colors"
+              className="w-40 h-12 text-lg font-medium transition-colors cursor-pointer"
             >
               {item.label}
             </Button>
