@@ -38,7 +38,7 @@ export const addDreamApi = async (data: CreateDream) => {
   formData.append("participation_format", data.participation_format);
   formData.append("target_budget", String(data.target_budget));
   formData.append("city", data.city);
-  formData.append("image_url", data.image);
+  formData.append("image_url", data.image_url);
 
   const response = await api.post<{ id: string }>("/dreams", formData, {
     headers: {
