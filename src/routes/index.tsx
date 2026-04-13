@@ -47,7 +47,7 @@ export const AppRoutes = () => (
     />
 
     <Route
-      path="/reset-password?token=:token"
+      path="/reset-password"
       element={
         <PublicRoute>
           <ResetPasswordPage />

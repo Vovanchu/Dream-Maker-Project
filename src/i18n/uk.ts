@@ -110,6 +110,7 @@ const uk = {
       confirmPassword: "Підтвердження пароля",
       age: "Вік",
       city: "Місто",
+      newPassword: "Новий пароль",
 
       dreamTitle: "Назва мрії",
       dreamDescription: "Детальний опис",

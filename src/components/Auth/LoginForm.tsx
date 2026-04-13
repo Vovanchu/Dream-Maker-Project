@@ -93,7 +93,6 @@ export const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {/* Email */}
         <FormField
           control={form.control}
           name="email"
@@ -117,7 +116,6 @@ export const LoginForm = () => {
           )}
         />
 
-        {/* Password */}
         <FormField
           control={form.control}
           name="password"
@@ -157,7 +155,6 @@ export const LoginForm = () => {
                 </div>
               </FormControl>
 
-              {/* Password rules */}
               {showRules && (
                 <ul className="mt-2 space-y-1">
                   {passwordRules.map((rule) => {
@@ -193,14 +190,12 @@ export const LoginForm = () => {
           )}
         />
 
-        {/* Root error */}
         {form.formState.errors.root && (
           <p className="text-sm text-red-500">
             {form.formState.errors.root.message}
           </p>
         )}
 
-        {/* Buttons */}
         <div className="flex flex-row gap-3">
           <Button
             type="submit"

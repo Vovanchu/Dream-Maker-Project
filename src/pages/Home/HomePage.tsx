@@ -67,7 +67,7 @@ export const HomePage = () => {
     {
       icon: FavoriteBorderOutlinedIcon,
       title: t.stats.dreams,
-      value: statsAPI?.completed_dreams_budget || "0",
+      value: statsAPI?.completed_dreams_count.toLocaleString() || "0",
       desc: t.stats.dreamsDesc,
     },
     {

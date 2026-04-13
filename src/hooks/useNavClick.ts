@@ -1,17 +1,11 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const useNavClick = (setIsOpen?: (v: boolean) => void) => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleNavClick = (path: string) => {
     if (path.startsWith("#")) {
-      if (location.pathname !== "/") {
-        navigate("/", { state: { scrollTo: path } });
-      } else {
-        const el = document.querySelector(path);
-        el?.scrollIntoView({ behavior: "smooth" });
-      }
+      navigate(`/${path}`);
     } else {
       navigate(path);
     }
