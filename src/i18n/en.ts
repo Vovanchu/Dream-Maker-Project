@@ -99,6 +99,7 @@ const en = {
       confirmPassword: "Confirm Password",
       age: "Age",
       city: "City",
+      newPassword: "New Password",
 
       dreamTitle: "Dream Title",
       dreamDescription: "Detailed Description",

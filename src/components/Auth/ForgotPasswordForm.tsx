@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { forgotPassword } from "@/api/services/auth";
+import Swal from "sweetalert2";
 
 const createForgotPasswordSchema = (t: any) =>
   z.object({
@@ -38,6 +39,13 @@ export const ForgotPasswordForm = () => {
     try {
       await forgotPassword({ email: data.email });
       form.reset();
+
+      Swal.fire({
+        title: t.feedback.success.emailSent,
+        text: t.feedback.info.confirmEmail,
+        icon: "success",
+        confirmButtonText: t.forms.buttons.close,
+      });
     } catch {
       form.setError("root", {
         message: t.feedback.errors.somethingWrong,

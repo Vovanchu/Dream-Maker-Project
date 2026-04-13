@@ -17,6 +17,7 @@ import {
 import { completeDream, getDreams } from "@/api/services/dreams";
 import { Loader } from "lucide-react";
 import Swal from "sweetalert2";
+import { getErrorMessage } from "@/utils/errorMessage";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -27,7 +28,6 @@ export const CatalogOfDreams = () => {
   const [format, setFormat] = useState<format_type>("all");
   const [budget, setBudget] = useState([0, 10000]);
 
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
 
   const t = useTranslation();
@@ -35,21 +35,25 @@ export const CatalogOfDreams = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setError("");
 
       try {
         const data = await getDreams();
         setDreams(data);
       } catch (err) {
-        console.error(err);
-        setError("Something went wrong!");
+        const message = getErrorMessage(err, t.pages.dreams.completeErrorText);
+
+        Swal.fire({
+          icon: "error",
+          title: t.pages.dreams.completeErrorTitle,
+          text: message,
+        });
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [t]);
 
   const filteredDreams = dreams.filter((dream) => {
     const matchesCategory =
@@ -85,10 +89,15 @@ export const CatalogOfDreams = () => {
         icon: "success",
         confirmButtonText: t.forms.buttons.cancel,
       });
-    } catch {
+
+      const data = await getDreams();
+      setDreams(data);
+    } catch (err) {
+      const message = getErrorMessage(err, t.pages.dreams.completeErrorText);
+
       Swal.fire({
         title: t.pages.dreams.completeErrorTitle,
-        text: t.pages.dreams.completeErrorText,
+        text: message,
         icon: "error",
         confirmButtonText: t.forms.buttons.cancel,
       });
@@ -98,10 +107,6 @@ export const CatalogOfDreams = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  if (error) {
-    console.log(error);
-  }
 
   if (loading) {
     return <Loader />;

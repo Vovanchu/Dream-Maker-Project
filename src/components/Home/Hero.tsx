@@ -7,8 +7,8 @@ import { ThemeContext } from "@/Context/Theme/ThemeContext";
 import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { useNavClick } from "@/hooks/useNavClick";
 import type { StatsResponse } from "@/pages/Home/HomePage";
+import { useNavClick } from "@/hooks/useNavClick";
 
 export const Hero = ({ statsAPI }: { statsAPI: StatsResponse | null }) => {
   const { theme } = useContext(ThemeContext);
