@@ -4,16 +4,12 @@ import HeroImgLight from "@/UI/Photo/LightThemeBackgroundPhoto.jpeg";
 import { useContext } from "react";
 import { themes } from "@/const/colors";
 import { ThemeContext } from "@/Context/Theme/ThemeContext";
-import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
 import type { StatsResponse } from "@/pages/Home/HomePage";
-import { useNavClick } from "@/hooks/useNavClick";
 
 export const Hero = ({ statsAPI }: { statsAPI: StatsResponse | null }) => {
   const { theme } = useContext(ThemeContext);
   const t = useTranslation();
-  const { handleNavClick } = useNavClick();
 
   const statsHero = statsAPI
     ? [
@@ -54,19 +50,6 @@ export const Hero = ({ statsAPI }: { statsAPI: StatsResponse | null }) => {
         >
           {t.hero.description}
         </p>
-
-        <Button
-          onClick={() => handleNavClick("#dreamCatalog")}
-          className="inline-flex items-center justify-center px-2 lg:px-4 py-2 bg-primary text-primary-foreground font-medium shadow-md hover:bg-button-hover transition-colors duration-500 cursor-pointer"
-        >
-          {t.hero.viewDreams}
-          <ArrowDownwardOutlinedIcon
-            sx={{
-              fontSize: "1rem",
-              marginLeft: "0.5rem",
-            }}
-          />
-        </Button>
 
         <div className="flex flex-col sm:flex-row justify-center items-center flex-wrap gap-4 my-4 sm:my-8">
           {statsHero.map((stat) => (

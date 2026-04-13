@@ -200,7 +200,7 @@ const en = {
       dreamModeration:
         "Thank you for your submission. Our team will review your application within 24 hours.",
       resetInstructions: "We sent password reset instructions to",
-      confirmEmail: "We sent a confirmation email to",
+      confirmEmail: "We sent a confirmed letter to your email.",
       checkInbox: "Check your inbox.",
     },
     errors: {

@@ -12,19 +12,11 @@ export const Card = () => {
   const isLogin = pathname.includes("login");
 
   const handleGoogleLogin = () => {
-    const apiUrl = import.meta.env.VITE_API_URL;
-
-    if (!apiUrl) {
-      console.error("API URL not defined");
-      return;
-    }
-
-    window.location.href = `${apiUrl}/auth/google`;
+    window.location.href = "https://dreams-come-tru3.duckdns.org/auth/google";
   };
 
   return (
     <div className="bg-card text-card-foreground flex flex-col gap-6 w-full max-w-md rounded-xl border p-8 shadow-lg sm:p-10">
-      {/* Title */}
       <div className="flex flex-col gap-2 text-center">
         <h2 className="text-xl text-foreground sm:text-2xl font-semibold">
           {isLogin ? t.pages.login.title : t.pages.register.title}
@@ -48,7 +40,6 @@ export const Card = () => {
         <div className="h-px flex-1 bg-border" />
       </div>
 
-      {/* Google login */}
       <Button
         onClick={handleGoogleLogin}
         type="button"
@@ -58,7 +49,6 @@ export const Card = () => {
         {t.pages.login.google}
       </Button>
 
-      {/* Registration */}
       {isLogin && (
         <p className="text-center text-sm text-muted-foreground mt-3">
           {t.pages.login.noAccount}{" "}
