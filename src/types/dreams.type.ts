@@ -1,5 +1,10 @@
 // types/dreams.type.ts
-export type person_type = "all" | "child" | "elderly" | "veteran" | "disabled";
+export type person_type =
+  | "all"
+  | "child"
+  | "elderly"
+  | "veteran"
+  | "person with disability";
 export type format_type = "all" | "online" | "offline";
 
 export interface Dream {

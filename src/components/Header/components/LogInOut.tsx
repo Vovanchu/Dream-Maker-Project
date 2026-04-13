@@ -20,7 +20,7 @@ export const LogInOut = () => {
         >
           <Button
             variant="outline"
-            className="text-(--foreground) hover:bg-(--primary) hover:text-(--primary) transition-colors duration-300 cursor-pointer"
+            className="text-(--foreground) hover:text-(--primary) transition-colors duration-300 cursor-pointer"
           >
             <LogOut />
             {t.nav.logout}

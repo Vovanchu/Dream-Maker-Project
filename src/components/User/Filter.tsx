@@ -42,7 +42,7 @@ export const Filter = ({
     { id: "child", label: t.cat.child },
     { id: "elderly", label: t.cat.elderly },
     { id: "veteran", label: t.cat.veteran },
-    { id: "disabled", label: t.cat.disabled },
+    { id: "person with disability", label: t.cat.disabled },
   ];
 
   const formats: IFormatFilter[] = [
