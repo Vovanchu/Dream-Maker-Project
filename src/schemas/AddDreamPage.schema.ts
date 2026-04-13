@@ -6,7 +6,7 @@ export const PERSON_TYPES = [
   "child",
   "elderly",
   "veteran",
-  "disabled",
+  "person with disability",
 ] as const satisfies person_type[];
 
 export const FORMAT_TYPES = [
