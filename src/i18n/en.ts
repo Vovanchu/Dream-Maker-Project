@@ -210,6 +210,12 @@ const en = {
       invalidCredentials: "Invalid email or password",
       emailUsed: "Email already in use",
     },
+    cookies: {
+      title: "We use cookies",
+      description:
+        "To provide a better experience, we use cookies to store your preferences and analyze site traffic. By clicking 'Accept', you consent to our use of cookies.",
+      accept: "Accept Cookies",
+    },
   },
   modals: {
     donation: {
