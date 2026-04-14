@@ -15,6 +15,12 @@ export const completeDream = async (dreamId: string) => {
   return response.data;
 };
 
+export const deleteDream = async (dreamId: string) => {
+  const response = await api.delete(`/dreams/${dreamId}`);
+
+  return response.data;
+};
+
 export const uploadImageApi = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);

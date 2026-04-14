@@ -14,7 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { completeDream, getDreams } from "@/api/services/dreams";
+import { completeDream, deleteDream, getDreams } from "@/api/services/dreams";
 import { Loader } from "lucide-react";
 import Swal from "sweetalert2";
 import { getErrorMessage } from "@/utils/errorMessage";
@@ -90,8 +90,11 @@ export const CatalogOfDreams = () => {
         confirmButtonText: t.forms.buttons.cancel,
       });
 
-      const data = await getDreams();
-      setDreams(data);
+      setTimeout(async () => {
+        await deleteDream(dreamId);
+        const data = await getDreams();
+        setDreams(data);
+      }, 5000);
     } catch (err) {
       const message = getErrorMessage(err, t.pages.dreams.completeErrorText);
 
